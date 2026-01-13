@@ -4,6 +4,7 @@ import VisualizationsPage from './pages/VisualizationsPage';
 import DashboardPage from './pages/DashboardPage';
 import FishIdentificationPage from './pages/FishIdentificationPage';
 import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
+import ThemeCustomizerPage from './pages/ThemeCustomizerPage';
 import APIPage from './pages/APIPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
@@ -43,6 +44,11 @@ const routes: RouteConfig[] = [
     name: 'Analytics',
     path: '/dataset-analytics',
     element: <DatasetAnalyticsPage />,
+  },
+  {
+    name: 'Themes',
+    path: '/themes',
+    element: <ThemeCustomizerPage />,
   },
   {
     name: 'Dashboard',
