@@ -30,14 +30,14 @@ export default function APIPage() {
               <CardHeader>
                 <CardTitle>API Overview</CardTitle>
                 <CardDescription>
-                  The CMLRE Marine Data Platform API provides programmatic access to marine datasets, species information, and AI-powered analysis tools.
+                  The BlueWave Marine Data Platform API provides programmatic access to marine datasets, species information, and AI-powered analysis tools.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <h3 className="font-semibold mb-2">Base URL</h3>
                   <code className="block bg-muted p-3 rounded-md text-sm">
-                    https://api.cmlre-marine.example.com/v1
+                    https://api.bluewave.example.com/v1
                   </code>
                 </div>
                 <div>
@@ -126,7 +126,7 @@ export default function APIPage() {
                   <h3 className="font-semibold mb-2">Example Request</h3>
                   <pre className="bg-muted p-4 rounded-md text-sm overflow-x-auto">
 {`curl -X GET \\
-  https://api.cmlre-marine.example.com/v1/datasets \\
+  https://api.bluewave.example.com/v1/datasets \\
   -H "Authorization: Bearer YOUR_API_KEY" \\
   -H "Content-Type: application/json"`}
                   </pre>

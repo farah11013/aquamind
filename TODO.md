@@ -1,4 +1,4 @@
-# Task: Build CMLRE Marine Data Platform
+# Task: Build BlueWave Marine Data Platform
 
 ## Plan
 - [x] Step 1: Project Structure Analysis and Setup
@@ -47,9 +47,19 @@
   - [x] Test all features and navigation
   - [x] Verify authentication and authorization
   - [x] Test file uploads and data processing
+- [x] Step 10: Add AI Fish Species Identification Feature
+  - [x] Create FishIdentificationPage with image upload
+  - [x] Implement image upload with compression
+  - [x] Add AI identification simulation
+  - [x] Display species details and information
+  - [x] Add to navigation and routes
+- [x] Step 11: Rename Application to BlueWave
+  - [x] Update all references from CMLRE to BlueWave
+  - [x] Update header, footer, and page titles
+  - [x] Update documentation and about page
 
 ## Notes
-- Application name: CMLRE Marine Data Platform
+- Application name: BlueWave Marine Data Platform
 - Design reference: "Samudra Setu" with deep ocean blue theme
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
@@ -64,8 +74,17 @@
 - Username format: letters, numbers, and underscores only
 - Password minimum length: 6 characters
 - Email verification is disabled for easier testing
-- Public routes: Home, Features, Visualizations, API, About, Login, Register
+- Public routes: Home, Features, Visualizations, Fish ID, API, About, Login, Register
 - Protected routes: Dashboard, Admin (admin only)
+
+## AI Fish Identification Feature
+- Upload fish images for AI-powered species identification
+- Automatic image compression (converts to WEBP, max 1080p, <1MB)
+- Simulated AI analysis with confidence scores (75-95%)
+- Displays detailed species information (scientific name, habitat, distribution, conservation status)
+- Saves identification records to database for logged-in users
+- Public access - no login required to use the feature
+- Results include biological characteristics and conservation information
 
 ## Database Schema
 - profiles: User information with role-based access

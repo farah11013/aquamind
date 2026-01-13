@@ -7,10 +7,10 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">
-            About <span className="gradient-text">CMLRE</span>
+            About <span className="gradient-text">BlueWave</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Centre for Marine Living Resources and Ecology
+            Marine Data Platform for Sustainable Oceans
           </p>
         </div>
 
@@ -24,7 +24,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                The Centre for Marine Living Resources and Ecology (CMLRE) is a premier research institution dedicated to understanding and conserving India's marine ecosystems. Our mission is to provide scientific knowledge and technological solutions for sustainable management of marine living resources.
+                BlueWave is a comprehensive AI-enabled marine data platform dedicated to understanding and conserving marine ecosystems. Our mission is to provide scientific knowledge and technological solutions for sustainable management of marine living resources.
               </p>
               <p>
                 Through cutting-edge research, advanced monitoring systems, and data-driven approaches, we support policymakers, scientists, and stakeholders in making informed decisions about marine conservation and fisheries management.
@@ -105,7 +105,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                The CMLRE Marine Data Platform serves as a unified hub for integrating, processing, and analyzing heterogeneous marine datasets. Our objectives include:
+                The BlueWave Marine Data Platform serves as a unified hub for integrating, processing, and analyzing heterogeneous marine datasets. Our objectives include:
               </p>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
@@ -140,15 +140,13 @@ export default function AboutPage() {
             <CardContent className="p-8 text-center">
               <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
               <p className="text-muted-foreground mb-4">
-                For more information about CMLRE and our research activities
+                For more information about BlueWave and our marine research platform
               </p>
               <a
-                href="https://cmlre.gov.in"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:info@bluewave.example.com"
                 className="text-primary hover:underline font-medium"
               >
-                Visit Official Website →
+                Contact Us →
               </a>
             </CardContent>
           </Card>

@@ -2,6 +2,7 @@ import HomePage from './pages/HomePage';
 import FeaturesPage from './pages/FeaturesPage';
 import VisualizationsPage from './pages/VisualizationsPage';
 import DashboardPage from './pages/DashboardPage';
+import FishIdentificationPage from './pages/FishIdentificationPage';
 import APIPage from './pages/APIPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
@@ -31,6 +32,11 @@ const routes: RouteConfig[] = [
     name: 'Visualizations',
     path: '/visualizations',
     element: <VisualizationsPage />,
+  },
+  {
+    name: 'Fish ID',
+    path: '/fish-identification',
+    element: <FishIdentificationPage />,
   },
   {
     name: 'Dashboard',

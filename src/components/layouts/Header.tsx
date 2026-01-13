@@ -17,6 +17,7 @@ const navigation = [
   { name: 'Home', path: '/' },
   { name: 'Features', path: '/features' },
   { name: 'Visualizations', path: '/visualizations' },
+  { name: 'Fish ID', path: '/fish-identification' },
   { name: 'Dashboard', path: '/dashboard' },
   { name: 'API', path: '/api' },
   { name: 'About', path: '/about' },
@@ -35,7 +36,7 @@ export function Header() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
           <Waves className="h-6 w-6 text-primary" />
-          <span className="text-xl font-bold gradient-text">CMLRE Marine Data</span>
+          <span className="text-xl font-bold gradient-text">BlueWave</span>
         </Link>
 
         {/* Desktop Navigation */}
