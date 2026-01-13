@@ -135,6 +135,21 @@ export default function AboutPage() {
               </ul>
             </CardContent>
           </Card>
+
+          <Card className="bg-gradient-card border-border">
+            <CardContent className="p-8 text-center">
+              <h3 className="text-2xl font-bold mb-4">Contact Information</h3>
+              <p className="text-muted-foreground mb-4">
+                For more information about BlueWave and our marine research platform
+              </p>
+              <a
+                href="mailto:info@bluewave.example.com"
+                className="text-primary hover:underline font-medium"
+              >
+                Contact Us →
+              </a>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

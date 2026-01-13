@@ -30,8 +30,7 @@ export function Footer() {
             <h3 className="font-semibold mb-3">About</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/about" className="hover:text-primary transition-colors">About BlueWave</Link></li>
-              <li><Link to="/contact" className="hover:text-primary transition-colors">Contact Us</Link></li>
-              <li><Link to="/themes" className="hover:text-primary transition-colors">Themes</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">Marine Research</Link></li>
             </ul>
           </div>
         </div>

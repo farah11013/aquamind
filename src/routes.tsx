@@ -1,5 +1,4 @@
 import HomePage from './pages/HomePage';
-import ContactPage from './pages/ContactPage';
 import FeaturesPage from './pages/FeaturesPage';
 import VisualizationsPage from './pages/VisualizationsPage';
 import DashboardPage from './pages/DashboardPage';
@@ -25,11 +24,6 @@ const routes: RouteConfig[] = [
     name: 'Home',
     path: '/',
     element: <HomePage />,
-  },
-  {
-    name: 'Contact',
-    path: '/contact',
-    element: <ContactPage />,
   },
   {
     name: 'Features',
