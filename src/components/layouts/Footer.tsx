@@ -36,7 +36,7 @@ export function Footer() {
         </div>
         
         <div className="border-t border-border mt-8 pt-6 text-center text-sm text-muted-foreground">
-          <p>© 2026 BlueWave. All rights reserved.</p>
+          <p>© 2026 BlueWave. Created by Cahcet-HackTech Team. All rights reserved.</p>
         </div>
       </div>
     </footer>

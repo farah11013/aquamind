@@ -9,9 +9,7 @@ export default function FeaturesPage() {
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">
             <span className="gradient-text">Platform Features</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Our AI-powered platform integrates multiple data sources to provide comprehensive ocean insights for marine research and sustainable fisheries management
-          </p>
+          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Our AI-powered platform integrates multiple data sources to provide comprehensive ocean insights for marine research and sustainable fisheries management</p>
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
