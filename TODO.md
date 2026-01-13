@@ -57,6 +57,12 @@
   - [x] Update all references from CMLRE to BlueWave
   - [x] Update header, footer, and page titles
   - [x] Update documentation and about page
+- [x] Step 12: Add Dataset Upload and Analytics Feature
+  - [x] Create DatasetAnalyticsPage with file upload
+  - [x] Implement CSV/Excel parsing
+  - [x] Generate automatic visualizations
+  - [x] Display statistical summaries
+  - [x] Add to navigation and routes
 
 ## Notes
 - Application name: BlueWave Marine Data Platform
@@ -74,7 +80,7 @@
 - Username format: letters, numbers, and underscores only
 - Password minimum length: 6 characters
 - Email verification is disabled for easier testing
-- Public routes: Home, Features, Visualizations, Fish ID, API, About, Login, Register
+- Public routes: Home, Features, Visualizations, Fish ID, Analytics, API, About, Login, Register
 - Protected routes: Dashboard, Admin (admin only)
 
 ## AI Fish Identification Feature
@@ -85,6 +91,21 @@
 - Saves identification records to database for logged-in users
 - Public access - no login required to use the feature
 - Results include biological characteristics and conservation information
+
+## Dataset Analytics Feature
+- Upload CSV or Excel files (up to 50MB) for instant analysis
+- Automatic data parsing with PapaParse (CSV) and SheetJS (Excel)
+- Intelligent column detection (numeric vs categorical)
+- Statistical summaries: min, max, mean, median for numeric columns
+- Category distribution analysis for categorical columns
+- Automated visualizations:
+  - Bar charts for distribution analysis
+  - Pie charts for category distribution (top 5)
+  - Line charts for trend analysis (2+ numeric columns)
+- Three-tab interface: Charts, Statistics, Data Preview
+- Real-time data preview showing first 10 rows
+- Public access - no login required
+- Supports marine datasets (temperature, salinity, species counts, etc.)
 
 ## Database Schema
 - profiles: User information with role-based access

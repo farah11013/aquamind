@@ -3,6 +3,7 @@ import FeaturesPage from './pages/FeaturesPage';
 import VisualizationsPage from './pages/VisualizationsPage';
 import DashboardPage from './pages/DashboardPage';
 import FishIdentificationPage from './pages/FishIdentificationPage';
+import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
 import APIPage from './pages/APIPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
@@ -37,6 +38,11 @@ const routes: RouteConfig[] = [
     name: 'Fish ID',
     path: '/fish-identification',
     element: <FishIdentificationPage />,
+  },
+  {
+    name: 'Analytics',
+    path: '/dataset-analytics',
+    element: <DatasetAnalyticsPage />,
   },
   {
     name: 'Dashboard',
