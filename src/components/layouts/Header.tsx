@@ -15,6 +15,7 @@ import { Menu, Waves } from 'lucide-react';
 
 const navigation = [
   { name: 'Home', path: '/' },
+  { name: 'Contact', path: '/contact' },
   { name: 'Features', path: '/features' },
   { name: 'Visualizations', path: '/visualizations' },
   { name: 'Fish ID', path: '/fish-identification' },

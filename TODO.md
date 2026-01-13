@@ -71,6 +71,11 @@
   - [x] Add localStorage persistence
   - [x] Add theme switcher to header
   - [x] Add to navigation and routes
+- [x] Step 14: Reorganize Contact Information
+  - [x] Create ContactPage with contact information
+  - [x] Remove contact section from AboutPage
+  - [x] Add Contact to navigation next to Home
+  - [x] Update routes and public routes
 
 ## Notes
 - Application name: BlueWave Marine Data Platform
@@ -88,7 +93,7 @@
 - Username format: letters, numbers, and underscores only
 - Password minimum length: 6 characters
 - Email verification is disabled for easier testing
-- Public routes: Home, Features, Visualizations, Fish ID, Analytics, Themes, API, About, Login, Register
+- Public routes: Home, Contact, Features, Visualizations, Fish ID, Analytics, Themes, API, About, Login, Register
 - Protected routes: Dashboard, Admin (admin only)
 
 ## AI Fish Identification Feature
