@@ -102,6 +102,11 @@
   - [x] Verify image upload functionality
   - [x] Test species identification flow
   - [x] Ensure proper error handling
+- [x] Step 19: Fix RLS Policy Error in Fish ID
+  - [x] Check current RLS policies on fish_identifications table
+  - [x] Add policy to allow authenticated users to insert records
+  - [x] Add policy to allow public users to insert records (if needed)
+  - [x] Test fish identification after policy fix
 
 ## Notes
 - Application name: BlueWave Marine Data Platform

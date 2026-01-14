@@ -176,14 +176,17 @@ export default function FishIdentificationPage() {
         threats: 'Overfishing, habitat degradation, climate change impacts on ocean temperatures',
       };
 
-      // Save identification record
-      if (user) {
+      // Save identification record (for both authenticated and anonymous users)
+      try {
         await fishIdentificationApi.createIdentification({
-          user_id: user.id,
+          user_id: user?.id || null,
           image_url: imageUrl,
           identified_species_id: randomSpecies.id,
           confidence_score: confidence,
         });
+      } catch (saveError) {
+        console.error('Failed to save identification record:', saveError);
+        // Continue even if saving fails - user still gets results
       }
 
       setResult({
