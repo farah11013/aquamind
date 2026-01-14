@@ -46,6 +46,52 @@ export default function DatasetAnalyticsPage() {
   const [parsedData, setParsedData] = useState<ParsedData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // Professional sample marine dataset
+  const loadSampleDataset = () => {
+    const sampleData = [
+      { Station: 'A1', Latitude: 8.5, Longitude: 76.8, Temperature: 28.5, Salinity: 34.2, pH: 8.1, Oxygen: 5.8, Depth: 50, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'A2', Latitude: 8.7, Longitude: 76.9, Temperature: 27.8, Salinity: 34.5, pH: 8.0, Oxygen: 5.5, Depth: 75, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'A3', Latitude: 9.0, Longitude: 77.0, Temperature: 26.9, Salinity: 34.8, pH: 7.9, Oxygen: 5.2, Depth: 100, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'B1', Latitude: 10.2, Longitude: 78.5, Temperature: 29.2, Salinity: 33.8, pH: 8.2, Oxygen: 6.1, Depth: 30, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'B2', Latitude: 10.5, Longitude: 78.7, Temperature: 28.8, Salinity: 34.0, pH: 8.1, Oxygen: 5.9, Depth: 45, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'B3', Latitude: 10.8, Longitude: 79.0, Temperature: 28.2, Salinity: 34.3, pH: 8.0, Oxygen: 5.6, Depth: 60, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'C1', Latitude: 12.5, Longitude: 80.2, Temperature: 30.1, Salinity: 33.5, pH: 8.3, Oxygen: 6.4, Depth: 25, Season: 'Post-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'C2', Latitude: 12.8, Longitude: 80.5, Temperature: 29.5, Salinity: 33.7, pH: 8.2, Oxygen: 6.2, Depth: 40, Season: 'Post-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'C3', Latitude: 13.0, Longitude: 80.8, Temperature: 28.9, Salinity: 34.0, pH: 8.1, Oxygen: 5.9, Depth: 55, Season: 'Post-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'D1', Latitude: 15.2, Longitude: 72.8, Temperature: 27.5, Salinity: 35.2, pH: 8.0, Oxygen: 5.4, Depth: 80, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'D2', Latitude: 15.5, Longitude: 73.0, Temperature: 26.8, Salinity: 35.5, pH: 7.9, Oxygen: 5.1, Depth: 95, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'D3', Latitude: 15.8, Longitude: 73.2, Temperature: 26.2, Salinity: 35.8, pH: 7.8, Oxygen: 4.9, Depth: 110, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'E1', Latitude: 18.5, Longitude: 70.5, Temperature: 25.8, Salinity: 36.0, pH: 7.9, Oxygen: 5.0, Depth: 120, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'E2', Latitude: 18.8, Longitude: 70.8, Temperature: 25.2, Salinity: 36.2, pH: 7.8, Oxygen: 4.8, Depth: 135, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'E3', Latitude: 19.0, Longitude: 71.0, Temperature: 24.8, Salinity: 36.5, pH: 7.7, Oxygen: 4.6, Depth: 150, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'F1', Latitude: 11.5, Longitude: 79.5, Temperature: 29.8, Salinity: 33.2, pH: 8.3, Oxygen: 6.5, Depth: 20, Season: 'Summer', Region: 'Bay of Bengal' },
+      { Station: 'F2', Latitude: 11.8, Longitude: 79.8, Temperature: 29.2, Salinity: 33.5, pH: 8.2, Oxygen: 6.3, Depth: 35, Season: 'Summer', Region: 'Bay of Bengal' },
+      { Station: 'F3', Latitude: 12.0, Longitude: 80.0, Temperature: 28.7, Salinity: 33.8, pH: 8.1, Oxygen: 6.0, Depth: 50, Season: 'Summer', Region: 'Bay of Bengal' },
+      { Station: 'G1', Latitude: 14.2, Longitude: 74.5, Temperature: 28.0, Salinity: 34.8, pH: 8.0, Oxygen: 5.6, Depth: 65, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'G2', Latitude: 14.5, Longitude: 74.8, Temperature: 27.3, Salinity: 35.0, pH: 7.9, Oxygen: 5.3, Depth: 85, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'G3', Latitude: 14.8, Longitude: 75.0, Temperature: 26.7, Salinity: 35.3, pH: 7.8, Oxygen: 5.0, Depth: 105, Season: 'Monsoon', Region: 'Arabian Sea' },
+      { Station: 'H1', Latitude: 9.5, Longitude: 77.8, Temperature: 29.5, Salinity: 33.9, pH: 8.2, Oxygen: 6.2, Depth: 28, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'H2', Latitude: 9.8, Longitude: 78.0, Temperature: 28.9, Salinity: 34.1, pH: 8.1, Oxygen: 5.9, Depth: 42, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'H3', Latitude: 10.0, Longitude: 78.2, Temperature: 28.4, Salinity: 34.4, pH: 8.0, Oxygen: 5.7, Depth: 58, Season: 'Pre-Monsoon', Region: 'Bay of Bengal' },
+      { Station: 'I1', Latitude: 16.5, Longitude: 71.8, Temperature: 26.5, Salinity: 35.7, pH: 7.9, Oxygen: 5.2, Depth: 90, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'I2', Latitude: 16.8, Longitude: 72.0, Temperature: 25.9, Salinity: 36.0, pH: 7.8, Oxygen: 4.9, Depth: 115, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'I3', Latitude: 17.0, Longitude: 72.2, Temperature: 25.4, Salinity: 36.3, pH: 7.7, Oxygen: 4.7, Depth: 140, Season: 'Winter', Region: 'Arabian Sea' },
+      { Station: 'J1', Latitude: 13.5, Longitude: 81.2, Temperature: 30.2, Salinity: 33.0, pH: 8.4, Oxygen: 6.6, Depth: 18, Season: 'Summer', Region: 'Bay of Bengal' },
+      { Station: 'J2', Latitude: 13.8, Longitude: 81.5, Temperature: 29.7, Salinity: 33.3, pH: 8.3, Oxygen: 6.4, Depth: 32, Season: 'Summer', Region: 'Bay of Bengal' },
+      { Station: 'J3', Latitude: 14.0, Longitude: 81.8, Temperature: 29.1, Salinity: 33.6, pH: 8.2, Oxygen: 6.1, Depth: 48, Season: 'Summer', Region: 'Bay of Bengal' },
+    ];
+
+    const stats = calculateStats(sampleData);
+    setParsedData({ data: sampleData, stats });
+    setSelectedFile(null);
+    setError(null);
+    
+    toast({
+      title: 'Sample dataset loaded',
+      description: 'Indian Ocean Oceanographic Survey Data (30 stations)',
+    });
+  };
+
   const calculateStats = (data: Record<string, any>[]): DatasetStats => {
     if (data.length === 0) {
       return {
@@ -293,25 +339,42 @@ export default function DatasetAnalyticsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {!selectedFile ? (
-              <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Upload className="h-12 w-12 text-muted-foreground mb-4" />
-                  <p className="mb-2 text-sm text-muted-foreground">
-                    <span className="font-semibold">Click to upload</span> or drag and drop
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    CSV, XLSX, XLS (MAX. 50MB)
-                  </p>
+            {!selectedFile && !parsedData ? (
+              <>
+                <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                  <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                    <Upload className="h-12 w-12 text-muted-foreground mb-4" />
+                    <p className="mb-2 text-sm text-muted-foreground">
+                      <span className="font-semibold">Click to upload</span> or drag and drop
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      CSV, XLSX, XLS (MAX. 50MB)
+                    </p>
+                  </div>
+                  <input
+                    type="file"
+                    className="hidden"
+                    accept=".csv,.xlsx,.xls"
+                    onChange={handleFileSelect}
+                  />
+                </label>
+                
+                <div className="flex items-center gap-4">
+                  <div className="flex-1 border-t border-border" />
+                  <span className="text-sm text-muted-foreground">OR</span>
+                  <div className="flex-1 border-t border-border" />
                 </div>
-                <input
-                  type="file"
-                  className="hidden"
-                  accept=".csv,.xlsx,.xls"
-                  onChange={handleFileSelect}
-                />
-              </label>
-            ) : (
+                
+                <Button 
+                  onClick={loadSampleDataset} 
+                  variant="outline" 
+                  className="w-full"
+                >
+                  <FileSpreadsheet className="h-4 w-4 mr-2" />
+                  Load Sample Dataset (Indian Ocean Survey)
+                </Button>
+              </>
+            ) : selectedFile ? (
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 border border-border rounded-lg bg-accent/20">
                   <div className="flex items-center gap-3">
@@ -336,7 +399,19 @@ export default function DatasetAnalyticsPage() {
                   </div>
                 </div>
               </div>
-            )}
+            ) : parsedData ? (
+              <div className="space-y-4">
+                <Alert>
+                  <AlertCircle className="h-4 w-4" />
+                  <AlertDescription>
+                    Dataset loaded successfully! View the analysis results below.
+                  </AlertDescription>
+                </Alert>
+                <Button onClick={handleReset} variant="outline" className="w-full">
+                  Load New Dataset
+                </Button>
+              </div>
+            ) : null}
 
             {error && (
               <Alert variant="destructive">
