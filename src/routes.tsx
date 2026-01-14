@@ -1,11 +1,9 @@
 import HomePage from './pages/HomePage';
 import FeaturesPage from './pages/FeaturesPage';
 import VisualizationsPage from './pages/VisualizationsPage';
-import DashboardPage from './pages/DashboardPage';
 import FishIdentificationPage from './pages/FishIdentificationPage';
 import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
 import ThemeCustomizerPage from './pages/ThemeCustomizerPage';
-import APIPage from './pages/APIPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -49,16 +47,6 @@ const routes: RouteConfig[] = [
     name: 'Themes',
     path: '/themes',
     element: <ThemeCustomizerPage />,
-  },
-  {
-    name: 'Dashboard',
-    path: '/dashboard',
-    element: <DashboardPage />,
-  },
-  {
-    name: 'API',
-    path: '/api',
-    element: <APIPage />,
   },
   {
     name: 'About',

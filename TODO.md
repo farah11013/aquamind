@@ -83,6 +83,13 @@
   - [x] Add diet and behavior information
   - [x] Include fishing and conservation notes
   - [x] Improve visual presentation with tabs
+- [x] Step 16: Remove API and Dashboard Pages
+  - [x] Delete APIPage.tsx and DashboardPage.tsx
+  - [x] Remove from routes.tsx
+  - [x] Remove from Header navigation
+  - [x] Remove from Footer links
+  - [x] Update RouteGuard public routes
+  - [x] Update TODO.md documentation
 
 ## Notes
 - Application name: BlueWave Marine Data Platform
@@ -100,8 +107,8 @@
 - Username format: letters, numbers, and underscores only
 - Password minimum length: 6 characters
 - Email verification is disabled for easier testing
-- Public routes: Home, Features, Visualizations, Fish ID, Analytics, Themes, API, About, Login, Register
-- Protected routes: Dashboard, Admin (admin only)
+- Public routes: Home, Features, Visualizations, Fish ID, Analytics, Themes, About, Login, Register
+- Protected routes: Admin (admin only)
 
 ## AI Fish Identification Feature
 - Upload fish images for AI-powered species identification

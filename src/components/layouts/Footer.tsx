@@ -21,8 +21,8 @@ export function Footer() {
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/features" className="hover:text-primary transition-colors">Features</Link></li>
               <li><Link to="/visualizations" className="hover:text-primary transition-colors">Visualizations</Link></li>
-              <li><Link to="/dashboard" className="hover:text-primary transition-colors">Dashboard</Link></li>
-              <li><Link to="/api" className="hover:text-primary transition-colors">API Docs</Link></li>
+              <li><Link to="/fish-identification" className="hover:text-primary transition-colors">Fish ID</Link></li>
+              <li><Link to="/dataset-analytics" className="hover:text-primary transition-colors">Analytics</Link></li>
             </ul>
           </div>
           
@@ -30,7 +30,7 @@ export function Footer() {
             <h3 className="font-semibold mb-3">About</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/about" className="hover:text-primary transition-colors">About BlueWave</Link></li>
-              <li><Link to="/about" className="hover:text-primary transition-colors">Marine Research</Link></li>
+              <li><Link to="/themes" className="hover:text-primary transition-colors">Themes</Link></li>
             </ul>
           </div>
         </div>

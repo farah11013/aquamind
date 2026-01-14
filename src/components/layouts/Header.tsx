@@ -20,8 +20,6 @@ const navigation = [
   { name: 'Fish ID', path: '/fish-identification' },
   { name: 'Analytics', path: '/dataset-analytics' },
   { name: 'Themes', path: '/themes' },
-  { name: 'Dashboard', path: '/dashboard' },
-  { name: 'API', path: '/api' },
   { name: 'About', path: '/about' },
 ];
 
