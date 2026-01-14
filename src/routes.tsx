@@ -3,7 +3,6 @@ import FeaturesPage from './pages/FeaturesPage';
 import VisualizationsPage from './pages/VisualizationsPage';
 import FishIdentificationPage from './pages/FishIdentificationPage';
 import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
-import ThemeCustomizerPage from './pages/ThemeCustomizerPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -42,11 +41,6 @@ const routes: RouteConfig[] = [
     name: 'Analytics',
     path: '/dataset-analytics',
     element: <DatasetAnalyticsPage />,
-  },
-  {
-    name: 'Themes',
-    path: '/themes',
-    element: <ThemeCustomizerPage />,
   },
   {
     name: 'About',

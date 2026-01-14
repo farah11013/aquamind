@@ -19,7 +19,6 @@ const navigation = [
   { name: 'Visualizations', path: '/visualizations' },
   { name: 'Fish ID', path: '/fish-identification' },
   { name: 'Analytics', path: '/dataset-analytics' },
-  { name: 'Themes', path: '/themes' },
   { name: 'About', path: '/about' },
 ];
 

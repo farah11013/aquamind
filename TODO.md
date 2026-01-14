@@ -90,6 +90,13 @@
   - [x] Remove from Footer links
   - [x] Update RouteGuard public routes
   - [x] Update TODO.md documentation
+- [x] Step 17: Remove Themes Page and Set Dark Mode
+  - [x] Delete ThemeCustomizerPage.tsx
+  - [x] Remove ThemeContext and ThemeProvider
+  - [x] Set dark mode as default in index.html
+  - [x] Remove from routes and navigation
+  - [x] Update Footer links
+  - [x] Clean up theme-related code
 
 ## Notes
 - Application name: BlueWave Marine Data Platform
@@ -107,8 +114,9 @@
 - Username format: letters, numbers, and underscores only
 - Password minimum length: 6 characters
 - Email verification is disabled for easier testing
-- Public routes: Home, Features, Visualizations, Fish ID, Analytics, Themes, About, Login, Register
+- Public routes: Home, Features, Visualizations, Fish ID, Analytics, About, Login, Register
 - Protected routes: Admin (admin only)
+- Dark mode enabled by default
 
 ## AI Fish Identification Feature
 - Upload fish images for AI-powered species identification
@@ -139,23 +147,6 @@
 - Real-time data preview showing first 10 rows
 - Public access - no login required
 - Supports marine datasets (temperature, salinity, species counts, etc.)
-
-## Theme Customization Feature
-- 5 preset marine-themed color schemes:
-  - Ocean Blue (default) - Deep ocean blues with cyan accents
-  - Coral Reef - Warm coral and pink tones
-  - Deep Sea - Dark navy and purple depths
-  - Arctic Ice - Cool cyan and light blue
-  - Tropical Waters - Turquoise and green lagoon colors
-- Custom theme creator with color pickers for all design tokens
-- Real-time theme preview with sample components
-- Light and dark mode support for all themes
-- Customizable colors: background, foreground, primary, secondary, accent, muted, border, etc.
-- localStorage persistence - themes saved across sessions
-- One-click theme switching
-- Reset to default option
-- Public access - no login required
-- Instant application of theme changes across entire app
 
 ## Database Schema
 - profiles: User information with role-based access
