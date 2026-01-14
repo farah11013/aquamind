@@ -86,9 +86,6 @@ export function Header() {
                     </div>
                   </DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem asChild>
-                    <Link to="/dashboard">Dashboard</Link>
-                  </DropdownMenuItem>
                   {profile.role === 'admin' && (
                     <DropdownMenuItem asChild>
                       <Link to="/admin">Admin Panel</Link>
