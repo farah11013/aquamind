@@ -7,7 +7,7 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 max-w-5xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">
-            About <span className="gradient-text">BlueWave</span>
+            About <span className="gradient-text">AquaMind</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             Marine Data Platform for Sustainable Oceans
@@ -24,7 +24,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                BlueWave is a comprehensive AI-enabled marine data platform dedicated to understanding and conserving marine ecosystems. Our mission is to provide scientific knowledge and technological solutions for sustainable management of marine living resources.
+                AquaMind is a comprehensive AI-enabled marine data platform dedicated to understanding and conserving marine ecosystems. Our mission is to provide scientific knowledge and technological solutions for sustainable management of marine living resources.
               </p>
               <p>
                 Through cutting-edge research, advanced monitoring systems, and data-driven approaches, we support policymakers, scientists, and stakeholders in making informed decisions about marine conservation and fisheries management.
@@ -105,7 +105,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4 text-muted-foreground">
               <p>
-                The BlueWave Marine Data Platform serves as a unified hub for integrating, processing, and analyzing heterogeneous marine datasets. Our objectives include:
+                The AquaMind Marine Data Platform serves as a unified hub for integrating, processing, and analyzing heterogeneous marine datasets. Our objectives include:
               </p>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">

@@ -34,12 +34,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <img 
-            src="https://miaoda-conversation-file.s3cdn.medo.dev/user-8qyqs25cdp1c/conv-8wr0fb8sswlc/20260114/file-8xis242151j4.png" 
-            alt="BlueWave Logo" 
-            className="h-8 w-auto"
-          />
-          <span className="text-xl font-bold gradient-text">BlueWave</span>
+          <span className="text-xl font-bold gradient-text">AquaMind</span>
         </Link>
 
         {/* Desktop Navigation */}

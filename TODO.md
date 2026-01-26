@@ -132,9 +132,15 @@
   - [x] Update PUBLIC_ROUTES to include all pages
   - [x] Make application accessible without login
   - [x] Keep authentication optional for enhanced features
+- [x] Step 25: Replace BlueWave with AquaMind Branding
+  - [x] Remove BlueWave logo image from Header
+  - [x] Replace all "BlueWave" text with "AquaMind"
+  - [x] Update page titles and descriptions
+  - [x] Update About page content
+  - [x] Update footer and other branding elements
 
 ## Notes
-- Application name: BlueWave Marine Data Platform
+- Application name: AquaMind Marine Data Platform
 - Design reference: "Samudra Setu" with deep ocean blue theme
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification

@@ -9,7 +9,7 @@ export function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
               <Waves className="h-6 w-6 text-primary" />
-              <span className="text-lg font-bold">BlueWave</span>
+              <span className="text-lg font-bold">AquaMind</span>
             </div>
             <p className="text-sm text-muted-foreground max-w-md">
               A comprehensive AI-enabled platform for marine research and management, supporting sustainable fisheries and marine ecosystem conservation.
@@ -29,14 +29,14 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-3">About</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><Link to="/about" className="hover:text-primary transition-colors">About BlueWave</Link></li>
+              <li><Link to="/about" className="hover:text-primary transition-colors">About AquaMind</Link></li>
               <li><Link to="/about" className="hover:text-primary transition-colors">Marine Research</Link></li>
             </ul>
           </div>
         </div>
         
         <div className="border-t border-border mt-8 pt-6 text-center text-sm text-muted-foreground">
-          <p>© 2026 BlueWave. Created by Cahcet-HackTech Team. All rights reserved.</p>
+          <p>© 2026 AquaMind. Created by Cahcet-HackTech Team. All rights reserved.</p>
         </div>
       </div>
     </footer>

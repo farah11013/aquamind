@@ -51,7 +51,7 @@ export default function LoginPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Welcome Back</CardTitle>
           <CardDescription>
-            Sign in to access the BlueWave Marine Data Platform
+            Sign in to access the AquaMind Marine Data Platform
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>

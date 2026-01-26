@@ -78,7 +78,7 @@ export default function RegisterPage() {
           </div>
           <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
           <CardDescription>
-            Join the BlueWave Marine Data Platform
+            Join the AquaMind Marine Data Platform
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
