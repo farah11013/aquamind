@@ -8,7 +8,6 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { RouteGuard } from '@/components/common/RouteGuard';
 import { Header } from '@/components/layouts/Header';
 import { Footer } from '@/components/layouts/Footer';
-import { ChatBot } from '@/components/common/ChatBot';
 import { Toaster } from '@/components/ui/toaster';
 
 const App: React.FC = () => {
@@ -33,7 +32,6 @@ const App: React.FC = () => {
             </main>
             <Footer />
           </div>
-          <ChatBot />
           <Toaster />
         </RouteGuard>
       </AuthProvider>
