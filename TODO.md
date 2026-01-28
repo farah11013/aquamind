@@ -156,25 +156,27 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Simplify AquaMind About Page
+# Task: Simplify AquaMind HomePage
 
 ## Plan
-- [x] Step 1: Remove AI Architecture Section
-  - [x] Delete AI Architecture card with 4-layer explanation
-  - [x] Remove Brain icon import
-- [x] Step 2: Remove Data Sources Section
-  - [x] Delete Data Sources card with IoT sensors, satellite data, etc.
-  - [x] Remove Database icon import
+- [x] Step 1: Remove Real-time Statistics Section
+  - [x] Delete "Live Marine Statistics" section with stats cards
+  - [x] Delete "Current Ocean Conditions" section with parameter cards
+  - [x] Remove stats state and useEffect hook
+  - [x] Remove getRealTimeStats import
+- [x] Step 2: Clean Up Imports
+  - [x] Remove unused useState and useEffect imports
+  - [x] Remove unused Database and TrendingUp icon imports
 - [x] Step 3: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm remaining sections are intact
+  - [x] Confirm page structure is clean
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- About page now contains: The Problem, Our Solution, Our Mission, Platform Objectives, Sustainability Impact (UN SDGs)
-- Removed AI Architecture and Data Sources sections as requested
-- Clean, focused About page with essential information
+- HomePage now contains: Hero Section, Features Overview, Mission Statement, Call to Action
+- Removed real-time statistics section as requested
+- Clean, focused landing page
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

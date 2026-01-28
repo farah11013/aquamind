@@ -1,21 +1,9 @@
-import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Database, LineChart, Brain, Fish, Waves, MapPin, Activity, TrendingUp } from 'lucide-react';
-import { getRealTimeStats } from '@/services/marineDataService';
+import { ArrowRight, LineChart, Brain, Fish, Waves, MapPin, Activity } from 'lucide-react';
 
 export default function HomePage() {
-  const [stats, setStats] = useState(getRealTimeStats());
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setStats(getRealTimeStats());
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -42,74 +30,6 @@ export default function HomePage() {
                 </Button>
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Real-time Statistics */}
-      <section className="py-12 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl xl:text-3xl font-bold mb-2">Live Marine Statistics</h2>
-            <p className="text-muted-foreground">Real-time data from our sensor network</p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Activity className="h-8 w-8 text-primary mx-auto mb-2" />
-                <div className="text-3xl font-bold">{stats.activeSensors}</div>
-                <div className="text-sm text-muted-foreground">Active Sensors</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Database className="h-8 w-8 text-primary mx-auto mb-2" />
-                <div className="text-3xl font-bold">{(stats.dataPoints / 1000000).toFixed(1)}M</div>
-                <div className="text-sm text-muted-foreground">Data Points</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <Fish className="h-8 w-8 text-primary mx-auto mb-2" />
-                <div className="text-3xl font-bold">{stats.speciesMonitored}</div>
-                <div className="text-sm text-muted-foreground">Species Monitored</div>
-              </CardContent>
-            </Card>
-            <Card className="text-center">
-              <CardContent className="pt-6">
-                <TrendingUp className="h-8 w-8 text-primary mx-auto mb-2" />
-                <div className="text-3xl font-bold">{stats.alertsToday}</div>
-                <div className="text-sm text-muted-foreground">Alerts Today</div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Current Ocean Conditions */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto mt-6">
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <div className="text-sm text-muted-foreground mb-1">Temperature</div>
-                <div className="text-2xl font-bold">{stats.temperature}°C</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <div className="text-sm text-muted-foreground mb-1">Salinity</div>
-                <div className="text-2xl font-bold">{stats.salinity} PSU</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <div className="text-sm text-muted-foreground mb-1">pH Level</div>
-                <div className="text-2xl font-bold">{stats.ph}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6 text-center">
-                <div className="text-sm text-muted-foreground mb-1">Oxygen</div>
-                <div className="text-2xl font-bold">{stats.oxygen} mg/L</div>
-              </CardContent>
-            </Card>
           </div>
         </div>
       </section>
