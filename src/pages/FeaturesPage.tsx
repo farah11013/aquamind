@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Dna, Waves, Brain, Map, Activity, Database, LineChart, Zap } from 'lucide-react';
+import { Dna, Waves, Map, Activity, LineChart, Zap, Brain } from 'lucide-react';
 
 export default function FeaturesPage() {
   return (
@@ -41,78 +41,6 @@ export default function FeaturesPage() {
         </div>
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Real-Time Data Ingestion */}
-          <Card className="border-border hover:shadow-hover transition-all">
-            <CardHeader>
-              <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Database className="h-8 w-8 text-primary" />
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                <CardTitle className="text-2xl">Real-Time Data Ingestion</CardTitle>
-                <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Live</Badge>
-              </div>
-              <CardDescription className="text-base">
-                Continuous data collection from multiple sources with automated processing and validation
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>127+ IoT sensors monitoring temperature, salinity, pH, and oxygen levels</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Satellite data integration for sea surface temperature and chlorophyll</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Acoustic monitoring for fish movement and population tracking</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Automated data cleaning, validation, and quality control</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          {/* AI Analytics */}
-          <Card className="border-border hover:shadow-hover transition-all">
-            <CardHeader>
-              <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Brain className="h-8 w-8 text-primary" />
-              </div>
-              <div className="flex items-center gap-2 mb-2">
-                <CardTitle className="text-2xl">AI Analytics</CardTitle>
-                <Badge className="bg-blue-500/10 text-blue-500 border-blue-500/20">Intelligent</Badge>
-              </div>
-              <CardDescription className="text-base">
-                Machine learning models for predictive insights and anomaly detection
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Population trend forecasting with 87% accuracy using LSTM networks</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Anomaly detection for environmental threats and ecosystem changes</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Correlation analysis between ocean parameters and fish populations</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span>Explainable AI with confidence scores and reasoning</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-
           {/* Molecular Biodiversity */}
           <Card className="border-border hover:shadow-hover transition-all">
             <CardHeader>

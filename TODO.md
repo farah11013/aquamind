@@ -156,19 +156,15 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Simplify AquaMind Features Page
+# Task: Further Simplify AquaMind Features Page
 
 ## Plan
-- [x] Step 1: Remove 4 Feature Cards
-  - [x] Remove Fish Species Identification card
-  - [x] Remove Predictive Modeling card
-  - [x] Remove Sustainability Monitoring card
-  - [x] Remove Smart Alerts card
+- [x] Step 1: Remove 2 Additional Feature Cards
+  - [x] Remove Real-Time Data Ingestion card
+  - [x] Remove AI Analytics card
 - [x] Step 2: Clean Up Imports
-  - [x] Remove unused Fish icon
-  - [x] Remove unused TrendingUp icon
-  - [x] Remove unused Bell icon
-  - [x] Remove unused Shield icon
+  - [x] Remove unused Database icon
+  - [x] Keep Brain icon (used in top stats section)
 - [x] Step 3: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm remaining features are intact
@@ -176,9 +172,11 @@
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- Features page now contains 6 feature cards: Real-Time Data Ingestion, AI Analytics, Molecular Biodiversity, Oceanographic Data, Interactive Mapping, Advanced Analytics
-- Removed 4 feature cards as requested: Fish Species Identification, Predictive Modeling, Sustainability Monitoring, Smart Alerts
-- Clean, focused features page
+- Features page now contains 4 feature cards: Molecular Biodiversity, Oceanographic Data, Interactive Mapping, Advanced Analytics
+- Removed 2 additional feature cards as requested: Real-Time Data Ingestion, AI Analytics
+- Previously removed: Fish Species Identification, Predictive Modeling, Sustainability Monitoring, Smart Alerts
+- Total removed: 6 feature cards
+- Clean, streamlined features page with core capabilities
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies
