@@ -35,8 +35,6 @@ To deliver a production-ready, responsive web application that empowers stakehol
 #### 2.3.1 Platform Information
 - Problem statement explanation
 - Solution overview
-- AI architecture description
-- Data sources documentation
 - Sustainability impact (SDGs alignment)
 - Hackathon vision and real-world deployment potential
 
@@ -143,3 +141,6 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Scalable architecture for real-world deployment
 - Integration capabilities with real data sources
 - Security and compliance considerations
+
+## 8. Reference Files
+1. Uploaded image: image.png

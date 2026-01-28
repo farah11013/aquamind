@@ -156,28 +156,25 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Simplify AquaMind Analytics Dashboard
+# Task: Simplify AquaMind About Page
 
 ## Plan
-- [x] Step 1: Remove Live Data, AI Insights, and Alerts Tabs
-  - [x] Remove tab navigation from Analytics page
-  - [x] Remove live data state and useEffect
-  - [x] Remove imports for marine data service
-  - [x] Remove unused icon imports
-- [x] Step 2: Simplify Analytics Page
-  - [x] Change title from "Analytics Dashboard" to "Dataset Analytics"
-  - [x] Update description to focus on dataset upload and analysis
-  - [x] Keep only dataset upload and visualization functionality
+- [x] Step 1: Remove AI Architecture Section
+  - [x] Delete AI Architecture card with 4-layer explanation
+  - [x] Remove Brain icon import
+- [x] Step 2: Remove Data Sources Section
+  - [x] Delete Data Sources card with IoT sensors, satellite data, etc.
+  - [x] Remove Database icon import
 - [x] Step 3: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm page structure is clean and functional
+  - [x] Confirm remaining sections are intact
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- Analytics page now focuses solely on dataset upload and analysis
-- Removed Live Data, AI Insights, and Alerts tabs as requested
-- Clean, streamlined interface for data analytics
+- About page now contains: The Problem, Our Solution, Our Mission, Platform Objectives, Sustainability Impact (UN SDGs)
+- Removed AI Architecture and Data Sources sections as requested
+- Clean, focused About page with essential information
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Waves, Target, Users, Globe, AlertTriangle, Lightbulb, Database, Brain, TrendingUp } from 'lucide-react';
+import { Waves, Target, Users, Globe, AlertTriangle, Lightbulb, TrendingUp } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -81,105 +81,6 @@ export default function AboutPage() {
                   <div className="text-sm">Computer vision for instant fish identification with conservation status and habitat information</div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
-
-          {/* AI Architecture */}
-          <Card>
-            <CardHeader>
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Brain className="h-6 w-6 text-primary" />
-              </div>
-              <CardTitle className="text-2xl">AI Architecture</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
-              <p>
-                AquaMind leverages cutting-edge AI and machine learning technologies to transform raw marine data into actionable intelligence:
-              </p>
-              <div className="space-y-4">
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-sm font-bold text-primary">1</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold mb-1">Data Ingestion Layer</div>
-                    <div className="text-sm">Real-time data collection from IoT sensors, satellite imagery, acoustic monitoring, and manual surveys</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-sm font-bold text-primary">2</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold mb-1">Processing Pipeline</div>
-                    <div className="text-sm">Data cleaning, normalization, and feature extraction using automated algorithms</div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-sm font-bold text-primary">3</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold mb-1">AI Models</div>
-                    <div className="text-sm">
-                      • Computer Vision (CNN) for fish species identification<br />
-                      • Time-Series Forecasting (LSTM) for population predictions<br />
-                      • Anomaly Detection (Isolation Forest) for threat identification<br />
-                      • NLP for generating human-readable insights
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-sm font-bold text-primary">4</span>
-                  </div>
-                  <div>
-                    <div className="font-semibold mb-1">Insight Generation</div>
-                    <div className="text-sm">AI-powered recommendations with confidence scores and explainable results</div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Data Sources */}
-          <Card>
-            <CardHeader>
-              <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                <Database className="h-6 w-6 text-primary" />
-              </div>
-              <CardTitle className="text-2xl">Data Sources</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-muted-foreground">
-              <p>
-                AquaMind integrates data from multiple authoritative sources to provide comprehensive marine intelligence:
-              </p>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>IoT Sensor Network:</strong> 127+ deployed sensors monitoring real-time oceanographic parameters</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>Satellite Data:</strong> Ocean temperature, chlorophyll levels, and sea surface height from NOAA and ESA</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>Fisheries Surveys:</strong> Catch data, species abundance, and population assessments from CMFRI and state departments</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>eDNA Analysis:</strong> Genetic sequencing data for biodiversity assessment and species detection</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>Acoustic Monitoring:</strong> Fish movement tracking and population estimation using hydrophones</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span><strong>Historical Records:</strong> Decades of marine research data for trend analysis and model training</span>
-                </li>
-              </ul>
             </CardContent>
           </Card>
 
