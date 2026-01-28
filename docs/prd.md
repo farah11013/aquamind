@@ -43,10 +43,6 @@ To deliver a production-ready, responsive web application that empowers stakehol
 #### 2.4.1 Platform Capabilities Overview
 - Real-time data ingestion
 - AI analytics
-- Fish species identification
-- Predictive modeling
-- Sustainability monitoring
-- Smart alerts system
 - Detailed description of each capability with visual elements
 
 ### 2.5 Analytics Page

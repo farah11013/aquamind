@@ -156,27 +156,29 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Simplify AquaMind HomePage
+# Task: Simplify AquaMind Features Page
 
 ## Plan
-- [x] Step 1: Remove Real-time Statistics Section
-  - [x] Delete "Live Marine Statistics" section with stats cards
-  - [x] Delete "Current Ocean Conditions" section with parameter cards
-  - [x] Remove stats state and useEffect hook
-  - [x] Remove getRealTimeStats import
+- [x] Step 1: Remove 4 Feature Cards
+  - [x] Remove Fish Species Identification card
+  - [x] Remove Predictive Modeling card
+  - [x] Remove Sustainability Monitoring card
+  - [x] Remove Smart Alerts card
 - [x] Step 2: Clean Up Imports
-  - [x] Remove unused useState and useEffect imports
-  - [x] Remove unused Database and TrendingUp icon imports
+  - [x] Remove unused Fish icon
+  - [x] Remove unused TrendingUp icon
+  - [x] Remove unused Bell icon
+  - [x] Remove unused Shield icon
 - [x] Step 3: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm page structure is clean
+  - [x] Confirm remaining features are intact
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- HomePage now contains: Hero Section, Features Overview, Mission Statement, Call to Action
-- Removed real-time statistics section as requested
-- Clean, focused landing page
+- Features page now contains 6 feature cards: Real-Time Data Ingestion, AI Analytics, Molecular Biodiversity, Oceanographic Data, Interactive Mapping, Advanced Analytics
+- Removed 4 feature cards as requested: Fish Species Identification, Predictive Modeling, Sustainability Monitoring, Smart Alerts
+- Clean, focused features page
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies
