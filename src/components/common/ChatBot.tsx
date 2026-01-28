@@ -45,31 +45,66 @@ export function ChatBot() {
     };
 
     setMessages((prev) => [...prev, userMessage]);
+    const currentInput = inputMessage;
     setInputMessage('');
     setIsLoading(true);
 
     try {
-      // Simulate API call with marine-themed responses
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // Call OpenAI-compatible API for marine-focused responses
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${import.meta.env.VITE_OPENAI_API_KEY || ''}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-3.5-turbo',
+          messages: [
+            {
+              role: 'system',
+              content: 'You are AquaMind Assistant, an AI helper for a marine data platform. You help users with marine data analysis, fish species identification, oceanographic insights, and platform navigation. Provide concise, helpful answers focused on marine science and the platform features: Fish ID (species identification), Visualizations (biodiversity, fisheries, oceanography, climate impact), Analytics (dataset upload and analysis), and general marine research. Keep responses brief and actionable.',
+            },
+            ...messages.map((msg) => ({
+              role: msg.role,
+              content: msg.content,
+            })),
+            {
+              role: 'user',
+              content: currentInput,
+            },
+          ],
+          max_tokens: 300,
+          temperature: 0.7,
+        }),
+      });
 
-      const response = generateMarineResponse(inputMessage);
+      if (!response.ok) {
+        throw new Error('API request failed');
+      }
+
+      const data = await response.json();
+      const assistantContent = data.choices?.[0]?.message?.content || 'I apologize, but I couldn\'t generate a response. Please try again.';
+
       const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: response,
+        content: assistantContent,
         timestamp: new Date(),
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Chat error:', error);
-      const errorMessage: Message = {
+      console.error('Chat API error:', error);
+      
+      // Fallback to local marine-themed responses if API fails
+      const fallbackResponse = generateMarineResponse(currentInput);
+      const assistantMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: 'I apologize, but I encountered an error. Please try again.',
+        content: fallbackResponse,
         timestamp: new Date(),
       };
-      setMessages((prev) => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
     } finally {
       setIsLoading(false);
     }
