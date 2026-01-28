@@ -64,9 +64,9 @@ To provide scientists and policymakers with a centralized platform for integrati
 
 #### 2.3.2 Metadata Management
 - Automatic metadata extraction and tagging\n- Metadata search and filtering capabilities
-- Data lineage tracking\n
-### 2.4 Data Visualization Module
-\n#### 2.4.1 Interactive Dashboards
+- Data lineage tracking\n\n### 2.4 Data Visualization Module
+
+#### 2.4.1 Interactive Dashboards
 - Real-time interactive maps displaying:
   - Ocean conditions (temperature, salinity, currents)
   - Fish distribution patterns
@@ -74,12 +74,12 @@ To provide scientists and policymakers with a centralized platform for integrati
   - Ecosystem health indicators
 - Dynamic graphs and charts showing:
   - Temporal trends in oceanographic parameters
-  - Fish population dynamics\n  - Biodiversity indices\n  - Species richness and abundance
-- Accessible only after user authentication
-
-#### 2.4.2 Customization Features
-- User-defined filters by:
-  - Time period\n  - Geographic region
+  - Fish population dynamics
+  - Biodiversity indices
+  - Species richness and abundance
+- Accessible only after user authentication\n
+#### 2.4.2 Customization Features\n- User-defined filters by:\n  - Time period
+  - Geographic region
   - Species
   - Data type
   - Environmental parameters
@@ -88,42 +88,35 @@ To provide scientists and policymakers with a centralized platform for integrati
 
 ### 2.5 Sample Dataset Analytics Feature
 
-#### 2.5.1 Dataset Upload Interface\n- User interface for uploading sample datasets
-- Support for common data formats (CSV, Excel, JSON)\n- File size validation and format verification
-- Requires user authentication\n
-#### 2.5.2 Automated Analytics Generation\n- Automatic data analysis upon upload including:
-  - Statistical summary (mean, median, standard deviation, min, max)
-  - Data distribution analysis
-  - Correlation analysis between variables
-  - Trend identification
-  - Anomaly detection
-
-#### 2.5.3 Visualization Generation
+#### 2.5.1 Dataset Upload Interface
+- User interface for uploading sample datasets\n- Support for common data formats (CSV, Excel, JSON)
+- File size validation and format verification
+- Requires user authentication
+\n#### 2.5.2 Automated Analytics Generation
+- Automatic data analysis upon upload including:\n  - Statistical summary (mean, median, standard deviation, min, max)
+  - Data distribution analysis\n  - Correlation analysis between variables
+  - Trend identification\n  - Anomaly detection\n\n#### 2.5.3 Visualization Generation
 - Automatic generation of relevant visualizations based on dataset characteristics:
-  - Line charts for temporal data\n  - Bar charts for categorical comparisons
-  - Scatter plots for correlation analysis
-  - Heatmaps for multi-variable relationships
+  - Line charts for temporal data
+  - Bar charts for categorical comparisons
+  - Scatter plots for correlation analysis\n  - Heatmaps for multi-variable relationships
   - Geographic maps for spatial data
   - Pie charts for composition analysis
 - Interactive visualization controls (zoom, filter, hover details)
 - Export options for generated visualizations
 
 #### 2.5.4 Professional Analytics Report
-- Comprehensive professional analytics report generation including:
-  - Executive Summary: High-level overview of key findings and insights
-  - Dataset Overview: Description of dataset characteristics, size, variables, and data quality assessment\n  - Statistical Analysis: Detailed statistical metrics and distributions
-  - Correlation Analysis: Relationships between variables with correlation matrices
-  - Trend Analysis: Temporal and spatial trends identification
+- Comprehensive professional analytics report generation including:\n  - Executive Summary: High-level overview of key findings and insights\n  - Dataset Overview: Description of dataset characteristics, size, variables, and data quality assessment
+  - Statistical Analysis: Detailed statistical metrics and distributions
+  - Correlation Analysis: Relationships between variables with correlation matrices\n  - Trend Analysis: Temporal and spatial trends identification
   - Anomaly Detection: Identification and explanation of outliers and unusual patterns
   - Data Quality Assessment: Completeness, accuracy, and reliability metrics
   - Key Insights and Findings: Data-driven insights and actionable recommendations
-  - Visualizations: Embedded charts, graphs, and maps supporting the analysis
-  - Methodology: Description of analytical methods and algorithms used
+  - Visualizations: Embedded charts, graphs, and maps supporting the analysis\n  - Methodology: Description of analytical methods and algorithms used
   - Conclusions and Recommendations: Summary of findings and suggested actions
 - Professional report formatting with:
   - Clear section headings and structure
-  - Data tables and summary statistics
-  - Visual elements (charts, graphs, heatmaps)
+  - Data tables and summary statistics\n  - Visual elements (charts, graphs, heatmaps)
   - Professional styling and layout
 - Export options for analytics report (PDF, Word, HTML)
 - Customizable report templates for different analysis types
@@ -135,15 +128,14 @@ To provide scientists and policymakers with a centralized platform for integrati
   - Data quality indicators
   - Insights and recommendations
 - Customizable layout and view options
-- Direct access to professional analytics report
-- Accessible only to logged-in users
+- Direct access to professional analytics report\n- Accessible only to logged-in users
 
 ### 2.6 AI Capabilities Module
 
-#### 2.6.1 Correlation Analysis
-- AI-powered analysis of relationships between:
+#### 2.6.1 Correlation Analysis\n- AI-powered analysis of relationships between:
   - Ocean parameters and fish populations
-  - Environmental factors and biodiversity\n  - Climate variables and ecosystem changes
+  - Environmental factors and biodiversity
+  - Climate variables and ecosystem changes
 - Predictive modeling for population trends
 
 #### 2.6.2 Otolith Image Analysis
@@ -152,25 +144,23 @@ To provide scientists and policymakers with a centralized platform for integrati
 - Age estimation algorithms
 - Growth pattern analysis
 
-#### 2.6.3 eDNA-Based Species Detection\n- eDNA sequence analysis algorithms
+#### 2.6.3 eDNA-Based Species Detection
+- eDNA sequence analysis algorithms
 - Species identification from genetic data
 - Biodiversity assessment from eDNA samples
 - Genetic diversity analysis
 
 #### 2.6.4 Ecosystem Change Alerts
 - Real-time monitoring of key ecosystem indicators
-- Automated alert system for significant changes:
-  - Unusual temperature fluctuations
+- Automated alert system for significant changes:\n  - Unusual temperature fluctuations
   - Sudden biodiversity shifts
   - Population anomalies
   - Water quality degradation
-- Customizable alert thresholds\n
-### 2.7 AI-Driven Fish Species Identification Feature
+- Customizable alert thresholds
 
-#### 2.7.1 Image Upload and Analysis
-- User interface for uploading fish species images
-- Support for uploading a variety of fish species images
-- AI-powered species identification and recognition
+### 2.7 AI-Driven Fish Species Identification Feature\n
+#### 2.7.1 Image Upload and Analysis\n- User interface for uploading fish species images
+- Support for uploading a variety of fish species images\n- AI-powered species identification and recognition
 - Display of comprehensive species information including:
   - Scientific name and common name
   - Habitat information
@@ -180,8 +170,7 @@ To provide scientists and policymakers with a centralized platform for integrati
   - Physical description
   - Behavioral traits
   - Ecological role
-  - Economic importance
-- Requires user authentication to access
+  - Economic importance\n- Requires user authentication to access
 
 #### 2.7.2 Enhanced Image Details Display
 - Display uploaded image metadata including:
@@ -189,56 +178,69 @@ To provide scientists and policymakers with a centralized platform for integrati
   - Image dimensions and resolution
   - Upload timestamp
   - File size
-  - Image format
-- Visual quality assessment of uploaded image
+  - Image format\n- Visual quality assessment of uploaded image
 - Image preprocessing status and quality indicators
-- Confidence score for species identification\n- Alternative species suggestions if confidence is below threshold
-- Visual comparison between uploaded image and reference images from database\n
-#### 2.7.3 Multi-Species Support\n- Recognition of diverse fish species from various marine environments
-- Database of extensive fish species information
-- Continuous learning and model improvement for species identification accuracy
+- Confidence score for species identification
+- Alternative species suggestions if confidence is below threshold
+- Visual comparison between uploaded image and reference images from database
 
-### 2.8 Intelligent Chatbot Assistant
+#### 2.7.3 Multi-Species Support
+- Recognition of diverse fish species from various marine environments\n- Database of extensive fish species information
+- Continuous learning and model improvement for species identification accuracy
+\n### 2.8 AI Marine & Fishery Assistant Chatbot
 
 #### 2.8.1 Chatbot Integration
 - Chatbot icon displayed on every page of the application
 - Persistent chatbot interface accessible throughout user session
 - API integration relevant to the BlueWave Marine Data Platform
 
-#### 2.8.2 Chatbot Capabilities
+#### 2.8.2 Chatbot Role and Purpose
+- AI Marine & Fishery Assistant designed to help users with:\n  - Marine ecosystems information
+  - Fish species identification\n  - Fisheries and fishing practices
+  - Seasonal fishing bans
+  - Fishery regulations and sustainability
+  - Marine pollution and safety
+  - Aquaculture and seafood quality
+\n#### 2.8.3 Chatbot Capabilities
 - Context-aware assistance based on current page and user activity
-- Natural language query support for:\n  - Data upload guidance
+- Natural language query support for:
+  - Data upload guidance
   - Visualization interpretation
-  - Feature navigation help
-  - API documentation queries
+  - Feature navigation help\n  - API documentation queries
   - General platform usage questions
+  - Marine and fisheries-related inquiries
 - Integration with platform API for real-time data queries
 - Intelligent responses based on user role and permissions
 
-#### 2.8.3 Chatbot Features
+#### 2.8.4 Chatbot Communication Guidelines
+- Use simple, clear, and non-technical language
+- Prefer Indian marine and fisheries context unless user specifies another region
+- Clearly indicate status when relevant: ALLOWED / RESTRICTED / BANNED
+- Explain reasons briefly and responsibly
+- Promote sustainable fishing and marine conservation
+- If information is uncertain, indicate honestly and suggest contacting local fisheries authorities
+- Avoid giving illegal, harmful, or unsafe advice
+- Ask follow-up questions only when necessary (e.g., location, fish name, season)\n
+#### 2.8.5 Chatbot Tone and Language
+- Friendly, respectful, and educational tone
+- Suitable for fishermen, students, vendors, and general users
+- Respond in user's preferred language if requested
+\n#### 2.8.6 Chatbot Features
 - Quick access to frequently asked questions
 - Step-by-step guidance for complex workflows
-- Direct links to relevant documentation and resources
-- Conversation history for logged-in users
+- Direct links to relevant documentation and resources\n- Conversation history for logged-in users
 - Feedback mechanism for chatbot response quality
-
-## 3. Technical Requirements
-
+\n## 3. Technical Requirements\n
 ### 3.1 Architecture
 - Cloud-ready architecture for scalability
 - Microservices-based design for modularity
-- API-first approach for integration capabilities\n
-### 3.2 API Documentation
-- Comprehensive RESTful API documentation
-- API endpoints for:
-  - User authentication and authorization
-  - Data upload and retrieval
+- API-first approach for integration capabilities
+
+### 3.2 API Documentation\n- Comprehensive RESTful API documentation
+- API endpoints for:\n  - User authentication and authorization\n  - Data upload and retrieval
   - Visualization data access
-  - AI model predictions
-  - User management
-  - Chatbot integration and queries
-- Developer guides and code examples
-- API versioning strategy
+  - AI model predictions\n  - User management
+  - Chatbot integration and queries\n- Developer guides and code examples\n- API versioning strategy
 - API access requires authentication tokens
 
 ### 3.3 Scalability
@@ -248,47 +250,52 @@ To provide scientists and policymakers with a centralized platform for integrati
 - Caching mechanisms for improved performance
 
 ### 3.4 Performance
-- Fast data processing and visualization rendering\n- Optimized query performance\n- Efficient handling of large image datasets
+- Fast data processing and visualization rendering
+- Optimized query performance
+- Efficient handling of large image datasets
 
 ## 4. User Interface Requirements
 
-### 4.1 Navigation Structure
-- Public landing page with platform overview
+### 4.1 Navigation Structure\n- Public landing page with platform overview
 - Registration page
-- After authentication, users can access:\n  - Home dashboard
+- After authentication, users can access:
+  - Home dashboard
   - Features page highlighting key capabilities
   - Visualizations page with interactive dashboards
   - Dashboard page for personalized data views
   - API documentation page
-  - About page with CMLRE information
-  - User profile and settings
-- Chatbot icon accessible on all pages
+  - About page with CMLRE information\n  - User profile and settings\n- Chatbot icon accessible on all pages
 
 ### 4.2 Responsive Design
 - Mobile-friendly interface
 - Cross-browser compatibility
-- Accessible design following WCAG guidelines\n
+- Accessible design following WCAG guidelines
+
 ## 5. Sustainability Focus
 
 ### 5.1 Fisheries Management Support
 - Tools for sustainable harvest recommendations
 - Population viability analysis
-- Fishing pressure assessment\n
-### 5.2 Ecosystem Management
+- Fishing pressure assessment
+\n### 5.2 Ecosystem Management
 - Marine protected area monitoring
 - Ecosystem health assessment tools
 - Climate change impact analysis
 - Biodiversity conservation planning support
 
-## 6. Deliverables\n
+## 6. Deliverables
+
 ### 6.1 Application Prototype
 - Fully functional web application with all specified features
 - Deployed on cloud infrastructure
-- User acceptance testing completed\n
+- User acceptance testing completed
+
 ### 6.2 Documentation
 - System architecture documentation
 - User guides for different user roles
-- API reference documentation\n- Data upload and format specifications\n- Administrator manual
+- API reference documentation
+- Data upload and format specifications
+- Administrator manual
 - Chatbot integration guide
 
 ### 6.3 Maintenance Plan

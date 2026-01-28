@@ -149,6 +149,12 @@
   - [x] Implement real-time API calls
   - [x] Add error handling for API failures
   - [x] Test chatbot with live API responses
+- [x] Step 28: Update Chatbot to Marine & Fishery Assistant
+  - [x] Update system prompt with marine & fishery focus
+  - [x] Add Indian marine context
+  - [x] Include fishing regulations and sustainability
+  - [x] Update welcome message
+  - [x] Enhance fallback responses
 
 ## Notes
 - Application name: AquaMind Marine Data Platform

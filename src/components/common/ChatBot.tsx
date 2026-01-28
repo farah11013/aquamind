@@ -18,7 +18,7 @@ export function ChatBot() {
     {
       id: '1',
       role: 'assistant',
-      content: 'Hello! I\'m AquaMind Assistant. I can help you with marine data analysis, fish species identification, oceanographic insights, and platform navigation. How can I assist you today?',
+      content: 'Hello! I\'m your AI Marine & Fishery Assistant. I can help you with:\n\n• Marine ecosystems and fish species identification\n• Fisheries and fishing practices\n• Seasonal fishing bans and regulations\n• Fishery sustainability and conservation\n• Marine pollution and safety\n• Aquaculture and seafood quality\n\nI focus on Indian marine and fisheries context. How can I assist you today?',
       timestamp: new Date(),
     },
   ]);
@@ -62,7 +62,32 @@ export function ChatBot() {
           messages: [
             {
               role: 'system',
-              content: 'You are AquaMind Assistant, an AI helper for a marine data platform. You help users with marine data analysis, fish species identification, oceanographic insights, and platform navigation. Provide concise, helpful answers focused on marine science and the platform features: Fish ID (species identification), Visualizations (biodiversity, fisheries, oceanography, climate impact), Analytics (dataset upload and analysis), and general marine research. Keep responses brief and actionable.',
+              content: `You are an AI Marine & Fishery Assistant.
+
+Your role is to help users with information related to:
+- Marine ecosystems
+- Fish species identification
+- Fisheries and fishing practices
+- Seasonal fishing bans
+- Fishery regulations and sustainability
+- Marine pollution and safety
+- Aquaculture and seafood quality
+
+Guidelines:
+- Use simple, clear, and non-technical language.
+- Prefer Indian marine and fisheries context unless the user specifies another region.
+- Clearly indicate status when relevant: ALLOWED / RESTRICTED / BANNED.
+- Explain reasons briefly and responsibly.
+- Promote sustainable fishing and marine conservation.
+- If information is uncertain, say so honestly and suggest contacting local fisheries authorities.
+- Avoid giving illegal, harmful, or unsafe advice.
+- Ask follow-up questions only when necessary (e.g., location, fish name, season).
+
+Tone:
+- Friendly, respectful, and educational.
+- Suitable for fishermen, students, vendors, and general users.
+
+Keep responses concise (under 200 words) and actionable.`,
             },
             ...messages.map((msg) => ({
               role: msg.role,
@@ -113,31 +138,48 @@ export function ChatBot() {
   const generateMarineResponse = (input: string): string => {
     const lowerInput = input.toLowerCase();
 
-    if (lowerInput.includes('fish') || lowerInput.includes('species')) {
-      return 'You can use our Fish ID feature to identify fish species by uploading images. Navigate to the Fish ID page from the main menu. Our AI can identify various marine species and provide detailed information about their habitat, conservation status, and characteristics.';
+    // Fishing regulations and bans
+    if (lowerInput.includes('ban') || lowerInput.includes('season') || lowerInput.includes('regulation')) {
+      return 'India has seasonal fishing bans to protect marine life during breeding seasons:\n\n• West Coast: April 15 - May 31 (61 days)\n• East Coast: April 15 - June 14 (61 days)\n\nDuring these periods, fishing is BANNED for mechanized vessels. Traditional fishermen may have exemptions. Check with your local fisheries department for specific regulations in your area.';
     }
 
-    if (lowerInput.includes('data') || lowerInput.includes('dataset') || lowerInput.includes('analytics')) {
-      return 'Our Analytics page allows you to upload and analyze marine datasets. You can also load our sample Indian Ocean oceanographic survey data to explore the platform\'s capabilities. The system provides automated statistical analysis and visualizations.';
+    // Fish species identification
+    if (lowerInput.includes('fish') || lowerInput.includes('species') || lowerInput.includes('identify')) {
+      return 'I can help identify fish species! You can:\n\n• Use our Fish ID feature to upload fish images for AI identification\n• Describe the fish (color, size, location caught)\n• Ask about specific species\n\nCommon Indian marine fish include: Pomfret, Mackerel, Sardines, Tuna, Kingfish, Hilsa, and Prawns. What would you like to know?';
     }
 
-    if (lowerInput.includes('visualization') || lowerInput.includes('chart') || lowerInput.includes('graph')) {
-      return 'The Visualizations page offers interactive dashboards showing biodiversity, fisheries data, oceanographic parameters, and climate impact analysis. You can filter data by region, season, and various environmental parameters.';
+    // Sustainability and conservation
+    if (lowerInput.includes('sustain') || lowerInput.includes('conservation') || lowerInput.includes('protect')) {
+      return 'Sustainable fishing practices are crucial for marine conservation:\n\n• Follow seasonal fishing bans\n• Avoid catching juvenile fish (let them grow and breed)\n• Use selective fishing gear to reduce bycatch\n• Report illegal fishing activities\n• Support Marine Protected Areas (MPAs)\n\nSustainable fishing ensures fish populations remain healthy for future generations.';
     }
 
-    if (lowerInput.includes('temperature') || lowerInput.includes('salinity') || lowerInput.includes('ocean')) {
-      return 'Our platform tracks key oceanographic parameters including temperature, salinity, pH, oxygen levels, and depth measurements across different marine regions. You can explore this data in the Visualizations section.';
+    // Marine pollution
+    if (lowerInput.includes('pollution') || lowerInput.includes('plastic') || lowerInput.includes('waste')) {
+      return 'Marine pollution is a serious threat to ocean health:\n\n• Avoid dumping plastic and waste in the ocean\n• Properly dispose of fishing nets and gear\n• Participate in beach cleanup drives\n• Report oil spills or major pollution incidents\n• Use biodegradable materials when possible\n\nHealthy oceans mean healthy fish populations and better livelihoods for fishing communities.';
     }
 
-    if (lowerInput.includes('help') || lowerInput.includes('how')) {
-      return 'I can help you with:\n• Fish species identification\n• Dataset analysis and visualization\n• Oceanographic data interpretation\n• Platform navigation\n• Marine research insights\n\nWhat would you like to know more about?';
+    // Aquaculture
+    if (lowerInput.includes('aquaculture') || lowerInput.includes('fish farm') || lowerInput.includes('culture')) {
+      return 'Aquaculture (fish farming) is growing in India:\n\n• Common species: Shrimp, Tilapia, Catfish, Carp\n• Requires proper water quality management\n• Follow MPEDA and state fisheries guidelines\n• Ensure disease prevention and biosecurity\n• Consider environmental impact\n\nContact your local fisheries department for aquaculture licensing and training programs.';
     }
 
-    if (lowerInput.includes('feature') || lowerInput.includes('capability')) {
-      return 'AquaMind offers several key features:\n• AI-powered fish species identification\n• Interactive data visualizations\n• Dataset analytics with automated statistics\n• Oceanographic parameter tracking\n• Biodiversity assessment tools\n\nVisit the Features page to learn more!';
+    // Seafood quality and safety
+    if (lowerInput.includes('quality') || lowerInput.includes('fresh') || lowerInput.includes('safe') || lowerInput.includes('eat')) {
+      return 'Fresh seafood quality indicators:\n\n✓ FRESH: Clear eyes, firm flesh, mild ocean smell, bright red gills\n✗ SPOILED: Cloudy eyes, soft flesh, strong fishy odor, brown gills\n\nSafety tips:\n• Buy from licensed vendors\n• Store fish on ice or refrigerate immediately\n• Cook thoroughly to kill bacteria\n• Avoid fish from polluted waters\n\nWhen in doubt, don\'t consume!';
     }
 
-    return 'Thank you for your question! I\'m here to help with marine data analysis, species identification, and platform navigation. Could you please provide more details about what you\'d like to know?';
+    // Platform features
+    if (lowerInput.includes('platform') || lowerInput.includes('feature') || lowerInput.includes('how to use')) {
+      return 'AquaMind Platform features:\n\n• Fish ID: Upload fish images for AI identification\n• Visualizations: Explore marine biodiversity and fisheries data\n• Analytics: Analyze oceanographic datasets\n• Real-time data: Access current ocean conditions\n\nNavigate using the menu at the top. Need help with a specific feature?';
+    }
+
+    // General help
+    if (lowerInput.includes('help')) {
+      return 'I\'m here to help with:\n\n• Marine ecosystems and fish species\n• Fishing regulations and seasonal bans\n• Sustainable fishing practices\n• Marine pollution and safety\n• Aquaculture and fish farming\n• Seafood quality and freshness\n• Platform navigation\n\nWhat specific information do you need? You can also specify your location or region for more relevant information.';
+    }
+
+    // Default response
+    return 'Thank you for your question! I specialize in marine and fishery topics including:\n\n• Fish species identification\n• Fishing regulations and bans\n• Sustainable fishing practices\n• Marine conservation\n• Seafood quality and safety\n\nCould you please provide more details? If you need location-specific information, please mention your region or state.';
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
@@ -168,7 +210,7 @@ export function ChatBot() {
               <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                 <Bot className="h-5 w-5 text-primary" />
               </div>
-              <CardTitle className="text-lg">AquaMind Assistant</CardTitle>
+              <CardTitle className="text-lg">Marine & Fishery Assistant</CardTitle>
             </div>
             <Button
               variant="ghost"
@@ -234,7 +276,7 @@ export function ChatBot() {
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 onKeyPress={handleKeyPress}
-                placeholder="Ask about marine data..."
+                placeholder="Ask about fishing, species, regulations..."
                 disabled={isLoading}
                 className="flex-1"
               />

@@ -1,7 +1,7 @@
-# AquaMind Chatbot API Configuration
+# Marine & Fishery Assistant API Configuration
 
 ## Overview
-The AquaMind Assistant chatbot uses OpenAI's GPT-3.5-turbo model to provide intelligent, context-aware responses about marine data analysis, fish species identification, oceanographic insights, and platform navigation.
+The Marine & Fishery Assistant is an AI-powered chatbot that helps users with information related to marine ecosystems, fish species identification, fisheries and fishing practices, seasonal fishing bans, fishery regulations and sustainability, marine pollution and safety, and aquaculture and seafood quality. It uses OpenAI's GPT-3.5-turbo model with a specialized system prompt focused on Indian marine and fisheries context.
 
 ## Setup Instructions
 
@@ -28,22 +28,65 @@ npm run dev
 
 ## Features
 
-### Real-Time API Integration
-- Uses OpenAI GPT-3.5-turbo for natural language understanding
-- Context-aware responses based on conversation history
-- Marine science and platform-specific knowledge
+### Marine & Fishery Expertise
+- **Marine Ecosystems**: Information about ocean habitats and biodiversity
+- **Fish Species Identification**: Help identifying fish species with descriptions
+- **Fishing Practices**: Guidance on sustainable fishing methods
+- **Seasonal Bans**: Information about fishing ban periods in India
+- **Regulations**: Fishery laws and compliance requirements
+- **Marine Pollution**: Safety and environmental protection advice
+- **Aquaculture**: Fish farming and seafood quality guidance
+
+### Indian Marine Context
+- Focuses on Indian coastal regions (West Coast and East Coast)
+- Seasonal fishing ban information (April-May/June)
+- Common Indian marine species (Pomfret, Mackerel, Sardines, etc.)
+- MPEDA and state fisheries guidelines
+- Local fisheries authority references
+
+### Response Format
+- Uses simple, clear, non-technical language
+- Indicates status: **ALLOWED** / **RESTRICTED** / **BANNED**
+- Provides brief explanations and reasons
+- Promotes sustainable fishing and conservation
+- Honest about uncertainty with suggestions to contact authorities
 
 ### Fallback System
-- If API fails or key is not configured, falls back to local marine-themed responses
+- If API fails or key is not configured, falls back to local responses
+- Covers key topics: fishing bans, species identification, sustainability, pollution, aquaculture, seafood quality
 - Ensures chatbot always provides helpful information
 
-### System Prompt
+## System Prompt
+
 The chatbot is configured with a specialized system prompt:
+
 ```
-You are AquaMind Assistant, an AI helper for a marine data platform. 
-You help users with marine data analysis, fish species identification, 
-oceanographic insights, and platform navigation. Provide concise, helpful 
-answers focused on marine science and the platform features.
+You are an AI Marine & Fishery Assistant.
+
+Your role is to help users with information related to:
+- Marine ecosystems
+- Fish species identification
+- Fisheries and fishing practices
+- Seasonal fishing bans
+- Fishery regulations and sustainability
+- Marine pollution and safety
+- Aquaculture and seafood quality
+
+Guidelines:
+- Use simple, clear, and non-technical language.
+- Prefer Indian marine and fisheries context unless the user specifies another region.
+- Clearly indicate status when relevant: ALLOWED / RESTRICTED / BANNED.
+- Explain reasons briefly and responsibly.
+- Promote sustainable fishing and marine conservation.
+- If information is uncertain, say so honestly and suggest contacting local fisheries authorities.
+- Avoid giving illegal, harmful, or unsafe advice.
+- Ask follow-up questions only when necessary (e.g., location, fish name, season).
+
+Tone:
+- Friendly, respectful, and educational.
+- Suitable for fishermen, students, vendors, and general users.
+
+Keep responses concise (under 200 words) and actionable.
 ```
 
 ## API Configuration Details
