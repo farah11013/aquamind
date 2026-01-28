@@ -156,35 +156,28 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Build Simplified AquaMind Platform
+# Task: Simplify AquaMind Analytics Dashboard
 
 ## Plan
-- [x] Step 1: Simplify Navigation Structure
-  - [x] Update routes to Home | About | Features | Analytics
-  - [x] Update Header navigation
-  - [x] Update Footer links
-  - [x] Update RouteGuard with new public routes
-- [x] Step 2: Consolidate Pages
-  - [x] Remove separate Live Data, AI Insights, Alerts, Fish ID pages
-  - [x] Integrate all functionality into Analytics page with tabs
-  - [x] Update HomePage links and CTAs
-- [x] Step 3: Enhance Analytics Page
-  - [x] Add Live Data tab with real-time oceanographic parameters
-  - [x] Add AI Insights tab with predictive analytics
-  - [x] Add Alerts tab with smart notifications
-  - [x] Keep Dataset Analytics tab for data upload and analysis
-- [x] Step 4: Final Testing and Validation
-  - [x] Run lint and fix all issues
-  - [x] Delete unused page files
-  - [x] Verify all navigation works correctly
+- [x] Step 1: Remove Live Data, AI Insights, and Alerts Tabs
+  - [x] Remove tab navigation from Analytics page
+  - [x] Remove live data state and useEffect
+  - [x] Remove imports for marine data service
+  - [x] Remove unused icon imports
+- [x] Step 2: Simplify Analytics Page
+  - [x] Change title from "Analytics Dashboard" to "Dataset Analytics"
+  - [x] Update description to focus on dataset upload and analysis
+  - [x] Keep only dataset upload and visualization functionality
+- [x] Step 3: Final Testing
+  - [x] Run lint and verify no errors
+  - [x] Confirm page structure is clean and functional
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
-- Simplified navigation: Home | About | Features | Analytics
-- All advanced features consolidated into Analytics dashboard with 4 tabs
-- Target users: Researchers, Fishermen, Conservationists, Government
-- Focus: Real-world impact, AI explainability, sustainability, innovation
-- Clean, production-ready codebase with no unused files
+- Navigation: Home | About | Features | Analytics
+- Analytics page now focuses solely on dataset upload and analysis
+- Removed Live Data, AI Insights, and Alerts tabs as requested
+- Clean, streamlined interface for data analytics
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies
