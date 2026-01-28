@@ -14,7 +14,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ## 2. Core Functional Requirements
 
 ### 2.1 Navigation Structure
-- Navigation Bar: Home | Features | Live Data | AI Insights | Fish ID | Alerts | About
+- Navigation Bar: Home | About | Features | Analytics
 - Modern, clean UI with dark ocean-themed design
 - Intuitive navigation accessible across all pages
 - Responsive design for mobile and desktop devices
@@ -30,9 +30,19 @@ To deliver a production-ready, responsive web application that empowers stakehol
   - Accessing AI tools
   - Getting started with the platform
 
-### 2.3 Features Page
+### 2.3 About Page
 
-#### 2.3.1 Platform Capabilities Overview
+#### 2.3.1 Platform Information
+- Problem statement explanation
+- Solution overview
+- AI architecture description
+- Data sources documentation
+- Sustainability impact (SDGs alignment)
+- Hackathon vision and real-world deployment potential
+
+### 2.4 Features Page
+
+#### 2.4.1 Platform Capabilities Overview
 - Real-time data ingestion
 - AI analytics
 - Fish species identification
@@ -41,78 +51,22 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Smart alerts system
 - Detailed description of each capability with visual elements
 
-### 2.4 Live Data Page
+### 2.5 Analytics Page
 
-#### 2.4.1 Dynamic Dashboard
-- Real-time and simulated marine data display:
-  - Water temperature
-  - Salinity levels
-  - pH levels
-  - Oxygen levels
-  - Fish movement patterns
-  - Sensor status
-- Interactive maps showing geographic data distribution
-- Dynamic charts and graphs for temporal data visualization
-- Data refresh indicators
+#### 2.5.1 Advanced Data Analytics
+- Filters for data customization
+- Time-series analysis tools
+- Heatmaps for geographic data visualization
+- Trend graphs for temporal patterns
+- Downloadable reports functionality
+- Comparative views for:
+  - Different regions
+  - Different time periods
 
-### 2.5 AI Insights Module
-
-#### 2.5.1 Intelligent Analysis
-- Analysis of live and historical marine data
-- Predictive insights generation
-- Anomaly detection algorithms
-- Sustainability warnings
-- Population trend analysis
-- Actionable recommendations in human-readable language
-
-#### 2.5.2 AI Explainability
-- Clear explanation of AI predictions and recommendations
-- Confidence scores for predictions
-- Data sources and methodology transparency
-
-### 2.6 Fish ID Module
-
-#### 2.6.1 Image Upload and Camera Integration
-- AI-powered image upload functionality
-- Camera module for real-time fish capture
-- Computer vision-based species identification
-
-#### 2.6.2 Species Information Display
-- Species details:
-  - Scientific name and common name
-  - Conservation status
-  - Habitat information
-  - Physical characteristics
-  - Distribution range
-- Confidence scores for identification accuracy
-- Alternative species suggestions if confidence is below threshold
-
-### 2.7 Alerts System
-
-#### 2.7.1 Real-Time Alert Functionality
-- Critical event notifications for:
-  - Environmental anomalies
-  - Endangered species detection
-  - Pollution risks
-  - Overfishing threats
-- Dashboard notification display
-- Simulated email/SMS alert system
-
-#### 2.7.2 Alert Management
-- Customizable alert thresholds
-- Alert history and tracking
-- Priority-based alert categorization
-- Alert acknowledgment and resolution tracking
-
-### 2.8 About Page
-
-#### 2.8.1 Platform Information
-- Problem statement explanation
-- Solution overview
-- AI architecture description
-- Data sources documentation
-- Sustainability impact (SDGs alignment)
-- Hackathon vision and real-world deployment potential
+#### 2.5.2 Data Visualization Components
+- Interactive charts and graphs
+- Dynamic data refresh indicators
+- Multi-dimensional data exploration tools
 
 ## 3. Technical Requirements
 

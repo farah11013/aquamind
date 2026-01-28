@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Upload, FileSpreadsheet, BarChart3, PieChart, TrendingUp, AlertCircle, Download, Table as TableIcon } from 'lucide-react';
+import { Upload, FileSpreadsheet, BarChart3, PieChart, TrendingUp, AlertCircle, Download, Table as TableIcon, Activity, Brain, Bell, Thermometer, Droplets, Gauge, Wind } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, PieChart as RechartsPieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { generateMarineData, getSensorStatuses, getAIInsights, getMarineAlerts, getRealTimeStats, type MarineDataPoint } from '@/services/marineDataService';
 
 interface DatasetStats {
   rowCount: number;
@@ -45,6 +46,23 @@ export default function DatasetAnalyticsPage() {
   const [parsing, setParsing] = useState(false);
   const [parsedData, setParsedData] = useState<ParsedData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
+  // Live data state
+  const [marineData, setMarineData] = useState<MarineDataPoint>(generateMarineData());
+  const [stats, setStats] = useState(getRealTimeStats());
+  const sensors = getSensorStatuses();
+  const aiInsights = getAIInsights();
+  const alerts = getMarineAlerts();
+
+  // Update live data periodically
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setMarineData(generateMarineData());
+      setStats(getRealTimeStats());
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   // Professional sample marine dataset
   const loadSampleDataset = () => {
@@ -320,15 +338,260 @@ export default function DatasetAnalyticsPage() {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">
-            <span className="gradient-text">Dataset Analytics</span>
+            <span className="gradient-text">Analytics Dashboard</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Upload your marine dataset and get instant analytics with automated visualizations
+            Comprehensive marine data analytics, real-time monitoring, AI insights, and smart alerts
           </p>
         </div>
 
+        {/* Main Analytics Tabs */}
+        <Tabs defaultValue="live-data" className="w-full">
+          <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsTrigger value="live-data">Live Data</TabsTrigger>
+            <TabsTrigger value="ai-insights">AI Insights</TabsTrigger>
+            <TabsTrigger value="alerts">Alerts</TabsTrigger>
+            <TabsTrigger value="dataset">Dataset Analytics</TabsTrigger>
+          </TabsList>
+
+          {/* Live Data Tab */}
+          <TabsContent value="live-data" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium">Temperature</CardTitle>
+                    <Thermometer className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{marineData.temperature.toFixed(1)}°C</div>
+                  <p className="text-xs text-muted-foreground mt-1">{marineData.location.name}</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium">Salinity</CardTitle>
+                    <Droplets className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{marineData.salinity.toFixed(1)} PSU</div>
+                  <p className="text-xs text-muted-foreground mt-1">Practical Salinity Units</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium">pH Level</CardTitle>
+                    <Gauge className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{marineData.ph.toFixed(2)}</div>
+                  <p className="text-xs text-muted-foreground mt-1">{marineData.ph > 8.0 ? 'Alkaline' : 'Normal'}</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="text-sm font-medium">Dissolved Oxygen</CardTitle>
+                    <Wind className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{marineData.oxygen.toFixed(1)} mg/L</div>
+                  <p className="text-xs text-muted-foreground mt-1">{marineData.oxygen > 6 ? 'Healthy' : 'Low'}</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card>
+              <CardHeader>
+                <div className="flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  <CardTitle>Sensor Network Status</CardTitle>
+                </div>
+                <CardDescription>Real-time monitoring of deployed marine sensors</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3">
+                  {sensors.slice(0, 3).map((sensor) => (
+                    <div key={sensor.id} className="flex items-center justify-between p-3 rounded-lg border border-border">
+                      <div className="flex items-center gap-3">
+                        <div className={`h-2 w-2 rounded-full ${sensor.status === 'active' ? 'bg-green-500' : sensor.status === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`} />
+                        <div>
+                          <div className="font-medium text-sm">{sensor.name}</div>
+                          <div className="text-xs text-muted-foreground">{sensor.location}</div>
+                        </div>
+                      </div>
+                      <Badge variant="outline" className="text-xs">
+                        Battery: {sensor.battery}%
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          {/* AI Insights Tab */}
+          <TabsContent value="ai-insights" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Total Insights</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{aiInsights.length}</div>
+                  <p className="text-xs text-muted-foreground mt-1">Generated today</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">High Impact</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-red-500">
+                    {aiInsights.filter((i) => i.impact === 'high').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Require attention</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Avg Confidence</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {(aiInsights.reduce((acc, i) => acc + i.confidence, 0) / aiInsights.length * 100).toFixed(0)}%
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">AI accuracy</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Anomalies</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">
+                    {aiInsights.filter((i) => i.category === 'anomaly').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Detected</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="space-y-4">
+              {aiInsights.slice(0, 3).map((insight) => (
+                <Card key={insight.id} className="border-border">
+                  <CardHeader>
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex items-start gap-3 flex-1">
+                        <Brain className="h-5 w-5 text-primary mt-1" />
+                        <div className="flex-1">
+                          <CardTitle className="text-lg mb-2">{insight.title}</CardTitle>
+                          <div className="flex items-center gap-2 mb-2">
+                            <Badge variant="outline">{insight.category}</Badge>
+                            <Badge variant="outline">{insight.impact} impact</Badge>
+                            <Badge variant="outline">{(insight.confidence * 100).toFixed(0)}% confidence</Badge>
+                          </div>
+                          <CardDescription className="text-sm">{insight.description}</CardDescription>
+                        </div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Alerts Tab */}
+          <TabsContent value="alerts" className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Active Alerts</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">{alerts.filter((a) => a.status === 'active').length}</div>
+                  <p className="text-xs text-muted-foreground mt-1">Require attention</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Critical</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-red-500">
+                    {alerts.filter((a) => a.severity === 'critical' && a.status === 'active').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Immediate action</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">High Priority</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-orange-500">
+                    {alerts.filter((a) => a.severity === 'high' && a.status === 'active').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Monitor closely</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm font-medium">Resolved</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold text-green-500">
+                    {alerts.filter((a) => a.status === 'resolved').length}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1">Last 24 hours</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="space-y-4">
+              {alerts.filter((a) => a.status === 'active').slice(0, 3).map((alert) => (
+                <Card key={alert.id} className="border-border">
+                  <CardContent className="pt-6">
+                    <div className="flex items-start gap-4">
+                      <Bell className={`h-5 w-5 mt-1 ${alert.severity === 'critical' ? 'text-red-500' : alert.severity === 'high' ? 'text-orange-500' : 'text-yellow-500'}`} />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          <h3 className="font-semibold">{alert.title}</h3>
+                          <Badge variant="outline" className={alert.severity === 'critical' ? 'border-red-500 text-red-500' : alert.severity === 'high' ? 'border-orange-500 text-orange-500' : ''}>
+                            {alert.severity}
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-2">{alert.description}</p>
+                        <div className="text-xs text-muted-foreground">
+                          Location: {alert.location}
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Dataset Analytics Tab */}
+          <TabsContent value="dataset" className="space-y-6">
         {/* Upload Section */}
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileSpreadsheet className="h-5 w-5" />
@@ -738,6 +1001,8 @@ export default function DatasetAnalyticsPage() {
             </Tabs>
           </div>
         )}
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

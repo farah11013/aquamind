@@ -156,37 +156,35 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Build Production-Ready AquaMind Platform
+# Task: Build Simplified AquaMind Platform
 
 ## Plan
-- [x] Step 29: Project Setup and Planning
-  - [x] Analyze current state and requirements
-  - [x] Update routes with new pages
-  - [x] Create mock data services
-- [x] Step 30: Create New Core Pages
-  - [x] LiveDataPage - Real-time marine data dashboard
-  - [x] AIInsightsPage - Predictive analytics and insights
-  - [x] AlertsPage - Real-time alert system
-- [x] Step 31: Build Reusable Components
-  - [x] Mock data services with comprehensive marine data
-- [x] Step 32: Enhance Existing Pages
-  - [x] HomePage - Add real-time stats and animations
-  - [x] FeaturesPage - Enhance with detailed capabilities
-  - [x] AboutPage - Add problem statement, SDGs, architecture
-- [x] Step 33: Update Navigation and Layout
-  - [x] Update routes with new navigation structure
+- [x] Step 1: Simplify Navigation Structure
+  - [x] Update routes to Home | About | Features | Analytics
+  - [x] Update Header navigation
+  - [x] Update Footer links
   - [x] Update RouteGuard with new public routes
-- [x] Step 34: Final Testing and Validation
+- [x] Step 2: Consolidate Pages
+  - [x] Remove separate Live Data, AI Insights, Alerts, Fish ID pages
+  - [x] Integrate all functionality into Analytics page with tabs
+  - [x] Update HomePage links and CTAs
+- [x] Step 3: Enhance Analytics Page
+  - [x] Add Live Data tab with real-time oceanographic parameters
+  - [x] Add AI Insights tab with predictive analytics
+  - [x] Add Alerts tab with smart notifications
+  - [x] Keep Dataset Analytics tab for data upload and analysis
+- [x] Step 4: Final Testing and Validation
   - [x] Run lint and fix all issues
-  - [x] All pages functional and responsive
+  - [x] Delete unused page files
+  - [x] Verify all navigation works correctly
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
-- Design reference: "Samudra Setu" with deep ocean blue theme
-- Navigation: Home | Features | Live Data | AI Insights | Fish ID | Analytics | Alerts | About
+- Simplified navigation: Home | About | Features | Analytics
+- All advanced features consolidated into Analytics dashboard with 4 tabs
 - Target users: Researchers, Fishermen, Conservationists, Government
 - Focus: Real-world impact, AI explainability, sustainability, innovation
-- Visualizations page removed as requested
+- Clean, production-ready codebase with no unused files
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

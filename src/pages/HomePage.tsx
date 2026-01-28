@@ -31,14 +31,14 @@ export default function HomePage() {
               Empowering researchers, fisheries, conservationists, and policymakers with real-time marine data, AI insights, and predictive analytics for sustainable ocean management.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/live-data">
+              <Link to="/analytics">
                 <Button size="lg" className="w-full sm:w-auto">
-                  Explore Live Data <ArrowRight className="ml-2 h-4 w-4" />
+                  Explore Analytics <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <Link to="/ai-insights">
+              <Link to="/features">
                 <Button size="lg" variant="outline" className="w-full sm:w-auto">
-                  View AI Insights
+                  View Features
                 </Button>
               </Link>
             </div>
@@ -125,7 +125,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-            <Link to="/live-data">
+            <Link to="/analytics">
               <Card className="border-border hover:shadow-hover transition-shadow h-full">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -139,7 +139,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/ai-insights">
+            <Link to="/analytics">
               <Card className="border-border hover:shadow-hover transition-shadow h-full">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -153,7 +153,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/fish-identification">
+            <Link to="/features">
               <Card className="border-border hover:shadow-hover transition-shadow h-full">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -167,7 +167,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/dataset-analytics">
+            <Link to="/analytics">
               <Card className="border-border hover:shadow-hover transition-shadow h-full">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -181,7 +181,7 @@ export default function HomePage() {
               </Card>
             </Link>
 
-            <Link to="/alerts">
+            <Link to="/analytics">
               <Card className="border-border hover:shadow-hover transition-shadow h-full">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
@@ -251,9 +251,9 @@ export default function HomePage() {
                   Join researchers, fishermen, conservationists, and policymakers in making data-driven decisions for sustainable marine ecosystems
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/live-data">
+                  <Link to="/analytics">
                     <Button size="lg" variant="secondary" className="w-full sm:w-auto">
-                      View Live Data
+                      View Analytics
                     </Button>
                   </Link>
                   <Link to="/about">

@@ -1,11 +1,7 @@
 import HomePage from './pages/HomePage';
-import FeaturesPage from './pages/FeaturesPage';
-import LiveDataPage from './pages/LiveDataPage';
-import AIInsightsPage from './pages/AIInsightsPage';
-import FishIdentificationPage from './pages/FishIdentificationPage';
-import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
-import AlertsPage from './pages/AlertsPage';
 import AboutPage from './pages/AboutPage';
+import FeaturesPage from './pages/FeaturesPage';
+import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
@@ -25,39 +21,19 @@ const routes: RouteConfig[] = [
     element: <HomePage />,
   },
   {
+    name: 'About',
+    path: '/about',
+    element: <AboutPage />,
+  },
+  {
     name: 'Features',
     path: '/features',
     element: <FeaturesPage />,
   },
   {
-    name: 'Live Data',
-    path: '/live-data',
-    element: <LiveDataPage />,
-  },
-  {
-    name: 'AI Insights',
-    path: '/ai-insights',
-    element: <AIInsightsPage />,
-  },
-  {
-    name: 'Fish ID',
-    path: '/fish-identification',
-    element: <FishIdentificationPage />,
-  },
-  {
     name: 'Analytics',
-    path: '/dataset-analytics',
+    path: '/analytics',
     element: <DatasetAnalyticsPage />,
-  },
-  {
-    name: 'Alerts',
-    path: '/alerts',
-    element: <AlertsPage />,
-  },
-  {
-    name: 'About',
-    path: '/about',
-    element: <AboutPage />,
   },
   {
     name: 'Login',
