@@ -1,8 +1,10 @@
 import HomePage from './pages/HomePage';
 import FeaturesPage from './pages/FeaturesPage';
-import VisualizationsPage from './pages/VisualizationsPage';
+import LiveDataPage from './pages/LiveDataPage';
+import AIInsightsPage from './pages/AIInsightsPage';
 import FishIdentificationPage from './pages/FishIdentificationPage';
 import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
+import AlertsPage from './pages/AlertsPage';
 import AboutPage from './pages/AboutPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -28,9 +30,14 @@ const routes: RouteConfig[] = [
     element: <FeaturesPage />,
   },
   {
-    name: 'Visualizations',
-    path: '/visualizations',
-    element: <VisualizationsPage />,
+    name: 'Live Data',
+    path: '/live-data',
+    element: <LiveDataPage />,
+  },
+  {
+    name: 'AI Insights',
+    path: '/ai-insights',
+    element: <AIInsightsPage />,
   },
   {
     name: 'Fish ID',
@@ -41,6 +48,11 @@ const routes: RouteConfig[] = [
     name: 'Analytics',
     path: '/dataset-analytics',
     element: <DatasetAnalyticsPage />,
+  },
+  {
+    name: 'Alerts',
+    path: '/alerts',
+    element: <AlertsPage />,
   },
   {
     name: 'About',
