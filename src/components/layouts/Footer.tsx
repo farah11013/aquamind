@@ -20,9 +20,11 @@ export function Footer() {
             <h3 className="font-semibold mb-3">Platform</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li><Link to="/features" className="hover:text-primary transition-colors">Features</Link></li>
-              <li><Link to="/visualizations" className="hover:text-primary transition-colors">Visualizations</Link></li>
+              <li><Link to="/live-data" className="hover:text-primary transition-colors">Live Data</Link></li>
+              <li><Link to="/ai-insights" className="hover:text-primary transition-colors">AI Insights</Link></li>
               <li><Link to="/fish-identification" className="hover:text-primary transition-colors">Fish ID</Link></li>
               <li><Link to="/dataset-analytics" className="hover:text-primary transition-colors">Analytics</Link></li>
+              <li><Link to="/alerts" className="hover:text-primary transition-colors">Alerts</Link></li>
             </ul>
           </div>
           

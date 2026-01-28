@@ -14,7 +14,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ## 2. Core Functional Requirements
 
 ### 2.1 Navigation Structure
-- Navigation Bar: Home | Features | Live Data | AI Insights | Fish ID | Analytics | Alerts | About
+- Navigation Bar: Home | Features | Live Data | AI Insights | Fish ID | Alerts | About
 - Modern, clean UI with dark ocean-themed design
 - Intuitive navigation accessible across all pages
 - Responsive design for mobile and desktop devices
@@ -87,29 +87,9 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Confidence scores for identification accuracy
 - Alternative species suggestions if confidence is below threshold
 
-### 2.7 Analytics Module
+### 2.7 Alerts System
 
-#### 2.7.1 Advanced Data Analytics
-- Customizable filters for:
-  - Time periods
-  - Geographic regions
-  - Species types
-  - Environmental parameters
-- Time-series analysis tools
-- Heatmaps for multi-variable relationships
-- Trend graphs and comparative visualizations
-
-#### 2.7.2 Report Generation
-- Downloadable reports in multiple formats
-- Comparative views for:
-  - Different regions
-  - Different time periods
-  - Multiple parameters
-- Export options for data and visualizations
-
-### 2.8 Alerts System
-
-#### 2.8.1 Real-Time Alert Functionality
+#### 2.7.1 Real-Time Alert Functionality
 - Critical event notifications for:
   - Environmental anomalies
   - Endangered species detection
@@ -118,15 +98,15 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Dashboard notification display
 - Simulated email/SMS alert system
 
-#### 2.8.2 Alert Management
+#### 2.7.2 Alert Management
 - Customizable alert thresholds
 - Alert history and tracking
 - Priority-based alert categorization
 - Alert acknowledgment and resolution tracking
 
-### 2.9 About Page
+### 2.8 About Page
 
-#### 2.9.1 Platform Information
+#### 2.8.1 Platform Information
 - Problem statement explanation
 - Solution overview
 - AI architecture description

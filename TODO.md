@@ -186,6 +186,7 @@
 - Navigation: Home | Features | Live Data | AI Insights | Fish ID | Analytics | Alerts | About
 - Target users: Researchers, Fishermen, Conservationists, Government
 - Focus: Real-world impact, AI explainability, sustainability, innovation
+- Visualizations page removed as requested
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

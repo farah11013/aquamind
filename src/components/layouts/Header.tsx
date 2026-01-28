@@ -16,9 +16,11 @@ import { Menu } from 'lucide-react';
 const navigation = [
   { name: 'Home', path: '/' },
   { name: 'Features', path: '/features' },
-  { name: 'Visualizations', path: '/visualizations' },
+  { name: 'Live Data', path: '/live-data' },
+  { name: 'AI Insights', path: '/ai-insights' },
   { name: 'Fish ID', path: '/fish-identification' },
   { name: 'Analytics', path: '/dataset-analytics' },
+  { name: 'Alerts', path: '/alerts' },
   { name: 'About', path: '/about' },
 ];
 

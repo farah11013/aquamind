@@ -170,7 +170,7 @@ Keep responses concise (under 200 words) and actionable.`,
 
     // Platform features
     if (lowerInput.includes('platform') || lowerInput.includes('feature') || lowerInput.includes('how to use')) {
-      return 'AquaMind Platform features:\n\n• Fish ID: Upload fish images for AI identification\n• Visualizations: Explore marine biodiversity and fisheries data\n• Analytics: Analyze oceanographic datasets\n• Real-time data: Access current ocean conditions\n\nNavigate using the menu at the top. Need help with a specific feature?';
+      return 'AquaMind Platform features:\n\n• Live Data: Real-time oceanographic parameters and sensor monitoring\n• AI Insights: Predictive analytics and sustainability warnings\n• Fish ID: Upload fish images for AI identification\n• Analytics: Analyze oceanographic datasets\n• Alerts: Environmental anomalies and critical event notifications\n\nNavigate using the menu at the top. Need help with a specific feature?';
     }
 
     // General help
