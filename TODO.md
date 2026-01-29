@@ -156,45 +156,69 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Enable One-by-One Dataset Upload with Optional Combining
+# Task: Create Growth & Loss Analysis Dashboard with Universal Dataset Support
 
 ## Plan
-- [x] Step 1: Remove Minimum 2 Dataset Requirement
-  - [x] Allow single dataset upload and analysis
-  - [x] Remove "minimum 2 datasets" validation
-  - [x] Update error messages
-- [x] Step 2: Update Upload Flow
-  - [x] First dataset shows analysis immediately
-  - [x] "+" button appears to add more datasets optionally
-  - [x] Each new dataset updates combined analysis
-- [x] Step 3: Update UI Text
-  - [x] Change title to "Upload Time-Series Dataset" (singular)
-  - [x] Update description to emphasize one-by-one upload
-  - [x] Change "Datasets" label to show singular/plural dynamically
-- [x] Step 4: Update AI Insights
-  - [x] Handle single dataset case ("dataset" vs "X combined datasets")
-  - [x] Update all insight descriptions for both cases
-  - [x] Update statistical summary description
-- [x] Step 5: Update Export Functionality
-  - [x] Export filename shows "combined" only when multiple datasets
-  - [x] Single dataset exports without "combined" prefix
-- [x] Step 6: Final Testing
+- [x] Step 1: Remove All Dataset Restrictions
+  - [x] Remove 4-year minimum requirement
+  - [x] Remove mandatory Year column requirement
+  - [x] Accept any dataset type with numeric columns
+  - [x] Make time column optional (auto-detect or use row index)
+- [x] Step 2: Implement 6 Growth/Loss Visualizations
+  - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
+  - [x] Area Chart - Cumulative impact (total accumulation)
+  - [x] Bar Chart - Period/region comparison (side-by-side)
+  - [x] Slope Chart - Before vs after (rate of change) [NEW]
+  - [x] Heatmap - Spatial/temporal patterns (hotspot detection) [NEW]
+  - [x] Box Plot - Distribution analysis (median shifts, variability)
+- [x] Step 3: Create Slope Chart Component
+  - [x] Compare first half vs second half of data
+  - [x] Show before/after values with change percentage
+  - [x] Visual indicators (TrendingUp/Down icons)
+  - [x] Color-coded: green for decrease, red for increase
+- [x] Step 4: Create Heatmap Component
+  - [x] Grid-based color intensity visualization
+  - [x] Normalize values for color mapping
+  - [x] Show spatial/temporal patterns
+  - [x] Tooltip with exact values
+- [x] Step 5: Implement Growth/Loss Insight System
+  - [x] All insights focus on growth, loss, recovery, degradation
+  - [x] Severity levels: high, medium, low
+  - [x] Priority badges for decision-making
+  - [x] Context-aware descriptions
+- [x] Step 6: Add Decision-Focused Features
+  - [x] Threshold reference lines on charts
+  - [x] Color-coded severity indicators
+  - [x] Priority badges (High/Medium/Low)
+  - [x] Actionable insight descriptions
+- [x] Step 7: Update UI for Universal Datasets
+  - [x] Change title to "Growth & Loss Analysis Dashboard"
+  - [x] Remove time-series specific requirements
+  - [x] Update descriptions to "any dataset type"
+  - [x] Auto-detect numeric columns
+- [x] Step 8: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm single dataset upload works
-  - [x] Confirm multiple dataset combining works
+  - [x] Confirm all 6 charts work correctly
+  - [x] Verify insights are growth/loss focused
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
-- Navigation: Home | About | Features | Analytics
-- One-by-one dataset upload implemented
-- No minimum dataset requirement - works with 1+ datasets
-- First upload shows immediate analysis
-- "+" button to optionally add more datasets
-- Combined analysis updates automatically when datasets added
-- AI insights adapt to single vs multiple datasets
-- Export filename: "marine_analytics_YYYY-YYYY.csv" (single) or "marine_analytics_combined_YYYY-YYYY.csv" (multiple)
-- Clean, intuitive sequential upload experience
-- Production-ready for flexible marine research workflows
+- Dashboard: Growth & Loss Analysis Dashboard
+- **Universal Dataset Support**: Accepts ANY CSV/Excel file with numeric columns
+- **No Restrictions**: No year requirement, no time-series requirement, no minimum data span
+- **6 Specialized Charts**:
+  1. Line Chart - Identify trends, spikes, drops
+  2. Area Chart - Show cumulative magnitude
+  3. Bar Chart - Compare periods/regions
+  4. Slope Chart - Before/after comparison (NEW)
+  5. Heatmap - Spatial patterns and hotspots (NEW)
+  6. Box Plot - Distribution and variability
+- **Growth/Loss Focus**: All insights explain growth, recovery, degradation, or loss
+- **Decision-Focused**: Threshold indicators, severity levels, priority badges
+- **AI-Driven Insights**: Context-aware analysis with actionable recommendations
+- **Flexible Analysis**: Works with marine data, environmental data, or any numeric dataset
+- Sample dataset: 6 years of marine environmental data (2019-2024)
+- Production-ready for comprehensive growth and loss pattern detection
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

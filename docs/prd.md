@@ -49,12 +49,12 @@ To deliver a production-ready, responsive web application that empowers stakehol
 
 #### 2.5.1 Data Upload and Processing
 - Support for uploading multiple datasets one by one as required
-- Support for separate Excel sheets (CSV/XLS/XLSX format)
+- Support for any type of datasets in CSV/XLS/XLSX format
 - Ability to upload additional datasets using + icon
 - Automatic detection of year and time columns across all uploaded datasets
-- Data validation for minimum 4 years of time-series data per dataset
+- Data validation and processing capabilities
 - Automatic dataset combination and merging for unified analysis
-- Supported marine parameters:
+- Support for diverse marine and environmental parameters including but not limited to:
   - Sea surface temperature
   - Salinity
   - Chlorophyll
@@ -64,23 +64,49 @@ To deliver a production-ready, responsive web application that empowers stakehol
   - Depth
   - Location
   - Date
+  - Pollution levels
+  - Plastic accumulation
+  - Plankton biomass
+  - Carbon absorption
+  - Coral cover
+  - Species count
+  - Catch volume
+  - Nutrient levels
 
-#### 2.5.2 Interactive Data Visualizations
-- Pie charts for distribution analysis
-- Scatter plots for parameter relationships
-- Bar graphs for year-wise comparison
-- Histograms for frequency distribution
-- Line graphs for multi-year trends
-- Area graphs for cumulative and seasonal variation
-- Box plots for year-wise variability and outlier detection
-- Combined visualizations integrating data from all uploaded datasets for comprehensive analysis
+#### 2.5.2 Growth and Loss Analysis Dashboard
+
+Interactive dashboard prioritizing visual clarity for identifying increase, decrease, and decline patterns through six core visualization types:
+
+**Line Chart**
+- Display time-series data such as sea surface temperature, fish population, dissolved oxygen, or pollution levels
+- Purpose: Instantly identify long-term growth or decline trends, seasonal variation, and sudden drops or spikes in marine conditions
+
+**Area Chart**
+- Visualize cumulative indicators such as plastic accumulation, plankton biomass, or carbon absorption over time
+- Purpose: Emphasize magnitude of growth or loss by highlighting total environmental impact rather than just directional change
+
+**Bar Chart**
+- Year-wise or region-wise comparison of marine indicators like coral cover, species count, or catch volume
+- Purpose: Clear side-by-side comparison to quickly detect increase or decrease between periods or locations
+
+**Slope Chart**
+- Compare two key time points (before vs after conservation policy, pre- and post-monsoon, or historical vs current data)
+- Purpose: Make growth or loss direction unmistakable and highlight rate of change between two states
+
+**Heatmap**
+- Represent spatial or depth-wise variation in temperature, chlorophyll, oxygen, or pollution concentration
+- Purpose: Identify regional or depth-specific growth and loss patterns through color intensity changes and hotspot detection
+
+**Box Plot**
+- Show seasonal or regional distribution of salinity, pH, oxygen, or nutrient levels
+- Purpose: Detect shifts in medians, increased variability, and abnormal losses or instability in marine conditions
 
 #### 2.5.3 Advanced Data Analytics
 - Automated statistical summaries generation across combined datasets
 - Trend identification and highlighting
 - Seasonal pattern detection
 - Anomaly detection and highlighting
-- AI-driven insights for each chart
+- AI-driven insights for each chart explaining whether trends represent environmental growth, recovery, degradation, or loss
 - Cross-dataset correlation analysis
 - Filters for:
   - Year range selection
@@ -93,12 +119,16 @@ To deliver a production-ready, responsive web application that empowers stakehol
   - Different time periods
   - Different datasets
 
-#### 2.5.4 Data Visualization Components
-- Interactive charts and graphs
+#### 2.5.4 Interactive Dashboard Features
+- Real-time data visualization capabilities
+- Interactive tooltips providing detailed information
+- Clear legends for all visualizations
+- Threshold indicators for critical values
+- Decision-focused interface design
+- AI-generated insights explaining growth, recovery, degradation, or loss patterns
 - Dynamic data refresh indicators
 - Multi-dimensional data exploration tools
 - Clean, intuitive marine-themed dashboard
-- Real-time research and decision-making support
 - Unified visualization interface combining all uploaded datasets for easy understanding and better analysis
 
 ## 3. Technical Requirements
@@ -159,8 +189,9 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Predictive modeling for population trends
 - Anomaly detection algorithms
 - Natural language generation for insights
-- Short AI-driven insights for each visualization chart
+- AI-driven insights for each visualization chart
 - Cross-dataset pattern recognition and correlation analysis
+- AI explanations of environmental growth, recovery, degradation, or loss patterns
 
 ### 6.2 AI Explainability
 - Transparent AI decision-making processes
