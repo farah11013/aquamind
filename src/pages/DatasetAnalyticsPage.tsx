@@ -635,6 +635,7 @@ export default function DatasetAnalyticsPage() {
                             backgroundColor: 'hsl(var(--card))',
                             border: '1px solid hsl(var(--border))',
                             borderRadius: '8px',
+                            color: '#ffffff',
                           }}
                         />
                         <Legend />
@@ -678,6 +679,7 @@ export default function DatasetAnalyticsPage() {
                             backgroundColor: 'hsl(var(--card))',
                             border: '1px solid hsl(var(--border))',
                             borderRadius: '8px',
+                            color: '#ffffff',
                           }}
                         />
                         <Legend />
@@ -714,6 +716,7 @@ export default function DatasetAnalyticsPage() {
                             backgroundColor: 'hsl(var(--card))',
                             border: '1px solid hsl(var(--border))',
                             borderRadius: '8px',
+                            color: '#ffffff',
                           }}
                         />
                         <Legend />
