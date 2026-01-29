@@ -156,56 +156,45 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Enhance Marine Analytics with Multiple Dataset Upload
+# Task: Enable One-by-One Dataset Upload with Optional Combining
 
 ## Plan
-- [x] Step 1: Analyze Requirements
-  - [x] Support minimum 2 separate dataset uploads
-  - [x] Add "+" icon to upload additional datasets
-  - [x] Combine all datasets for comprehensive analysis
-  - [x] Better visualization for easy understanding
-- [x] Step 2: Rebuild Upload System
-  - [x] Change from single to multiple file upload
-  - [x] Create UploadedDataset interface
-  - [x] Add dataset array state management
-  - [x] Implement dataset list with remove functionality
-- [x] Step 3: Implement Dataset Management
-  - [x] Upload first dataset (drag & drop or click)
-  - [x] Show uploaded datasets list with badges
-  - [x] Add "+" button to upload more datasets
-  - [x] Remove individual datasets with X button
-  - [x] Clear all datasets functionality
-- [x] Step 4: Dataset Combination Logic
-  - [x] Combine multiple datasets into single array
-  - [x] Validate minimum 2 datasets requirement
-  - [x] Merge data intelligently (concatenate rows)
-  - [x] Maintain column alignment across datasets
-- [x] Step 5: Update Visualizations
-  - [x] All 7 charts now use combined dataset
-  - [x] Update AI insights to mention dataset count
-  - [x] Show "Datasets" count in filter section
-  - [x] Update statistical summary with combined data
-- [x] Step 6: Sample Data Enhancement
-  - [x] Create 2 sample datasets (Arabian Sea + Bay of Bengal)
-  - [x] Each with 120 records (5 years × 12 months × 2 stations)
-  - [x] Total 240 combined records
-- [x] Step 7: Final Testing
+- [x] Step 1: Remove Minimum 2 Dataset Requirement
+  - [x] Allow single dataset upload and analysis
+  - [x] Remove "minimum 2 datasets" validation
+  - [x] Update error messages
+- [x] Step 2: Update Upload Flow
+  - [x] First dataset shows analysis immediately
+  - [x] "+" button appears to add more datasets optionally
+  - [x] Each new dataset updates combined analysis
+- [x] Step 3: Update UI Text
+  - [x] Change title to "Upload Time-Series Dataset" (singular)
+  - [x] Update description to emphasize one-by-one upload
+  - [x] Change "Datasets" label to show singular/plural dynamically
+- [x] Step 4: Update AI Insights
+  - [x] Handle single dataset case ("dataset" vs "X combined datasets")
+  - [x] Update all insight descriptions for both cases
+  - [x] Update statistical summary description
+- [x] Step 5: Update Export Functionality
+  - [x] Export filename shows "combined" only when multiple datasets
+  - [x] Single dataset exports without "combined" prefix
+- [x] Step 6: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm all features work correctly
+  - [x] Confirm single dataset upload works
+  - [x] Confirm multiple dataset combining works
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- Multiple dataset upload system implemented
-- Minimum 2 datasets required for analysis
-- "+" button to add unlimited additional datasets
-- Each dataset shows: Badge number, filename, record count, remove button
-- Combined analysis from all uploaded datasets
-- AI insights updated to reference multiple datasets
-- Sample datasets: Arabian Sea (120 records) + Bay of Bengal (120 records)
-- Export functionality exports combined filtered data
-- Clean, intuitive UI for dataset management
-- Production-ready for comprehensive marine research
+- One-by-one dataset upload implemented
+- No minimum dataset requirement - works with 1+ datasets
+- First upload shows immediate analysis
+- "+" button to optionally add more datasets
+- Combined analysis updates automatically when datasets added
+- AI insights adapt to single vs multiple datasets
+- Export filename: "marine_analytics_YYYY-YYYY.csv" (single) or "marine_analytics_combined_YYYY-YYYY.csv" (multiple)
+- Clean, intuitive sequential upload experience
+- Production-ready for flexible marine research workflows
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

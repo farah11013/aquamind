@@ -48,7 +48,8 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ### 2.5 Analytics Page
 
 #### 2.5.1 Data Upload and Processing
-- Support for uploading separate Excel sheets (CSV/XLS/XLSX format)
+- Support for uploading multiple datasets one by one as required
+- Support for separate Excel sheets (CSV/XLS/XLSX format)
 - Ability to upload additional datasets using + icon
 - Automatic detection of year and time columns across all uploaded datasets
 - Data validation for minimum 4 years of time-series data per dataset

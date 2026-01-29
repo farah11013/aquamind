@@ -219,8 +219,8 @@ export default function DatasetAnalyticsPage() {
   };
 
   const processCombinedDatasets = (datasets: UploadedDataset[]) => {
-    if (datasets.length < 2) {
-      setError('Please upload at least 2 datasets for comprehensive analysis.');
+    if (datasets.length === 0) {
+      setError('Please upload at least one dataset.');
       setTimeSeriesData(null);
       return;
     }
@@ -246,7 +246,7 @@ export default function DatasetAnalyticsPage() {
     const yearSpan = yearRange.max - yearRange.min + 1;
 
     if (yearSpan < 4) {
-      setError(`Combined dataset must contain at least 4 years of data. Current span: ${yearSpan} years (${yearRange.min}-${yearRange.max})`);
+      setError(`Dataset must contain at least 4 years of data. Current span: ${yearSpan} years (${yearRange.min}-${yearRange.max})`);
       setTimeSeriesData(null);
       return;
     }
@@ -265,6 +265,7 @@ export default function DatasetAnalyticsPage() {
       }
     });
 
+    const datasetLabel = datasets.length === 1 ? '1 dataset' : `${datasets.length} datasets combined`;
     const timeSeriesData: TimeSeriesData = {
       data: combinedData,
       yearColumn,
@@ -274,7 +275,7 @@ export default function DatasetAnalyticsPage() {
       numericColumns,
       categoricalColumns,
       timeSeriesValid: true,
-      validationMessage: `✓ Valid combined dataset: ${datasets.length} datasets merged, ${yearSpan} years (${yearRange.min}-${yearRange.max}), ${combinedData.length} total records`,
+      validationMessage: `✓ Valid time-series: ${datasetLabel}, ${yearSpan} years (${yearRange.min}-${yearRange.max}), ${combinedData.length} total records`,
       datasetCount: datasets.length,
     };
 
@@ -358,13 +359,10 @@ export default function DatasetAnalyticsPage() {
   const removeDataset = (id: string) => {
     const updatedDatasets = uploadedDatasets.filter((d) => d.id !== id);
     setUploadedDatasets(updatedDatasets);
-    if (updatedDatasets.length >= 2) {
+    if (updatedDatasets.length >= 1) {
       processCombinedDatasets(updatedDatasets);
     } else {
       setTimeSeriesData(null);
-      if (updatedDatasets.length === 1) {
-        setError('Please upload at least 2 datasets for comprehensive analysis.');
-      }
     }
     toast({
       title: 'Dataset removed',
@@ -540,13 +538,14 @@ export default function DatasetAnalyticsPage() {
 
     const filteredData = getFilteredData();
     const yearWiseData = generateYearWiseData(parameter);
+    const datasetText = timeSeriesData.datasetCount === 1 ? 'dataset' : `${timeSeriesData.datasetCount} combined datasets`;
 
     switch (chartType) {
       case 'line':
         const trend = yearWiseData.length > 1 ? (yearWiseData[yearWiseData.length - 1].average - yearWiseData[0].average) / yearWiseData[0].average * 100 : 0;
         return {
           title: trend > 5 ? 'Increasing Trend' : trend < -5 ? 'Decreasing Trend' : 'Stable Trend',
-          description: `Combined analysis from ${timeSeriesData.datasetCount} datasets shows ${parameter} with a ${Math.abs(trend).toFixed(1)}% ${trend > 0 ? 'increase' : 'decrease'} over ${yearWiseData.length} years. ${trend > 10 ? 'Significant upward trend detected across all regions.' : trend < -10 ? 'Significant downward trend detected across all regions.' : 'Relatively stable pattern observed.'}`,
+          description: `Analysis from ${datasetText} shows ${parameter} with a ${Math.abs(trend).toFixed(1)}% ${trend > 0 ? 'increase' : 'decrease'} over ${yearWiseData.length} years. ${trend > 10 ? 'Significant upward trend detected.' : trend < -10 ? 'Significant downward trend detected.' : 'Relatively stable pattern observed.'}`,
           type: 'trend',
         };
 
@@ -555,7 +554,7 @@ export default function DatasetAnalyticsPage() {
         const minYear = yearWiseData.reduce((min, d) => (d.average < min.average ? d : min), yearWiseData[0]);
         return {
           title: 'Year-wise Variation',
-          description: `Across ${timeSeriesData.datasetCount} datasets, highest average ${parameter} recorded in ${maxYear.year} (${maxYear.average.toFixed(2)}), lowest in ${minYear.year} (${minYear.average.toFixed(2)}). Inter-annual variation of ${((maxYear.average - minYear.average) / minYear.average * 100).toFixed(1)}% observed.`,
+          description: `Across ${datasetText}, highest average ${parameter} recorded in ${maxYear.year} (${maxYear.average.toFixed(2)}), lowest in ${minYear.year} (${minYear.average.toFixed(2)}). Inter-annual variation of ${((maxYear.average - minYear.average) / minYear.average * 100).toFixed(1)}% observed.`,
           type: 'anomaly',
         };
 
@@ -566,13 +565,13 @@ export default function DatasetAnalyticsPage() {
           const minMonth = seasonalData.reduce((min, d) => (d.average < min.average ? d : min), seasonalData[0]);
           return {
             title: 'Seasonal Pattern',
-            description: `Combined seasonal analysis reveals clear variation. Peak values in ${maxMonth.month} (${maxMonth.average.toFixed(2)}), lowest in ${minMonth.month} (${minMonth.average.toFixed(2)}). Seasonal amplitude: ${((maxMonth.average - minMonth.average) / minMonth.average * 100).toFixed(1)}% across all datasets.`,
+            description: `Seasonal analysis from ${datasetText} reveals clear variation. Peak values in ${maxMonth.month} (${maxMonth.average.toFixed(2)}), lowest in ${minMonth.month} (${minMonth.average.toFixed(2)}). Seasonal amplitude: ${((maxMonth.average - minMonth.average) / minMonth.average * 100).toFixed(1)}%.`,
             type: 'seasonal',
           };
         }
         return {
           title: 'Cumulative Trend',
-          description: `Cumulative ${parameter} analysis from ${timeSeriesData.datasetCount} merged datasets shows consistent patterns with ${filteredData.length} data points.`,
+          description: `Cumulative ${parameter} analysis from ${datasetText} shows consistent patterns with ${filteredData.length} data points.`,
           type: 'trend',
         };
 
@@ -581,7 +580,7 @@ export default function DatasetAnalyticsPage() {
         const totalOutliers = boxData.reduce((sum, d) => sum + d.outliers, 0);
         return {
           title: 'Variability Analysis',
-          description: `${totalOutliers} outliers detected across ${boxData.length} years from ${timeSeriesData.datasetCount} datasets. ${totalOutliers > 10 ? 'High variability indicates significant environmental fluctuations across regions.' : 'Low variability suggests stable conditions.'} Median values range from ${Math.min(...boxData.map((d) => d.median)).toFixed(2)} to ${Math.max(...boxData.map((d) => d.median)).toFixed(2)}.`,
+          description: `${totalOutliers} outliers detected across ${boxData.length} years from ${datasetText}. ${totalOutliers > 10 ? 'High variability indicates significant environmental fluctuations.' : 'Low variability suggests stable conditions.'} Median values range from ${Math.min(...boxData.map((d) => d.median)).toFixed(2)} to ${Math.max(...boxData.map((d) => d.median)).toFixed(2)}.`,
           type: 'anomaly',
         };
 
@@ -590,7 +589,7 @@ export default function DatasetAnalyticsPage() {
         const dominant = distData.reduce((max, d) => (d.value > max.value ? d : max), distData[0]);
         return {
           title: 'Distribution Analysis',
-          description: `Combined dataset analysis: ${dominant.name} represents ${((dominant.value / filteredData.length) * 100).toFixed(1)}% of total observations. Distribution across ${distData.length} categories from ${timeSeriesData.datasetCount} sources shows ${distData.length > 5 ? 'high diversity' : 'concentrated patterns'}.`,
+          description: `Analysis from ${datasetText}: ${dominant.name} represents ${((dominant.value / filteredData.length) * 100).toFixed(1)}% of total observations. Distribution across ${distData.length} categories shows ${distData.length > 5 ? 'high diversity' : 'concentrated patterns'}.`,
           type: 'distribution',
         };
 
@@ -600,14 +599,14 @@ export default function DatasetAnalyticsPage() {
         const modalBin = histData.find((d) => d.frequency === maxFreq);
         return {
           title: 'Frequency Distribution',
-          description: `Most frequent values fall in range ${modalBin?.range} with ${maxFreq} occurrences across ${timeSeriesData.datasetCount} datasets. Distribution shows ${maxFreq > filteredData.length * 0.3 ? 'concentrated' : 'dispersed'} pattern.`,
+          description: `Most frequent values fall in range ${modalBin?.range} with ${maxFreq} occurrences from ${datasetText}. Distribution shows ${maxFreq > filteredData.length * 0.3 ? 'concentrated' : 'dispersed'} pattern.`,
           type: 'distribution',
         };
 
       case 'scatter':
         return {
           title: 'Parameter Correlation',
-          description: `Scatter plot from ${timeSeriesData.datasetCount} merged datasets reveals relationship patterns. ${filteredData.length} observations across ${yearWiseData.length} years enable comprehensive correlation analysis.`,
+          description: `Scatter plot from ${datasetText} reveals relationship patterns. ${filteredData.length} observations across ${yearWiseData.length} years enable comprehensive correlation analysis.`,
           type: 'correlation',
         };
 
@@ -625,13 +624,13 @@ export default function DatasetAnalyticsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `marine_analytics_combined_${selectedYearRange?.[0]}-${selectedYearRange?.[1]}.csv`;
+    a.download = `marine_analytics_${uploadedDatasets.length > 1 ? 'combined_' : ''}${selectedYearRange?.[0]}-${selectedYearRange?.[1]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 
     toast({
       title: 'Download complete',
-      description: `Exported ${filteredData.length} combined records`,
+      description: `Exported ${filteredData.length} records`,
     });
   };
 
@@ -643,7 +642,7 @@ export default function DatasetAnalyticsPage() {
             <span className="gradient-text">Marine Analytics Platform</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Upload multiple marine datasets for comprehensive combined analysis with AI-driven insights
+            Upload marine datasets one by one for comprehensive time-series analysis with AI-driven insights
           </p>
         </div>
 
@@ -652,10 +651,10 @@ export default function DatasetAnalyticsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileSpreadsheet className="h-5 w-5" />
-              Upload Multiple Datasets (Minimum 2 Required)
+              Upload Time-Series Dataset
             </CardTitle>
             <CardDescription>
-              Upload CSV or Excel files with at least 4 years of marine data. Use the + button to add more datasets for comprehensive analysis.
+              Upload CSV or Excel files with at least 4 years of marine data. Add more datasets using the + button for combined analysis.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -665,7 +664,7 @@ export default function DatasetAnalyticsPage() {
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <Upload className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="mb-2 text-sm text-muted-foreground">
-                      <span className="font-semibold">Click to upload first dataset</span> or drag and drop
+                      <span className="font-semibold">Click to upload</span> or drag and drop
                     </p>
                     <p className="text-xs text-muted-foreground">CSV, XLSX, XLS (MAX. 50MB) • Minimum 4 years required</p>
                   </div>
@@ -675,7 +674,7 @@ export default function DatasetAnalyticsPage() {
                 <div className="flex justify-center">
                   <Button onClick={loadSampleDatasets} variant="outline" disabled={parsing}>
                     <Activity className="h-4 w-4 mr-2" />
-                    Load Sample Datasets (2 datasets)
+                    Load Sample Datasets (2019-2023)
                   </Button>
                 </div>
               </>
@@ -731,7 +730,7 @@ export default function DatasetAnalyticsPage() {
                   {timeSeriesData && (
                     <Button onClick={downloadResults} variant="outline">
                       <Download className="h-4 w-4 mr-2" />
-                      Export Combined Results
+                      Export Results
                     </Button>
                   )}
                 </div>
@@ -762,7 +761,7 @@ export default function DatasetAnalyticsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5" />
-                  Combined Analysis Filters
+                  Analysis Filters
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -828,7 +827,7 @@ export default function DatasetAnalyticsPage() {
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-primary">{timeSeriesData.datasetCount}</div>
-                        <div className="text-xs text-muted-foreground">Datasets</div>
+                        <div className="text-xs text-muted-foreground">{timeSeriesData.datasetCount === 1 ? 'Dataset' : 'Datasets'}</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-primary">{timeSeriesData.numericColumns.length}</div>
@@ -849,7 +848,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Multi-Year Trend Analysis</CardTitle>
-                        <CardDescription>Combined {selectedParameter} patterns from all datasets</CardDescription>
+                        <CardDescription>Long-term {selectedParameter} patterns</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20">
                         Line Chart
@@ -887,7 +886,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Year-wise Comparison</CardTitle>
-                        <CardDescription>Annual average {selectedParameter} across datasets</CardDescription>
+                        <CardDescription>Annual average {selectedParameter}</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
                         Bar Chart
@@ -923,7 +922,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Seasonal Variation</CardTitle>
-                        <CardDescription>Monthly {selectedParameter} patterns combined</CardDescription>
+                        <CardDescription>Monthly {selectedParameter} patterns</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
                         Area Chart
@@ -1129,9 +1128,11 @@ export default function DatasetAnalyticsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  Combined Statistical Summary
+                  Statistical Summary
                 </CardTitle>
-                <CardDescription>Aggregated statistics from {timeSeriesData.datasetCount} datasets</CardDescription>
+                <CardDescription>
+                  {timeSeriesData.datasetCount === 1 ? 'Dataset statistics' : `Aggregated statistics from ${timeSeriesData.datasetCount} datasets`}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
