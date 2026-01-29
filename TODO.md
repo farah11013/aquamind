@@ -156,13 +156,14 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Create Growth & Loss Analysis Dashboard with Single Dataset Upload
+# Task: Create Growth & Loss Analysis Dashboard with Universal Dataset Support
 
 ## Plan
 - [x] Step 1: Remove All Dataset Restrictions
   - [x] Remove 4-year minimum requirement
   - [x] Remove mandatory Year column requirement
-  - [x] Accept any dataset type with numeric columns
+  - [x] Remove numeric column requirement validation
+  - [x] Accept any dataset type (numeric, text, mixed)
   - [x] Make time column optional (auto-detect or use row index)
 - [x] Step 2: Implement 4 Growth/Loss Visualizations
   - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
@@ -201,18 +202,28 @@
   - [x] Update Area Chart tooltip and axis labels to white
   - [x] Update Bar Chart tooltip and axis labels to white
   - [x] Change XAxis and YAxis stroke color to #ffffff
-- [x] Step 9: Final Testing
+- [x] Step 9: Handle Any Dataset Type
+  - [x] Remove "No numeric columns" error validation
+  - [x] Accept datasets with only text columns
+  - [x] Show data preview table for non-numeric datasets
+  - [x] Display helpful message for text-only data
+  - [x] Conditional rendering of visualizations
+- [x] Step 10: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm all 4 charts work correctly
-  - [x] Verify tooltip text is visible
+  - [x] Verify any dataset type can be uploaded
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Dashboard: Growth & Loss Analysis Dashboard
-- **Universal Dataset Support**: Accepts ANY CSV/Excel file with numeric columns
+- **Universal Dataset Support**: Accepts ANY CSV/Excel file - numeric, text, or mixed data
+- **No Validation Errors**: No restrictions on data types, columns, or structure
 - **Single Dataset Upload**: Simple, clean interface with one dataset at a time
-- **No Restrictions**: No year requirement, no time-series requirement, no minimum data span
-- **4 Specialized Charts**:
+- **Smart Handling**:
+  - Numeric columns → Show 4 growth/loss visualizations
+  - Text-only columns → Show data preview table with helpful guidance
+  - Mixed data → Analyze numeric columns, display all data
+- **4 Specialized Charts** (when numeric data available):
   1. Line Chart - Identify trends, spikes, drops with threshold indicators
   2. Area Chart - Show cumulative magnitude and total impact
   3. Bar Chart - Compare periods/regions side-by-side
@@ -221,7 +232,8 @@
 - **Decision-Focused**: Threshold indicators, severity levels, priority badges
 - **AI-Driven Insights**: Context-aware analysis with actionable recommendations
 - **Flexible Analysis**: Works with marine data, environmental data, or any numeric dataset
-- **Improved Visibility**: White text color on tooltips for better readability
+- **Improved Visibility**: White text color on all charts and tooltips for better readability
+- **Data Preview**: Shows first 10 records in table format for non-numeric datasets
 - Sample dataset: 6 years of marine environmental data (2019-2024)
 - Clean, simple interface with single dataset workflow
 - Production-ready for comprehensive growth and loss pattern detection

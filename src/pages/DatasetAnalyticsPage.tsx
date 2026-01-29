@@ -135,12 +135,6 @@ export default function DatasetAnalyticsPage() {
       }
     });
 
-    if (numericColumns.length === 0) {
-      setError('No numeric columns found in dataset. Please upload data with numeric values for analysis.');
-      setAnalysisData(null);
-      return;
-    }
-
     const analysisData: AnalysisData = {
       data,
       numericColumns,
@@ -609,7 +603,8 @@ export default function DatasetAnalyticsPage() {
             </Card>
 
             {/* Visualizations Grid */}
-            <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+            {analysisData.numericColumns.length > 0 ? (
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
               {/* 1. Line Chart - Time Series Trends */}
               {selectedParameter && (
                 <Card>
@@ -781,6 +776,49 @@ export default function DatasetAnalyticsPage() {
                 </Card>
               )}
             </div>
+            ) : (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Dataset Preview</CardTitle>
+                  <CardDescription>
+                    Your dataset contains {analysisData.categoricalColumns.length} text column(s). 
+                    Showing first 10 records for review.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="overflow-x-auto">
+                    <table className="w-full border-collapse">
+                      <thead>
+                        <tr className="border-b border-border">
+                          {Object.keys(analysisData.data[0] || {}).map((col) => (
+                            <th key={col} className="text-left p-2 text-sm font-semibold text-white">
+                              {col}
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {analysisData.data.slice(0, 10).map((row, idx) => (
+                          <tr key={idx} className="border-b border-border/50">
+                            {Object.values(row).map((value, colIdx) => (
+                              <td key={colIdx} className="p-2 text-sm text-white">
+                                {String(value)}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <Alert className="mt-4 border-blue-500/20 bg-blue-500/5">
+                    <Activity className="h-4 w-4 text-blue-500" />
+                    <AlertDescription className="text-blue-500">
+                      This dataset contains text data. For growth/loss visualizations, please upload a dataset with numeric columns (e.g., temperature, population, sales, etc.).
+                    </AlertDescription>
+                  </Alert>
+                </CardContent>
+              </Card>
+            )}
           </>
         )}
       </div>
