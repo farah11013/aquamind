@@ -47,20 +47,51 @@ To deliver a production-ready, responsive web application that empowers stakehol
 
 ### 2.5 Analytics Page
 
-#### 2.5.1 Advanced Data Analytics
-- Filters for data customization
-- Time-series analysis tools
-- Heatmaps for geographic data visualization
-- Trend graphs for temporal patterns
+#### 2.5.1 Data Upload and Processing
+- Support for CSV/XLS file upload
+- Automatic detection of year and time columns
+- Data validation for minimum 4 years of time-series data
+- Supported marine parameters:
+  - Sea surface temperature
+  - Salinity
+  - Chlorophyll
+  - Oxygen
+  - pH
+  - Fish population
+  - Depth
+  - Location
+  - Date
+
+#### 2.5.2 Interactive Data Visualizations
+- Pie charts for distribution analysis
+- Scatter plots for parameter relationships
+- Bar graphs for year-wise comparison
+- Histograms for frequency distribution
+- Line graphs for multi-year trends
+- Area graphs for cumulative and seasonal variation
+- Box plots for year-wise variability and outlier detection
+
+#### 2.5.3 Advanced Data Analytics
+- Automated statistical summaries generation
+- Trend identification and highlighting
+- Seasonal pattern detection
+- Anomaly detection and highlighting
+- AI-driven insights for each chart
+- Filters for:
+  - Year range selection
+  - Parameter selection
+  - Custom date ranges
 - Downloadable reports functionality
 - Comparative views for:
   - Different regions
   - Different time periods
 
-#### 2.5.2 Data Visualization Components
+#### 2.5.4 Data Visualization Components
 - Interactive charts and graphs
 - Dynamic data refresh indicators
 - Multi-dimensional data exploration tools
+- Clean, intuitive marine-themed dashboard
+- Real-time research and decision-making support
 
 ## 3. Technical Requirements
 
@@ -119,6 +150,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Predictive modeling for population trends
 - Anomaly detection algorithms
 - Natural language generation for insights
+- Short AI-driven insights for each visualization chart
 
 ### 6.2 AI Explainability
 - Transparent AI decision-making processes
