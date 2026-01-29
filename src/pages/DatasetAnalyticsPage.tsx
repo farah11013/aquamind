@@ -628,8 +628,8 @@ export default function DatasetAnalyticsPage() {
                     <ResponsiveContainer width="100%" height={300}>
                       <LineChart data={generateLineChartData(selectedParameter)}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="time" stroke="hsl(var(--muted-foreground))" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                        <YAxis stroke="#ffffff" />
                         <Tooltip
                           contentStyle={{
                             backgroundColor: 'hsl(var(--card))',
@@ -672,8 +672,8 @@ export default function DatasetAnalyticsPage() {
                     <ResponsiveContainer width="100%" height={300}>
                       <AreaChart data={generateAreaChartData(selectedParameter)}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="time" stroke="hsl(var(--muted-foreground))" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                        <YAxis stroke="#ffffff" />
                         <Tooltip
                           contentStyle={{
                             backgroundColor: 'hsl(var(--card))',
@@ -709,8 +709,8 @@ export default function DatasetAnalyticsPage() {
                     <ResponsiveContainer width="100%" height={300}>
                       <BarChart data={generateBarChartData(selectedParameter)}>
                         <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="category" stroke="hsl(var(--muted-foreground))" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
+                        <XAxis dataKey="category" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                        <YAxis stroke="#ffffff" />
                         <Tooltip
                           contentStyle={{
                             backgroundColor: 'hsl(var(--card))',

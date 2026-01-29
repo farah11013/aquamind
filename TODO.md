@@ -195,11 +195,12 @@
   - [x] Remove dataset count from statistics
   - [x] Simplify upload interface
   - [x] Show filename and record count only
-- [x] Step 8: Fix Tooltip Text Visibility
+- [x] Step 8: Fix Chart Text Visibility
   - [x] Add white color to all chart tooltips
-  - [x] Update Line Chart tooltip styling
-  - [x] Update Area Chart tooltip styling
-  - [x] Update Bar Chart tooltip styling
+  - [x] Update Line Chart tooltip and axis labels to white
+  - [x] Update Area Chart tooltip and axis labels to white
+  - [x] Update Bar Chart tooltip and axis labels to white
+  - [x] Change XAxis and YAxis stroke color to #ffffff
 - [x] Step 9: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm all 4 charts work correctly
