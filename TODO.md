@@ -164,12 +164,11 @@
   - [x] Remove mandatory Year column requirement
   - [x] Accept any dataset type with numeric columns
   - [x] Make time column optional (auto-detect or use row index)
-- [x] Step 2: Implement 5 Growth/Loss Visualizations
+- [x] Step 2: Implement 4 Growth/Loss Visualizations
   - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
   - [x] Area Chart - Cumulative impact (total accumulation)
   - [x] Bar Chart - Period/region comparison (side-by-side)
   - [x] Slope Chart - Before vs after (rate of change) [NEW]
-  - [x] Box Plot - Distribution analysis (median shifts, variability)
 - [x] Step 3: Create Slope Chart Component
   - [x] Compare first half vs second half of data
   - [x] Show before/after values with change percentage
@@ -190,14 +189,13 @@
   - [x] Remove time-series specific requirements
   - [x] Update descriptions to "any dataset type"
   - [x] Auto-detect numeric columns
-- [x] Step 7: Remove Heatmap Visualization
-  - [x] Remove generateHeatmapData function
-  - [x] Remove heatmap chart component
-  - [x] Remove heatmap insight generation
-  - [x] Update chart count to 5
+- [x] Step 7: Remove Unnecessary Visualizations
+  - [x] Remove Heatmap visualization
+  - [x] Remove Box Plot visualization
+  - [x] Update chart count to 4
 - [x] Step 8: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm all 5 charts work correctly
+  - [x] Confirm all 4 charts work correctly
   - [x] Verify insights are growth/loss focused
 
 ## Notes
@@ -205,12 +203,11 @@
 - Dashboard: Growth & Loss Analysis Dashboard
 - **Universal Dataset Support**: Accepts ANY CSV/Excel file with numeric columns
 - **No Restrictions**: No year requirement, no time-series requirement, no minimum data span
-- **5 Specialized Charts**:
-  1. Line Chart - Identify trends, spikes, drops
-  2. Area Chart - Show cumulative magnitude
-  3. Bar Chart - Compare periods/regions
-  4. Slope Chart - Before/after comparison (NEW)
-  5. Box Plot - Distribution and variability
+- **4 Specialized Charts**:
+  1. Line Chart - Identify trends, spikes, drops with threshold indicators
+  2. Area Chart - Show cumulative magnitude and total impact
+  3. Bar Chart - Compare periods/regions side-by-side
+  4. Slope Chart - Before/after comparison with rate of change
 - **Growth/Loss Focus**: All insights explain growth, recovery, degradation, or loss
 - **Decision-Focused**: Threshold indicators, severity levels, priority badges
 - **AI-Driven Insights**: Context-aware analysis with actionable recommendations

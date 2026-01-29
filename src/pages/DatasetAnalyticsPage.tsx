@@ -376,38 +376,7 @@ export default function DatasetAnalyticsPage() {
 
 
 
-  // Box Plot Data - Distribution Analysis
-  const generateBoxPlotData = (parameter: string) => {
-    if (!analysisData) return [];
-    const data = analysisData.data;
 
-    if (analysisData.categoricalColumns.length > 0) {
-      const categoryCol = analysisData.categoricalColumns[0];
-      const grouped: Record<string, number[]> = {};
-
-      data.forEach((row) => {
-        const category = String(row[categoryCol]);
-        const value = row[parameter];
-        if (typeof value === 'number') {
-          if (!grouped[category]) grouped[category] = [];
-          grouped[category].push(value);
-        }
-      });
-
-      return Object.entries(grouped).slice(0, 10).map(([category, values]) => {
-        const sorted = values.sort((a, b) => a - b);
-        const q1 = sorted[Math.floor(sorted.length * 0.25)];
-        const median = sorted[Math.floor(sorted.length * 0.5)];
-        const q3 = sorted[Math.floor(sorted.length * 0.75)];
-        const min = sorted[0];
-        const max = sorted[sorted.length - 1];
-
-        return { category, min, q1, median, q3, max };
-      });
-    }
-
-    return [];
-  };
 
   // Growth/Loss Insight Generator
   const generateGrowthInsight = (chartType: string, parameter: string): GrowthInsight => {
@@ -512,21 +481,6 @@ export default function DatasetAnalyticsPage() {
             severity: 'low',
           };
         }
-
-      case 'box':
-        const boxData = generateBoxPlotData(parameter);
-        if (boxData.length > 1) {
-          const medians = boxData.map((d) => d.median);
-          const medianVariation = (Math.max(...medians) - Math.min(...medians)) / Math.min(...medians) * 100;
-
-          return {
-            title: '📦 Distribution Shift Analysis',
-            description: `Median ${parameter} varies by ${medianVariation.toFixed(1)}% across categories. ${medianVariation > 30 ? 'High variability indicates unstable conditions and increased environmental risk.' : 'Low variability suggests consistent and stable environmental conditions.'}`,
-            type: medianVariation > 30 ? 'degradation' : 'stable',
-            severity: medianVariation > 30 ? 'high' : 'low',
-          };
-        }
-        break;
     }
 
     return {
@@ -905,46 +859,6 @@ export default function DatasetAnalyticsPage() {
                       ))}
                     </div>
                     <GrowthInsightBox insight={generateGrowthInsight('slope', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 5. Box Plot - Distribution Analysis */}
-              {selectedParameter && generateBoxPlotData(selectedParameter).length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Distribution & Variability</CardTitle>
-                        <CardDescription>Median shifts and stability analysis for {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
-                        Box Plot
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <ComposedChart data={generateBoxPlotData(selectedParameter)}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="category" stroke="hsl(var(--muted-foreground))" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="hsl(var(--muted-foreground))" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: 'hsl(var(--card))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '8px',
-                          }}
-                        />
-                        <Legend />
-                        <Bar dataKey="min" fill={CHART_COLORS[2]} name="Min" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="q1" fill={CHART_COLORS[1]} name="Q1" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="median" fill={CHART_COLORS[0]} name="Median" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="q3" fill={CHART_COLORS[1]} name="Q3" radius={[4, 4, 0, 0]} />
-                        <Bar dataKey="max" fill={CHART_COLORS[2]} name="Max" radius={[4, 4, 0, 0]} />
-                      </ComposedChart>
-                    </ResponsiveContainer>
-                    <GrowthInsightBox insight={generateGrowthInsight('box', selectedParameter)} />
                   </CardContent>
                 </Card>
               )}
