@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, FileSpreadsheet, AlertCircle, Download, TrendingUp, TrendingDown, Activity, Plus, X, Minus } from 'lucide-react';
+import { Upload, FileSpreadsheet, AlertCircle, Download, TrendingUp, TrendingDown, Activity, Minus } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -26,19 +26,11 @@ import {
   Cell,
 } from 'recharts';
 
-interface UploadedDataset {
-  id: string;
-  name: string;
-  data: Record<string, any>[];
-  rowCount: number;
-}
-
 interface AnalysisData {
   data: Record<string, any>[];
   numericColumns: string[];
   categoricalColumns: string[];
   timeColumn: string | null;
-  datasetCount: number;
 }
 
 interface GrowthInsight {
@@ -62,7 +54,7 @@ const STABLE_COLOR = '#6b7280'; // Gray
 
 export default function DatasetAnalyticsPage() {
   const { toast } = useToast();
-  const [uploadedDatasets, setUploadedDatasets] = useState<UploadedDataset[]>([]);
+  const [uploadedFileName, setUploadedFileName] = useState<string>('');
   const [parsing, setParsing] = useState(false);
   const [analysisData, setAnalysisData] = useState<AnalysisData | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -99,15 +91,8 @@ export default function DatasetAnalyticsPage() {
       });
     });
 
-    const dataset: UploadedDataset = {
-      id: 'sample-1',
-      name: 'Marine Environmental Data (2019-2024)',
-      data: sampleData,
-      rowCount: sampleData.length,
-    };
-
-    setUploadedDatasets([dataset]);
-    processDatasets([dataset]);
+    setUploadedFileName('Marine Environmental Data (2019-2024)');
+    processData(sampleData);
     setError(null);
 
     toast({
@@ -129,33 +114,17 @@ export default function DatasetAnalyticsPage() {
     return null;
   };
 
-  const combineDatasets = (datasets: UploadedDataset[]): Record<string, any>[] => {
-    const combined: Record<string, any>[] = [];
-    datasets.forEach((dataset) => {
-      combined.push(...dataset.data);
-    });
-    return combined;
-  };
-
-  const processDatasets = (datasets: UploadedDataset[]) => {
-    if (datasets.length === 0) {
-      setError('Please upload at least one dataset.');
+  const processData = (data: Record<string, any>[]) => {
+    if (data.length === 0) {
+      setError('No data found in uploaded file.');
       setAnalysisData(null);
       return;
     }
 
-    const combinedData = combineDatasets(datasets);
-
-    if (combinedData.length === 0) {
-      setError('No data found in uploaded datasets.');
-      setAnalysisData(null);
-      return;
-    }
-
-    const firstRow = combinedData[0];
+    const firstRow = data[0];
     const numericColumns: string[] = [];
     const categoricalColumns: string[] = [];
-    const timeColumn = detectTimeColumn(combinedData);
+    const timeColumn = detectTimeColumn(data);
 
     Object.entries(firstRow).forEach(([key, value]) => {
       if (key === timeColumn) return;
@@ -173,11 +142,10 @@ export default function DatasetAnalyticsPage() {
     }
 
     const analysisData: AnalysisData = {
-      data: combinedData,
+      data,
       numericColumns,
       categoricalColumns,
       timeColumn,
-      datasetCount: datasets.length,
     };
 
     setAnalysisData(analysisData);
@@ -201,15 +169,8 @@ export default function DatasetAnalyticsPage() {
         dynamicTyping: true,
         skipEmptyLines: true,
         complete: (results) => {
-          const newDataset: UploadedDataset = {
-            id: `dataset-${Date.now()}`,
-            name: file.name,
-            data: results.data as Record<string, any>[],
-            rowCount: results.data.length,
-          };
-          const updatedDatasets = [...uploadedDatasets, newDataset];
-          setUploadedDatasets(updatedDatasets);
-          processDatasets(updatedDatasets);
+          setUploadedFileName(file.name);
+          processData(results.data as Record<string, any>[]);
           setParsing(false);
           toast({
             title: 'Dataset uploaded',
@@ -229,15 +190,8 @@ export default function DatasetAnalyticsPage() {
           const workbook = XLSX.read(data, { type: 'array' });
           const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-          const newDataset: UploadedDataset = {
-            id: `dataset-${Date.now()}`,
-            name: file.name,
-            data: jsonData as Record<string, any>[],
-            rowCount: jsonData.length,
-          };
-          const updatedDatasets = [...uploadedDatasets, newDataset];
-          setUploadedDatasets(updatedDatasets);
-          processDatasets(updatedDatasets);
+          setUploadedFileName(file.name);
+          processData(jsonData as Record<string, any>[]);
           setParsing(false);
           toast({
             title: 'Dataset uploaded',
@@ -255,20 +209,6 @@ export default function DatasetAnalyticsPage() {
     }
 
     event.target.value = '';
-  };
-
-  const removeDataset = (id: string) => {
-    const updatedDatasets = uploadedDatasets.filter((d) => d.id !== id);
-    setUploadedDatasets(updatedDatasets);
-    if (updatedDatasets.length >= 1) {
-      processDatasets(updatedDatasets);
-    } else {
-      setAnalysisData(null);
-    }
-    toast({
-      title: 'Dataset removed',
-      description: `${updatedDatasets.length} dataset(s) remaining`,
-    });
   };
 
   // Line Chart Data - Time Series Trends
@@ -533,7 +473,7 @@ export default function DatasetAnalyticsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {uploadedDatasets.length === 0 ? (
+            {!analysisData ? (
               <>
                 <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -555,59 +495,38 @@ export default function DatasetAnalyticsPage() {
               </>
             ) : (
               <div className="space-y-4">
-                <div className="space-y-2">
-                  {uploadedDatasets.map((dataset, index) => (
-                    <div key={dataset.id} className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30">
-                      <div className="flex items-center gap-3">
-                        <Badge variant="outline" className="bg-primary/10 text-primary">
-                          Dataset {index + 1}
-                        </Badge>
-                        <div>
-                          <div className="font-medium text-sm">{dataset.name}</div>
-                          <div className="text-xs text-muted-foreground">{dataset.rowCount} records</div>
-                        </div>
-                      </div>
-                      <Button variant="ghost" size="sm" onClick={() => removeDataset(dataset.id)} className="h-8 w-8 p-0">
-                        <X className="h-4 w-4" />
-                      </Button>
+                <div className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30">
+                  <div className="flex items-center gap-3">
+                    <FileSpreadsheet className="h-5 w-5 text-primary" />
+                    <div>
+                      <div className="font-medium text-sm">{uploadedFileName}</div>
+                      <div className="text-xs text-muted-foreground">{analysisData.data.length} records</div>
                     </div>
-                  ))}
+                  </div>
                 </div>
 
-                <label className="flex items-center justify-center w-full h-16 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
-                  <div className="flex items-center gap-2">
-                    <Plus className="h-5 w-5 text-primary" />
-                    <span className="font-semibold text-sm">Add Another Dataset</span>
-                  </div>
-                  <input type="file" className="hidden" accept=".csv,.xlsx,.xls" onChange={handleFileUpload} disabled={parsing} />
-                </label>
-
-                {analysisData && (
-                  <Alert className="border-green-500/20 bg-green-500/5">
-                    <Activity className="h-4 w-4 text-green-500" />
-                    <AlertDescription className="text-green-500">
-                      ✓ Analysis ready: {analysisData.datasetCount} dataset(s), {analysisData.data.length} records, {analysisData.numericColumns.length} numeric parameters
-                    </AlertDescription>
-                  </Alert>
-                )}
+                <Alert className="border-green-500/20 bg-green-500/5">
+                  <Activity className="h-4 w-4 text-green-500" />
+                  <AlertDescription className="text-green-500">
+                    ✓ Analysis ready: {analysisData.data.length} records, {analysisData.numericColumns.length} numeric parameters
+                  </AlertDescription>
+                </Alert>
 
                 <div className="flex gap-2">
                   <Button
                     onClick={() => {
-                      setUploadedDatasets([]);
+                      setUploadedFileName('');
                       setAnalysisData(null);
                       setError(null);
                     }}
                     variant="outline"
                   >
-                    Clear All Datasets
+                    Clear Dataset
                   </Button>
-                  {analysisData && (
-                    <Button onClick={downloadResults} variant="outline">
-                      <Download className="h-4 w-4 mr-2" />
-                      Export Data
-                    </Button>
-                  )}
+                  <Button onClick={downloadResults} variant="outline">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export Data
+                  </Button>
                 </div>
               </div>
             )}
@@ -674,14 +593,10 @@ export default function DatasetAnalyticsPage() {
                   </div>
 
                   <div className="flex items-end">
-                    <div className="grid grid-cols-3 gap-2 w-full">
+                    <div className="grid grid-cols-2 gap-2 w-full">
                       <div className="text-center">
                         <div className="text-2xl font-bold text-primary">{analysisData.data.length}</div>
                         <div className="text-xs text-muted-foreground">Records</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{analysisData.datasetCount}</div>
-                        <div className="text-xs text-muted-foreground">{analysisData.datasetCount === 1 ? 'Dataset' : 'Datasets'}</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-primary">{analysisData.numericColumns.length}</div>

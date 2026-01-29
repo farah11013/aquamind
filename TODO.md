@@ -156,7 +156,7 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Create Growth & Loss Analysis Dashboard with Universal Dataset Support
+# Task: Create Growth & Loss Analysis Dashboard with Single Dataset Upload
 
 ## Plan
 - [x] Step 1: Remove All Dataset Restrictions
@@ -168,7 +168,7 @@
   - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
   - [x] Area Chart - Cumulative impact (total accumulation)
   - [x] Bar Chart - Period/region comparison (side-by-side)
-  - [x] Slope Chart - Before vs after (rate of change) [NEW]
+  - [x] Slope Chart - Before vs after (rate of change)
 - [x] Step 3: Create Slope Chart Component
   - [x] Compare first half vs second half of data
   - [x] Show before/after values with change percentage
@@ -184,24 +184,27 @@
   - [x] Color-coded severity indicators
   - [x] Priority badges (High/Medium/Low)
   - [x] Actionable insight descriptions
-- [x] Step 6: Update UI for Universal Datasets
-  - [x] Change title to "Growth & Loss Analysis Dashboard"
-  - [x] Remove time-series specific requirements
-  - [x] Update descriptions to "any dataset type"
-  - [x] Auto-detect numeric columns
-- [x] Step 7: Remove Unnecessary Visualizations
-  - [x] Remove Heatmap visualization
-  - [x] Remove Box Plot visualization
-  - [x] Update chart count to 4
+- [x] Step 6: Simplify to Single Dataset Upload
+  - [x] Remove multiple dataset array management
+  - [x] Remove "Add Another Dataset" button
+  - [x] Remove dataset list with badges and remove buttons
+  - [x] Single file upload with replace functionality
+  - [x] Show single dataset info card
+- [x] Step 7: Update UI for Single Dataset
+  - [x] Change "Clear All Datasets" to "Clear Dataset"
+  - [x] Remove dataset count from statistics
+  - [x] Simplify upload interface
+  - [x] Show filename and record count only
 - [x] Step 8: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm all 4 charts work correctly
-  - [x] Verify insights are growth/loss focused
+  - [x] Verify single dataset upload works
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Dashboard: Growth & Loss Analysis Dashboard
 - **Universal Dataset Support**: Accepts ANY CSV/Excel file with numeric columns
+- **Single Dataset Upload**: Simple, clean interface with one dataset at a time
 - **No Restrictions**: No year requirement, no time-series requirement, no minimum data span
 - **4 Specialized Charts**:
   1. Line Chart - Identify trends, spikes, drops with threshold indicators
@@ -213,6 +216,7 @@
 - **AI-Driven Insights**: Context-aware analysis with actionable recommendations
 - **Flexible Analysis**: Works with marine data, environmental data, or any numeric dataset
 - Sample dataset: 6 years of marine environmental data (2019-2024)
+- Clean, simple interface with single dataset workflow
 - Production-ready for comprehensive growth and loss pattern detection
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification

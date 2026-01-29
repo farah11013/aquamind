@@ -48,12 +48,9 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ### 2.5 Analytics Page
 
 #### 2.5.1 Data Upload and Processing
-- Support for uploading multiple datasets one by one as required
-- Support for any type of datasets in CSV/XLS/XLSX format
-- Ability to upload additional datasets using + icon
-- Automatic detection of year and time columns across all uploaded datasets
+- Support for uploading a single dataset in CSV/XLS/XLSX format
+- Automatic detection of year and time columns
 - Data validation and processing capabilities
-- Automatic dataset combination and merging for unified analysis
 - Support for diverse marine and environmental parameters including but not limited to:
   - Sea surface temperature
   - Salinity
@@ -102,22 +99,19 @@ Interactive dashboard prioritizing visual clarity for identifying increase, decr
 - Purpose: Detect shifts in medians, increased variability, and abnormal losses or instability in marine conditions
 
 #### 2.5.3 Advanced Data Analytics
-- Automated statistical summaries generation across combined datasets
+- Automated statistical summaries generation
 - Trend identification and highlighting
 - Seasonal pattern detection
 - Anomaly detection and highlighting
 - AI-driven insights for each chart explaining whether trends represent environmental growth, recovery, degradation, or loss
-- Cross-dataset correlation analysis
 - Filters for:
   - Year range selection
   - Parameter selection
   - Custom date ranges
-  - Dataset selection (individual or combined view)
 - Downloadable reports functionality
 - Comparative views for:
   - Different regions
   - Different time periods
-  - Different datasets
 
 #### 2.5.4 Interactive Dashboard Features
 - Real-time data visualization capabilities
@@ -129,7 +123,6 @@ Interactive dashboard prioritizing visual clarity for identifying increase, decr
 - Dynamic data refresh indicators
 - Multi-dimensional data exploration tools
 - Clean, intuitive marine-themed dashboard
-- Unified visualization interface combining all uploaded datasets for easy understanding and better analysis
 
 ## 3. Technical Requirements
 
@@ -153,7 +146,6 @@ Interactive dashboard prioritizing visual clarity for identifying increase, decr
 - Horizontal scaling capabilities
 - Optimized query performance
 - Efficient handling of real-time data streams
-- Efficient processing of multiple datasets simultaneously
 
 ## 4. User Interface Requirements
 
@@ -190,7 +182,7 @@ Interactive dashboard prioritizing visual clarity for identifying increase, decr
 - Anomaly detection algorithms
 - Natural language generation for insights
 - AI-driven insights for each visualization chart
-- Cross-dataset pattern recognition and correlation analysis
+- Pattern recognition and correlation analysis
 - AI explanations of environmental growth, recovery, degradation, or loss patterns
 
 ### 6.2 AI Explainability
