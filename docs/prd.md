@@ -48,7 +48,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ### 2.5 Analytics Page
 
 #### 2.5.1 Data Upload and Processing
-- Support for uploading minimum 2 separate Excel sheets (CSV/XLS/XLSX format)
+- Support for uploading separate Excel sheets (CSV/XLS/XLSX format)
 - Ability to upload additional datasets using + icon
 - Automatic detection of year and time columns across all uploaded datasets
 - Data validation for minimum 4 years of time-series data per dataset
@@ -98,7 +98,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Multi-dimensional data exploration tools
 - Clean, intuitive marine-themed dashboard
 - Real-time research and decision-making support
-- Unified visualization interface for easy understanding of combined datasets
+- Unified visualization interface combining all uploaded datasets for easy understanding and better analysis
 
 ## 3. Technical Requirements
 
