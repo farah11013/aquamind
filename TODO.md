@@ -156,54 +156,56 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Build Comprehensive Marine Analytics Platform
+# Task: Enhance Marine Analytics with Multiple Dataset Upload
 
 ## Plan
 - [x] Step 1: Analyze Requirements
-  - [x] Multi-year time-series analysis (4+ years minimum)
-  - [x] Automatic year/date column detection
-  - [x] 7 chart types with AI insights
-  - [x] Year range and parameter filters
-- [x] Step 2: Rebuild DatasetAnalyticsPage
-  - [x] Complete file replacement with new architecture
-  - [x] Time-series validation (4+ years check)
-  - [x] Smart column detection algorithms
-- [x] Step 3: Implement Visualizations
-  - [x] Line Chart - Multi-year trends with min/max/avg
-  - [x] Bar Chart - Year-wise comparison
-  - [x] Area Chart - Seasonal variation patterns
-  - [x] Box Plot - Year-wise variability and outliers
-  - [x] Histogram - Frequency distribution (10 bins)
-  - [x] Pie Chart - Distribution analysis
-  - [x] Scatter Plot - Parameter correlation
-- [x] Step 4: Add AI Insights
-  - [x] Trend analysis with percentage changes
-  - [x] Anomaly detection (outliers, extremes)
-  - [x] Seasonal pattern recognition
-  - [x] Correlation insights
-  - [x] Distribution analysis
-- [x] Step 5: Implement Filters & Features
-  - [x] Year range selector (from-to)
-  - [x] Parameter selector
-  - [x] Statistical summary cards
-  - [x] Export functionality
-  - [x] Sample dataset (2019-2023, 240 records)
-- [x] Step 6: Final Testing
+  - [x] Support minimum 2 separate dataset uploads
+  - [x] Add "+" icon to upload additional datasets
+  - [x] Combine all datasets for comprehensive analysis
+  - [x] Better visualization for easy understanding
+- [x] Step 2: Rebuild Upload System
+  - [x] Change from single to multiple file upload
+  - [x] Create UploadedDataset interface
+  - [x] Add dataset array state management
+  - [x] Implement dataset list with remove functionality
+- [x] Step 3: Implement Dataset Management
+  - [x] Upload first dataset (drag & drop or click)
+  - [x] Show uploaded datasets list with badges
+  - [x] Add "+" button to upload more datasets
+  - [x] Remove individual datasets with X button
+  - [x] Clear all datasets functionality
+- [x] Step 4: Dataset Combination Logic
+  - [x] Combine multiple datasets into single array
+  - [x] Validate minimum 2 datasets requirement
+  - [x] Merge data intelligently (concatenate rows)
+  - [x] Maintain column alignment across datasets
+- [x] Step 5: Update Visualizations
+  - [x] All 7 charts now use combined dataset
+  - [x] Update AI insights to mention dataset count
+  - [x] Show "Datasets" count in filter section
+  - [x] Update statistical summary with combined data
+- [x] Step 6: Sample Data Enhancement
+  - [x] Create 2 sample datasets (Arabian Sea + Bay of Bengal)
+  - [x] Each with 120 records (5 years × 12 months × 2 stations)
+  - [x] Total 240 combined records
+- [x] Step 7: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm all features work correctly
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
 - Navigation: Home | About | Features | Analytics
-- Analytics page completely rebuilt with advanced time-series capabilities
-- Automatic detection: Year columns, Date columns, Numeric vs Categorical
-- Validation: Minimum 4 years required, clear error messages
-- 7 interactive charts with color-coded badges and AI-driven insights
-- Real-time filtering by year range and parameters
-- Statistical summaries: Avg, Min, Max, Range for all numeric parameters
-- Sample dataset: 5 years × 12 months × 4 stations = 240 records
-- Marine parameters: Temperature, Salinity, pH, Oxygen, Chlorophyll, Fish Population, Depth, Location
-- Production-ready for marine research and decision-making
+- Multiple dataset upload system implemented
+- Minimum 2 datasets required for analysis
+- "+" button to add unlimited additional datasets
+- Each dataset shows: Badge number, filename, record count, remove button
+- Combined analysis from all uploaded datasets
+- AI insights updated to reference multiple datasets
+- Sample datasets: Arabian Sea (120 records) + Bay of Bengal (120 records)
+- Export functionality exports combined filtered data
+- Clean, intuitive UI for dataset management
+- Production-ready for comprehensive marine research
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

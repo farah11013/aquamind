@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, FileSpreadsheet, AlertCircle, Download, Calendar, TrendingUp, Activity, BarChart3 } from 'lucide-react';
+import { Upload, FileSpreadsheet, AlertCircle, Download, Calendar, TrendingUp, Activity, BarChart3, Plus, X } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -29,6 +29,13 @@ import {
   ComposedChart,
 } from 'recharts';
 
+interface UploadedDataset {
+  id: string;
+  name: string;
+  data: Record<string, any>[];
+  rowCount: number;
+}
+
 interface TimeSeriesData {
   data: Record<string, any>[];
   yearColumn: string;
@@ -39,6 +46,7 @@ interface TimeSeriesData {
   categoricalColumns: string[];
   timeSeriesValid: boolean;
   validationMessage: string;
+  datasetCount: number;
 }
 
 interface ChartInsight {
@@ -57,58 +65,102 @@ const CHART_COLORS = [
 
 export default function DatasetAnalyticsPage() {
   const { toast } = useToast();
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [uploadedDatasets, setUploadedDatasets] = useState<UploadedDataset[]>([]);
   const [parsing, setParsing] = useState(false);
   const [timeSeriesData, setTimeSeriesData] = useState<TimeSeriesData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [selectedYearRange, setSelectedYearRange] = useState<[number, number] | null>(null);
   const [selectedParameter, setSelectedParameter] = useState<string>('');
 
-  // Load sample multi-year marine dataset
-  const loadSampleDataset = () => {
-    const sampleData: Record<string, any>[] = [];
+  // Load sample multi-year marine datasets
+  const loadSampleDatasets = () => {
+    const dataset1: Record<string, any>[] = [];
+    const dataset2: Record<string, any>[] = [];
     const years = [2019, 2020, 2021, 2022, 2023];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const stations = ['Station_A', 'Station_B', 'Station_C', 'Station_D'];
-    const regions = ['Arabian Sea', 'Bay of Bengal', 'Indian Ocean'];
 
+    // Dataset 1: Arabian Sea stations
     years.forEach((year) => {
       months.forEach((month, monthIdx) => {
-        stations.forEach((station) => {
+        ['Station_A1', 'Station_A2'].forEach((station) => {
           const baseTemp = 26 + Math.sin((monthIdx / 12) * Math.PI * 2) * 4;
-          const baseSalinity = 34 + Math.cos((monthIdx / 12) * Math.PI * 2) * 2;
+          const baseSalinity = 35 + Math.cos((monthIdx / 12) * Math.PI * 2) * 2;
           const basePh = 8.0 + Math.sin((monthIdx / 12) * Math.PI) * 0.3;
           const baseOxygen = 5.5 + Math.cos((monthIdx / 12) * Math.PI * 2) * 1.5;
           const baseChlorophyll = 0.5 + Math.sin((monthIdx / 12) * Math.PI * 2) * 0.4;
-          const baseFishPop = 150 + Math.sin((monthIdx / 12) * Math.PI * 2) * 50;
 
-          sampleData.push({
+          dataset1.push({
             Year: year,
             Month: month,
             Date: `${year}-${String(monthIdx + 1).padStart(2, '0')}-15`,
             Station: station,
-            Region: regions[Math.floor(Math.random() * regions.length)],
+            Region: 'Arabian Sea',
             Temperature: Number((baseTemp + (Math.random() - 0.5) * 2).toFixed(2)),
             Salinity: Number((baseSalinity + (Math.random() - 0.5) * 1).toFixed(2)),
             pH: Number((basePh + (Math.random() - 0.5) * 0.2).toFixed(2)),
             Oxygen: Number((baseOxygen + (Math.random() - 0.5) * 1).toFixed(2)),
             Chlorophyll: Number((baseChlorophyll + (Math.random() - 0.5) * 0.2).toFixed(3)),
-            FishPopulation: Math.floor(baseFishPop + (Math.random() - 0.5) * 30),
-            Depth: Math.floor(20 + Math.random() * 180),
-            Latitude: Number((8 + Math.random() * 12).toFixed(2)),
-            Longitude: Number((70 + Math.random() * 12).toFixed(2)),
+            FishPopulation: Math.floor(150 + Math.sin((monthIdx / 12) * Math.PI * 2) * 50 + (Math.random() - 0.5) * 30),
+            Depth: Math.floor(50 + Math.random() * 100),
+            Latitude: Number((15 + Math.random() * 3).toFixed(2)),
+            Longitude: Number((72 + Math.random() * 3).toFixed(2)),
           });
         });
       });
     });
 
-    processTimeSeriesData(sampleData);
-    setSelectedFile(null);
+    // Dataset 2: Bay of Bengal stations
+    years.forEach((year) => {
+      months.forEach((month, monthIdx) => {
+        ['Station_B1', 'Station_B2'].forEach((station) => {
+          const baseTemp = 27 + Math.sin((monthIdx / 12) * Math.PI * 2) * 3.5;
+          const baseSalinity = 33 + Math.cos((monthIdx / 12) * Math.PI * 2) * 1.5;
+          const basePh = 8.1 + Math.sin((monthIdx / 12) * Math.PI) * 0.25;
+          const baseOxygen = 6.0 + Math.cos((monthIdx / 12) * Math.PI * 2) * 1.2;
+          const baseChlorophyll = 0.6 + Math.sin((monthIdx / 12) * Math.PI * 2) * 0.35;
+
+          dataset2.push({
+            Year: year,
+            Month: month,
+            Date: `${year}-${String(monthIdx + 1).padStart(2, '0')}-15`,
+            Station: station,
+            Region: 'Bay of Bengal',
+            Temperature: Number((baseTemp + (Math.random() - 0.5) * 2).toFixed(2)),
+            Salinity: Number((baseSalinity + (Math.random() - 0.5) * 1).toFixed(2)),
+            pH: Number((basePh + (Math.random() - 0.5) * 0.2).toFixed(2)),
+            Oxygen: Number((baseOxygen + (Math.random() - 0.5) * 1).toFixed(2)),
+            Chlorophyll: Number((baseChlorophyll + (Math.random() - 0.5) * 0.2).toFixed(3)),
+            FishPopulation: Math.floor(180 + Math.sin((monthIdx / 12) * Math.PI * 2) * 60 + (Math.random() - 0.5) * 30),
+            Depth: Math.floor(30 + Math.random() * 80),
+            Latitude: Number((10 + Math.random() * 3).toFixed(2)),
+            Longitude: Number((78 + Math.random() * 3).toFixed(2)),
+          });
+        });
+      });
+    });
+
+    const datasets: UploadedDataset[] = [
+      {
+        id: 'sample-1',
+        name: 'Arabian Sea Dataset (2019-2023)',
+        data: dataset1,
+        rowCount: dataset1.length,
+      },
+      {
+        id: 'sample-2',
+        name: 'Bay of Bengal Dataset (2019-2023)',
+        data: dataset2,
+        rowCount: dataset2.length,
+      },
+    ];
+
+    setUploadedDatasets(datasets);
+    processCombinedDatasets(datasets);
     setError(null);
 
     toast({
-      title: 'Sample dataset loaded',
-      description: `Multi-year marine dataset (2019-2023, ${sampleData.length} records)`,
+      title: 'Sample datasets loaded',
+      description: `2 datasets loaded with ${dataset1.length + dataset2.length} total records`,
     });
   };
 
@@ -158,25 +210,49 @@ export default function DatasetAnalyticsPage() {
     return Array.from(years).sort((a, b) => a - b);
   };
 
-  const processTimeSeriesData = (data: Record<string, any>[]) => {
-    const yearColumn = detectYearColumn(data);
+  const combineDatasets = (datasets: UploadedDataset[]): Record<string, any>[] => {
+    const combined: Record<string, any>[] = [];
+    datasets.forEach((dataset) => {
+      combined.push(...dataset.data);
+    });
+    return combined;
+  };
 
-    if (!yearColumn) {
-      setError('No year column detected. Please ensure your dataset has a "Year" column with values between 1900-2100.');
+  const processCombinedDatasets = (datasets: UploadedDataset[]) => {
+    if (datasets.length < 2) {
+      setError('Please upload at least 2 datasets for comprehensive analysis.');
+      setTimeSeriesData(null);
       return;
     }
 
-    const years = extractYears(data, yearColumn);
+    const combinedData = combineDatasets(datasets);
+
+    if (combinedData.length === 0) {
+      setError('No data found in uploaded datasets.');
+      setTimeSeriesData(null);
+      return;
+    }
+
+    const yearColumn = detectYearColumn(combinedData);
+
+    if (!yearColumn) {
+      setError('No year column detected. Please ensure your datasets have a "Year" column with values between 1900-2100.');
+      setTimeSeriesData(null);
+      return;
+    }
+
+    const years = extractYears(combinedData, yearColumn);
     const yearRange = { min: Math.min(...years), max: Math.max(...years) };
     const yearSpan = yearRange.max - yearRange.min + 1;
 
     if (yearSpan < 4) {
-      setError(`Dataset must contain at least 4 years of data. Current span: ${yearSpan} years (${yearRange.min}-${yearRange.max})`);
+      setError(`Combined dataset must contain at least 4 years of data. Current span: ${yearSpan} years (${yearRange.min}-${yearRange.max})`);
+      setTimeSeriesData(null);
       return;
     }
 
-    const dateColumn = detectDateColumn(data);
-    const firstRow = data[0];
+    const dateColumn = detectDateColumn(combinedData);
+    const firstRow = combinedData[0];
     const numericColumns: string[] = [];
     const categoricalColumns: string[] = [];
 
@@ -190,7 +266,7 @@ export default function DatasetAnalyticsPage() {
     });
 
     const timeSeriesData: TimeSeriesData = {
-      data,
+      data: combinedData,
       yearColumn,
       dateColumn,
       years,
@@ -198,7 +274,8 @@ export default function DatasetAnalyticsPage() {
       numericColumns,
       categoricalColumns,
       timeSeriesValid: true,
-      validationMessage: `✓ Valid time-series dataset: ${yearSpan} years (${yearRange.min}-${yearRange.max}), ${data.length} records`,
+      validationMessage: `✓ Valid combined dataset: ${datasets.length} datasets merged, ${yearSpan} years (${yearRange.min}-${yearRange.max}), ${combinedData.length} total records`,
+      datasetCount: datasets.length,
     };
 
     setTimeSeriesData(timeSeriesData);
@@ -211,7 +288,6 @@ export default function DatasetAnalyticsPage() {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    setSelectedFile(file);
     setParsing(true);
     setError(null);
 
@@ -223,8 +299,20 @@ export default function DatasetAnalyticsPage() {
         dynamicTyping: true,
         skipEmptyLines: true,
         complete: (results) => {
-          processTimeSeriesData(results.data as Record<string, any>[]);
+          const newDataset: UploadedDataset = {
+            id: `dataset-${Date.now()}`,
+            name: file.name,
+            data: results.data as Record<string, any>[],
+            rowCount: results.data.length,
+          };
+          const updatedDatasets = [...uploadedDatasets, newDataset];
+          setUploadedDatasets(updatedDatasets);
+          processCombinedDatasets(updatedDatasets);
           setParsing(false);
+          toast({
+            title: 'Dataset uploaded',
+            description: `${file.name} (${results.data.length} records)`,
+          });
         },
         error: (error) => {
           setError(`CSV parsing error: ${error.message}`);
@@ -239,8 +327,20 @@ export default function DatasetAnalyticsPage() {
           const workbook = XLSX.read(data, { type: 'array' });
           const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(firstSheet);
-          processTimeSeriesData(jsonData as Record<string, any>[]);
+          const newDataset: UploadedDataset = {
+            id: `dataset-${Date.now()}`,
+            name: file.name,
+            data: jsonData as Record<string, any>[],
+            rowCount: jsonData.length,
+          };
+          const updatedDatasets = [...uploadedDatasets, newDataset];
+          setUploadedDatasets(updatedDatasets);
+          processCombinedDatasets(updatedDatasets);
           setParsing(false);
+          toast({
+            title: 'Dataset uploaded',
+            description: `${file.name} (${jsonData.length} records)`,
+          });
         } catch (error) {
           setError(`Excel parsing error: ${error instanceof Error ? error.message : 'Unknown error'}`);
           setParsing(false);
@@ -251,6 +351,25 @@ export default function DatasetAnalyticsPage() {
       setError('Unsupported file format. Please upload CSV or Excel files.');
       setParsing(false);
     }
+
+    event.target.value = '';
+  };
+
+  const removeDataset = (id: string) => {
+    const updatedDatasets = uploadedDatasets.filter((d) => d.id !== id);
+    setUploadedDatasets(updatedDatasets);
+    if (updatedDatasets.length >= 2) {
+      processCombinedDatasets(updatedDatasets);
+    } else {
+      setTimeSeriesData(null);
+      if (updatedDatasets.length === 1) {
+        setError('Please upload at least 2 datasets for comprehensive analysis.');
+      }
+    }
+    toast({
+      title: 'Dataset removed',
+      description: `${updatedDatasets.length} dataset(s) remaining`,
+    });
   };
 
   const getFilteredData = () => {
@@ -298,6 +417,7 @@ export default function DatasetAnalyticsPage() {
       });
     } else {
       const values = filteredData.map((row) => row[parameter]).filter((v) => typeof v === 'number');
+      if (values.length === 0) return [];
       const min = Math.min(...values);
       const max = Math.max(...values);
       const bins = 5;
@@ -426,7 +546,7 @@ export default function DatasetAnalyticsPage() {
         const trend = yearWiseData.length > 1 ? (yearWiseData[yearWiseData.length - 1].average - yearWiseData[0].average) / yearWiseData[0].average * 100 : 0;
         return {
           title: trend > 5 ? 'Increasing Trend' : trend < -5 ? 'Decreasing Trend' : 'Stable Trend',
-          description: `${parameter} shows a ${Math.abs(trend).toFixed(1)}% ${trend > 0 ? 'increase' : 'decrease'} over the ${yearWiseData.length}-year period. ${trend > 10 ? 'Significant upward trend detected.' : trend < -10 ? 'Significant downward trend detected.' : 'Relatively stable pattern observed.'}`,
+          description: `Combined analysis from ${timeSeriesData.datasetCount} datasets shows ${parameter} with a ${Math.abs(trend).toFixed(1)}% ${trend > 0 ? 'increase' : 'decrease'} over ${yearWiseData.length} years. ${trend > 10 ? 'Significant upward trend detected across all regions.' : trend < -10 ? 'Significant downward trend detected across all regions.' : 'Relatively stable pattern observed.'}`,
           type: 'trend',
         };
 
@@ -435,7 +555,7 @@ export default function DatasetAnalyticsPage() {
         const minYear = yearWiseData.reduce((min, d) => (d.average < min.average ? d : min), yearWiseData[0]);
         return {
           title: 'Year-wise Variation',
-          description: `Highest average ${parameter} recorded in ${maxYear.year} (${maxYear.average.toFixed(2)}), lowest in ${minYear.year} (${minYear.average.toFixed(2)}). Variation of ${((maxYear.average - minYear.average) / minYear.average * 100).toFixed(1)}% observed.`,
+          description: `Across ${timeSeriesData.datasetCount} datasets, highest average ${parameter} recorded in ${maxYear.year} (${maxYear.average.toFixed(2)}), lowest in ${minYear.year} (${minYear.average.toFixed(2)}). Inter-annual variation of ${((maxYear.average - minYear.average) / minYear.average * 100).toFixed(1)}% observed.`,
           type: 'anomaly',
         };
 
@@ -446,13 +566,13 @@ export default function DatasetAnalyticsPage() {
           const minMonth = seasonalData.reduce((min, d) => (d.average < min.average ? d : min), seasonalData[0]);
           return {
             title: 'Seasonal Pattern',
-            description: `Clear seasonal variation detected. Peak values in ${maxMonth.month} (${maxMonth.average.toFixed(2)}), lowest in ${minMonth.month} (${minMonth.average.toFixed(2)}). Seasonal amplitude: ${((maxMonth.average - minMonth.average) / minMonth.average * 100).toFixed(1)}%.`,
+            description: `Combined seasonal analysis reveals clear variation. Peak values in ${maxMonth.month} (${maxMonth.average.toFixed(2)}), lowest in ${minMonth.month} (${minMonth.average.toFixed(2)}). Seasonal amplitude: ${((maxMonth.average - minMonth.average) / minMonth.average * 100).toFixed(1)}% across all datasets.`,
             type: 'seasonal',
           };
         }
         return {
           title: 'Cumulative Trend',
-          description: `Cumulative ${parameter} analysis shows consistent patterns across the time series with ${filteredData.length} data points analyzed.`,
+          description: `Cumulative ${parameter} analysis from ${timeSeriesData.datasetCount} merged datasets shows consistent patterns with ${filteredData.length} data points.`,
           type: 'trend',
         };
 
@@ -461,7 +581,7 @@ export default function DatasetAnalyticsPage() {
         const totalOutliers = boxData.reduce((sum, d) => sum + d.outliers, 0);
         return {
           title: 'Variability Analysis',
-          description: `${totalOutliers} outliers detected across ${boxData.length} years. ${totalOutliers > 10 ? 'High variability indicates significant environmental fluctuations.' : 'Low variability suggests stable conditions.'} Median values range from ${Math.min(...boxData.map((d) => d.median)).toFixed(2)} to ${Math.max(...boxData.map((d) => d.median)).toFixed(2)}.`,
+          description: `${totalOutliers} outliers detected across ${boxData.length} years from ${timeSeriesData.datasetCount} datasets. ${totalOutliers > 10 ? 'High variability indicates significant environmental fluctuations across regions.' : 'Low variability suggests stable conditions.'} Median values range from ${Math.min(...boxData.map((d) => d.median)).toFixed(2)} to ${Math.max(...boxData.map((d) => d.median)).toFixed(2)}.`,
           type: 'anomaly',
         };
 
@@ -470,7 +590,7 @@ export default function DatasetAnalyticsPage() {
         const dominant = distData.reduce((max, d) => (d.value > max.value ? d : max), distData[0]);
         return {
           title: 'Distribution Analysis',
-          description: `${dominant.name} represents ${((dominant.value / filteredData.length) * 100).toFixed(1)}% of total observations. Distribution across ${distData.length} categories shows ${distData.length > 5 ? 'high diversity' : 'concentrated patterns'}.`,
+          description: `Combined dataset analysis: ${dominant.name} represents ${((dominant.value / filteredData.length) * 100).toFixed(1)}% of total observations. Distribution across ${distData.length} categories from ${timeSeriesData.datasetCount} sources shows ${distData.length > 5 ? 'high diversity' : 'concentrated patterns'}.`,
           type: 'distribution',
         };
 
@@ -480,14 +600,14 @@ export default function DatasetAnalyticsPage() {
         const modalBin = histData.find((d) => d.frequency === maxFreq);
         return {
           title: 'Frequency Distribution',
-          description: `Most frequent values fall in range ${modalBin?.range} with ${maxFreq} occurrences. Distribution shows ${maxFreq > filteredData.length * 0.3 ? 'concentrated' : 'dispersed'} pattern across ${histData.length} bins.`,
+          description: `Most frequent values fall in range ${modalBin?.range} with ${maxFreq} occurrences across ${timeSeriesData.datasetCount} datasets. Distribution shows ${maxFreq > filteredData.length * 0.3 ? 'concentrated' : 'dispersed'} pattern.`,
           type: 'distribution',
         };
 
       case 'scatter':
         return {
           title: 'Parameter Correlation',
-          description: `Scatter plot reveals relationship patterns between parameters. Data points span ${filteredData.length} observations across ${yearWiseData.length} years, enabling correlation analysis.`,
+          description: `Scatter plot from ${timeSeriesData.datasetCount} merged datasets reveals relationship patterns. ${filteredData.length} observations across ${yearWiseData.length} years enable comprehensive correlation analysis.`,
           type: 'correlation',
         };
 
@@ -505,13 +625,13 @@ export default function DatasetAnalyticsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `marine_analytics_${selectedYearRange?.[0]}-${selectedYearRange?.[1]}.csv`;
+    a.download = `marine_analytics_combined_${selectedYearRange?.[0]}-${selectedYearRange?.[1]}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 
     toast({
       title: 'Download complete',
-      description: `Exported ${filteredData.length} records`,
+      description: `Exported ${filteredData.length} combined records`,
     });
   };
 
@@ -523,7 +643,7 @@ export default function DatasetAnalyticsPage() {
             <span className="gradient-text">Marine Analytics Platform</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Upload multi-year marine datasets for comprehensive time-series analysis with AI-driven insights
+            Upload multiple marine datasets for comprehensive combined analysis with AI-driven insights
           </p>
         </div>
 
@@ -532,20 +652,20 @@ export default function DatasetAnalyticsPage() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <FileSpreadsheet className="h-5 w-5" />
-              Upload Time-Series Dataset
+              Upload Multiple Datasets (Minimum 2 Required)
             </CardTitle>
             <CardDescription>
-              Upload CSV or Excel files with at least 4 years of marine data (Temperature, Salinity, pH, Oxygen, Chlorophyll, Fish Population, etc.)
+              Upload CSV or Excel files with at least 4 years of marine data. Use the + button to add more datasets for comprehensive analysis.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {!selectedFile && !timeSeriesData ? (
+            {uploadedDatasets.length === 0 ? (
               <>
                 <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
                   <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <Upload className="h-12 w-12 text-muted-foreground mb-4" />
                     <p className="mb-2 text-sm text-muted-foreground">
-                      <span className="font-semibold">Click to upload</span> or drag and drop
+                      <span className="font-semibold">Click to upload first dataset</span> or drag and drop
                     </p>
                     <p className="text-xs text-muted-foreground">CSV, XLSX, XLS (MAX. 50MB) • Minimum 4 years required</p>
                   </div>
@@ -553,14 +673,43 @@ export default function DatasetAnalyticsPage() {
                 </label>
 
                 <div className="flex justify-center">
-                  <Button onClick={loadSampleDataset} variant="outline" disabled={parsing}>
+                  <Button onClick={loadSampleDatasets} variant="outline" disabled={parsing}>
                     <Activity className="h-4 w-4 mr-2" />
-                    Load Sample Dataset (2019-2023)
+                    Load Sample Datasets (2 datasets)
                   </Button>
                 </div>
               </>
             ) : (
               <div className="space-y-4">
+                {/* Uploaded Datasets List */}
+                <div className="space-y-2">
+                  {uploadedDatasets.map((dataset, index) => (
+                    <div key={dataset.id} className="flex items-center justify-between p-3 rounded-lg border border-border bg-muted/30">
+                      <div className="flex items-center gap-3">
+                        <Badge variant="outline" className="bg-primary/10 text-primary">
+                          Dataset {index + 1}
+                        </Badge>
+                        <div>
+                          <div className="font-medium text-sm">{dataset.name}</div>
+                          <div className="text-xs text-muted-foreground">{dataset.rowCount} records</div>
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" onClick={() => removeDataset(dataset.id)} className="h-8 w-8 p-0">
+                        <X className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add More Dataset Button */}
+                <label className="flex items-center justify-center w-full h-16 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                  <div className="flex items-center gap-2">
+                    <Plus className="h-5 w-5 text-primary" />
+                    <span className="font-semibold text-sm">Add Another Dataset</span>
+                  </div>
+                  <input type="file" className="hidden" accept=".csv,.xlsx,.xls" onChange={handleFileUpload} disabled={parsing} />
+                </label>
+
                 {timeSeriesData && (
                   <Alert className="border-green-500/20 bg-green-500/5">
                     <Calendar className="h-4 w-4 text-green-500" />
@@ -571,18 +720,18 @@ export default function DatasetAnalyticsPage() {
                 <div className="flex gap-2">
                   <Button
                     onClick={() => {
+                      setUploadedDatasets([]);
                       setTimeSeriesData(null);
-                      setSelectedFile(null);
                       setError(null);
                     }}
                     variant="outline"
                   >
-                    Upload New Dataset
+                    Clear All Datasets
                   </Button>
                   {timeSeriesData && (
                     <Button onClick={downloadResults} variant="outline">
                       <Download className="h-4 w-4 mr-2" />
-                      Export Results
+                      Export Combined Results
                     </Button>
                   )}
                 </div>
@@ -613,7 +762,7 @@ export default function DatasetAnalyticsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="h-5 w-5" />
-                  Analysis Filters
+                  Combined Analysis Filters
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -678,8 +827,8 @@ export default function DatasetAnalyticsPage() {
                         <div className="text-xs text-muted-foreground">Records</div>
                       </div>
                       <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{timeSeriesData.years.length}</div>
-                        <div className="text-xs text-muted-foreground">Years</div>
+                        <div className="text-2xl font-bold text-primary">{timeSeriesData.datasetCount}</div>
+                        <div className="text-xs text-muted-foreground">Datasets</div>
                       </div>
                       <div className="text-center">
                         <div className="text-2xl font-bold text-primary">{timeSeriesData.numericColumns.length}</div>
@@ -700,7 +849,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Multi-Year Trend Analysis</CardTitle>
-                        <CardDescription>Long-term {selectedParameter} patterns</CardDescription>
+                        <CardDescription>Combined {selectedParameter} patterns from all datasets</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20">
                         Line Chart
@@ -738,7 +887,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Year-wise Comparison</CardTitle>
-                        <CardDescription>Annual average {selectedParameter}</CardDescription>
+                        <CardDescription>Annual average {selectedParameter} across datasets</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
                         Bar Chart
@@ -774,7 +923,7 @@ export default function DatasetAnalyticsPage() {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle>Seasonal Variation</CardTitle>
-                        <CardDescription>Monthly {selectedParameter} patterns</CardDescription>
+                        <CardDescription>Monthly {selectedParameter} patterns combined</CardDescription>
                       </div>
                       <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
                         Area Chart
@@ -980,8 +1129,9 @@ export default function DatasetAnalyticsPage() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <BarChart3 className="h-5 w-5" />
-                  Statistical Summary
+                  Combined Statistical Summary
                 </CardTitle>
+                <CardDescription>Aggregated statistics from {timeSeriesData.datasetCount} datasets</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

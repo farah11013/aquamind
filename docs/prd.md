@@ -48,9 +48,11 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ### 2.5 Analytics Page
 
 #### 2.5.1 Data Upload and Processing
-- Support for CSV/XLS file upload
-- Automatic detection of year and time columns
-- Data validation for minimum 4 years of time-series data
+- Support for uploading minimum 2 separate Excel sheets (CSV/XLS/XLSX format)
+- Ability to upload additional datasets using + icon
+- Automatic detection of year and time columns across all uploaded datasets
+- Data validation for minimum 4 years of time-series data per dataset
+- Automatic dataset combination and merging for unified analysis
 - Supported marine parameters:
   - Sea surface temperature
   - Salinity
@@ -70,21 +72,25 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Line graphs for multi-year trends
 - Area graphs for cumulative and seasonal variation
 - Box plots for year-wise variability and outlier detection
+- Combined visualizations integrating data from all uploaded datasets for comprehensive analysis
 
 #### 2.5.3 Advanced Data Analytics
-- Automated statistical summaries generation
+- Automated statistical summaries generation across combined datasets
 - Trend identification and highlighting
 - Seasonal pattern detection
 - Anomaly detection and highlighting
 - AI-driven insights for each chart
+- Cross-dataset correlation analysis
 - Filters for:
   - Year range selection
   - Parameter selection
   - Custom date ranges
+  - Dataset selection (individual or combined view)
 - Downloadable reports functionality
 - Comparative views for:
   - Different regions
   - Different time periods
+  - Different datasets
 
 #### 2.5.4 Data Visualization Components
 - Interactive charts and graphs
@@ -92,6 +98,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Multi-dimensional data exploration tools
 - Clean, intuitive marine-themed dashboard
 - Real-time research and decision-making support
+- Unified visualization interface for easy understanding of combined datasets
 
 ## 3. Technical Requirements
 
@@ -115,6 +122,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Horizontal scaling capabilities
 - Optimized query performance
 - Efficient handling of real-time data streams
+- Efficient processing of multiple datasets simultaneously
 
 ## 4. User Interface Requirements
 
@@ -151,6 +159,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 - Anomaly detection algorithms
 - Natural language generation for insights
 - Short AI-driven insights for each visualization chart
+- Cross-dataset pattern recognition and correlation analysis
 
 ### 6.2 AI Explainability
 - Transparent AI decision-making processes
