@@ -164,41 +164,40 @@
   - [x] Remove mandatory Year column requirement
   - [x] Accept any dataset type with numeric columns
   - [x] Make time column optional (auto-detect or use row index)
-- [x] Step 2: Implement 6 Growth/Loss Visualizations
+- [x] Step 2: Implement 5 Growth/Loss Visualizations
   - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
   - [x] Area Chart - Cumulative impact (total accumulation)
   - [x] Bar Chart - Period/region comparison (side-by-side)
   - [x] Slope Chart - Before vs after (rate of change) [NEW]
-  - [x] Heatmap - Spatial/temporal patterns (hotspot detection) [NEW]
   - [x] Box Plot - Distribution analysis (median shifts, variability)
 - [x] Step 3: Create Slope Chart Component
   - [x] Compare first half vs second half of data
   - [x] Show before/after values with change percentage
   - [x] Visual indicators (TrendingUp/Down icons)
   - [x] Color-coded: green for decrease, red for increase
-- [x] Step 4: Create Heatmap Component
-  - [x] Grid-based color intensity visualization
-  - [x] Normalize values for color mapping
-  - [x] Show spatial/temporal patterns
-  - [x] Tooltip with exact values
-- [x] Step 5: Implement Growth/Loss Insight System
+- [x] Step 4: Implement Growth/Loss Insight System
   - [x] All insights focus on growth, loss, recovery, degradation
   - [x] Severity levels: high, medium, low
   - [x] Priority badges for decision-making
   - [x] Context-aware descriptions
-- [x] Step 6: Add Decision-Focused Features
+- [x] Step 5: Add Decision-Focused Features
   - [x] Threshold reference lines on charts
   - [x] Color-coded severity indicators
   - [x] Priority badges (High/Medium/Low)
   - [x] Actionable insight descriptions
-- [x] Step 7: Update UI for Universal Datasets
+- [x] Step 6: Update UI for Universal Datasets
   - [x] Change title to "Growth & Loss Analysis Dashboard"
   - [x] Remove time-series specific requirements
   - [x] Update descriptions to "any dataset type"
   - [x] Auto-detect numeric columns
+- [x] Step 7: Remove Heatmap Visualization
+  - [x] Remove generateHeatmapData function
+  - [x] Remove heatmap chart component
+  - [x] Remove heatmap insight generation
+  - [x] Update chart count to 5
 - [x] Step 8: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm all 6 charts work correctly
+  - [x] Confirm all 5 charts work correctly
   - [x] Verify insights are growth/loss focused
 
 ## Notes
@@ -206,13 +205,12 @@
 - Dashboard: Growth & Loss Analysis Dashboard
 - **Universal Dataset Support**: Accepts ANY CSV/Excel file with numeric columns
 - **No Restrictions**: No year requirement, no time-series requirement, no minimum data span
-- **6 Specialized Charts**:
+- **5 Specialized Charts**:
   1. Line Chart - Identify trends, spikes, drops
   2. Area Chart - Show cumulative magnitude
   3. Bar Chart - Compare periods/regions
   4. Slope Chart - Before/after comparison (NEW)
-  5. Heatmap - Spatial patterns and hotspots (NEW)
-  6. Box Plot - Distribution and variability
+  5. Box Plot - Distribution and variability
 - **Growth/Loss Focus**: All insights explain growth, recovery, degradation, or loss
 - **Decision-Focused**: Threshold indicators, severity levels, priority badges
 - **AI-Driven Insights**: Context-aware analysis with actionable recommendations

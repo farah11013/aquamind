@@ -374,45 +374,7 @@ export default function DatasetAnalyticsPage() {
     });
   };
 
-  // Heatmap Data - Spatial/Temporal Patterns
-  const generateHeatmapData = (parameter: string) => {
-    if (!analysisData) return [];
-    const data = analysisData.data;
 
-    if (analysisData.timeColumn && analysisData.categoricalColumns.length > 0) {
-      const timeCol = analysisData.timeColumn;
-      const categoryCol = analysisData.categoricalColumns[0];
-      
-      const grouped: Record<string, Record<string, number[]>> = {};
-      
-      data.forEach((row) => {
-        const time = String(row[timeCol]);
-        const category = String(row[categoryCol]);
-        const value = row[parameter];
-        
-        if (typeof value === 'number') {
-          if (!grouped[time]) grouped[time] = {};
-          if (!grouped[time][category]) grouped[time][category] = [];
-          grouped[time][category].push(value);
-        }
-      });
-
-      const result: any[] = [];
-      Object.entries(grouped).slice(0, 20).forEach(([time, categories]) => {
-        Object.entries(categories).forEach(([category, values]) => {
-          result.push({
-            time,
-            category,
-            value: values.reduce((a, b) => a + b, 0) / values.length,
-          });
-        });
-      });
-
-      return result;
-    }
-
-    return [];
-  };
 
   // Box Plot Data - Distribution Analysis
   const generateBoxPlotData = (parameter: string) => {
@@ -550,23 +512,6 @@ export default function DatasetAnalyticsPage() {
             severity: 'low',
           };
         }
-
-      case 'heatmap':
-        const heatmapData = generateHeatmapData(parameter);
-        if (heatmapData.length > 0) {
-          const values = heatmapData.map((d) => d.value);
-          const maxVal = Math.max(...values);
-          const minVal = Math.min(...values);
-          const range = maxVal - minVal;
-
-          return {
-            title: '🗺️ Spatial Pattern Analysis',
-            description: `${parameter} shows ${range > 50 ? 'high' : 'moderate'} spatial variation (range: ${range.toFixed(2)}). ${range > 50 ? 'Hotspots detected indicate localized environmental stress requiring immediate regional intervention.' : 'Relatively uniform distribution suggests consistent conditions across regions.'}`,
-            type: range > 50 ? 'degradation' : 'stable',
-            severity: range > 50 ? 'high' : 'medium',
-          };
-        }
-        break;
 
       case 'box':
         const boxData = generateBoxPlotData(parameter);
@@ -964,52 +909,7 @@ export default function DatasetAnalyticsPage() {
                 </Card>
               )}
 
-              {/* 5. Heatmap - Spatial/Temporal Patterns */}
-              {selectedParameter && generateHeatmapData(selectedParameter).length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Spatial Pattern Heatmap</CardTitle>
-                        <CardDescription>Regional hotspots and intensity patterns for {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-red-500/10 text-red-500 border-red-500/20">
-                        Heatmap
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-4 gap-1">
-                      {generateHeatmapData(selectedParameter).slice(0, 40).map((item, idx) => {
-                        const allValues = generateHeatmapData(selectedParameter).map((d) => d.value);
-                        const minVal = Math.min(...allValues);
-                        const maxVal = Math.max(...allValues);
-                        const normalized = (item.value - minVal) / (maxVal - minVal);
-                        const intensity = Math.floor(normalized * 255);
-                        const bgColor = `rgb(${intensity}, ${255 - intensity}, 100)`;
-
-                        return (
-                          <div
-                            key={idx}
-                            className="aspect-square rounded flex items-center justify-center text-xs font-semibold"
-                            style={{ backgroundColor: bgColor }}
-                            title={`${item.category} - ${item.time}: ${item.value.toFixed(2)}`}
-                          >
-                            {item.value.toFixed(0)}
-                          </div>
-                        );
-                      })}
-                    </div>
-                    <div className="flex items-center justify-between mt-4 text-xs text-muted-foreground">
-                      <span>Low Intensity</span>
-                      <span>High Intensity</span>
-                    </div>
-                    <GrowthInsightBox insight={generateGrowthInsight('heatmap', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 6. Box Plot - Distribution Analysis */}
+              {/* 5. Box Plot - Distribution Analysis */}
               {selectedParameter && generateBoxPlotData(selectedParameter).length > 0 && (
                 <Card>
                   <CardHeader>
