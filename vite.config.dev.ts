@@ -21,9 +21,9 @@
       ...userConfig,
       plugins: [
         makeTagger(),
-        injectedGuiListenerPlugin({
-          path: 'https://miaoda-resource-static.s3cdn.medo.dev/common/v2/injected.js'
-        }),
+        // injectedGuiListenerPlugin({
+        //   path: 'https://miaoda-resource-static.s3cdn.medo.dev/common/v2/injected.js'
+        // }),
         injectOnErrorPlugin(),
         ...(userConfig?.plugins || []),
         
