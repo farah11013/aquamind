@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Upload, FileSpreadsheet, AlertCircle, Download, TrendingUp, TrendingDown, Activity, Minus } from 'lucide-react';
+import { Upload, FileSpreadsheet, AlertCircle, Download, Activity, BarChart3, PieChart, TrendingUp, Database } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
@@ -17,13 +17,17 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  PieChart as RechartsPieChart,
+  Pie,
+  Cell,
   LineChart,
   Line,
   AreaChart,
   Area,
+  ScatterChart,
+  Scatter,
   ComposedChart,
   ReferenceLine,
-  Cell,
 } from 'recharts';
 
 interface AnalysisData {
@@ -31,13 +35,14 @@ interface AnalysisData {
   numericColumns: string[];
   categoricalColumns: string[];
   timeColumn: string | null;
+  statistics: Record<string, any>;
 }
 
-interface GrowthInsight {
+interface DataInsight {
   title: string;
   description: string;
-  type: 'growth' | 'loss' | 'recovery' | 'degradation' | 'stable';
-  severity: 'high' | 'medium' | 'low';
+  type: 'trend' | 'distribution' | 'correlation' | 'summary';
+  icon: string;
 }
 
 const CHART_COLORS = [
@@ -47,10 +52,6 @@ const CHART_COLORS = [
   'hsl(var(--chart-4))',
   'hsl(var(--chart-5))',
 ];
-
-const GROWTH_COLOR = '#10b981'; // Green
-const LOSS_COLOR = '#ef4444'; // Red
-const STABLE_COLOR = '#6b7280'; // Gray
 
 export default function DatasetAnalyticsPage() {
   const { toast } = useToast();
@@ -66,32 +67,34 @@ export default function DatasetAnalyticsPage() {
     const years = [2019, 2020, 2021, 2022, 2023, 2024];
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     const regions = ['North', 'South', 'East', 'West'];
+    const products = ['Product A', 'Product B', 'Product C'];
 
     years.forEach((year, yearIdx) => {
       months.forEach((month, monthIdx) => {
         regions.forEach((region) => {
-          const baseTemp = 26 + Math.sin((monthIdx / 12) * Math.PI * 2) * 4 + yearIdx * 0.3;
-          const basePollution = 50 + yearIdx * 8 + (Math.random() - 0.5) * 10;
-          const baseFishPop = 200 - yearIdx * 15 + Math.sin((monthIdx / 12) * Math.PI * 2) * 30;
-          const baseCoralCover = 75 - yearIdx * 5 + (Math.random() - 0.5) * 5;
+          products.forEach((product) => {
+            const baseSales = 10000 + yearIdx * 2000 + Math.sin((monthIdx / 12) * Math.PI * 2) * 3000;
+            const baseRevenue = baseSales * (50 + Math.random() * 20);
+            const baseCustomers = Math.floor(baseSales / 100);
 
-          sampleData.push({
-            Year: year,
-            Month: month,
-            Period: `${year}-${String(monthIdx + 1).padStart(2, '0')}`,
-            Region: region,
-            Temperature: Number((baseTemp + (Math.random() - 0.5) * 2).toFixed(2)),
-            Pollution: Number((basePollution + (Math.random() - 0.5) * 5).toFixed(2)),
-            FishPopulation: Math.floor(baseFishPop + (Math.random() - 0.5) * 20),
-            CoralCover: Number((baseCoralCover + (Math.random() - 0.5) * 3).toFixed(2)),
-            Oxygen: Number((7.5 - yearIdx * 0.2 + (Math.random() - 0.5) * 0.5).toFixed(2)),
-            pH: Number((8.1 - yearIdx * 0.05 + (Math.random() - 0.5) * 0.1).toFixed(2)),
+            sampleData.push({
+              Year: year,
+              Month: month,
+              Period: `${year}-${String(monthIdx + 1).padStart(2, '0')}`,
+              Region: region,
+              Product: product,
+              Sales: Math.floor(baseSales + (Math.random() - 0.5) * 2000),
+              Revenue: Number((baseRevenue + (Math.random() - 0.5) * 50000).toFixed(2)),
+              Customers: baseCustomers + Math.floor((Math.random() - 0.5) * 100),
+              Satisfaction: Number((4.0 + Math.random() * 1.0).toFixed(2)),
+              GrowthRate: Number(((Math.random() - 0.3) * 20).toFixed(2)),
+            });
           });
         });
       });
     });
 
-    setUploadedFileName('Marine Environmental Data (2019-2024)');
+    setUploadedFileName('Sample Business Analytics Data (2019-2024)');
     processData(sampleData);
     setError(null);
 
@@ -112,6 +115,36 @@ export default function DatasetAnalyticsPage() {
     }
 
     return null;
+  };
+
+  const calculateStatistics = (data: Record<string, any>[], numericColumns: string[]) => {
+    const stats: Record<string, any> = {};
+
+    numericColumns.forEach((col) => {
+      const values = data.map((row) => row[col]).filter((v) => typeof v === 'number');
+      if (values.length > 0) {
+        const sum = values.reduce((a, b) => a + b, 0);
+        const mean = sum / values.length;
+        const sorted = [...values].sort((a, b) => a - b);
+        const median = sorted[Math.floor(sorted.length / 2)];
+        const min = Math.min(...values);
+        const max = Math.max(...values);
+        const variance = values.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / values.length;
+        const stdDev = Math.sqrt(variance);
+
+        stats[col] = {
+          count: values.length,
+          mean: Number(mean.toFixed(2)),
+          median: Number(median.toFixed(2)),
+          min: Number(min.toFixed(2)),
+          max: Number(max.toFixed(2)),
+          stdDev: Number(stdDev.toFixed(2)),
+          range: Number((max - min).toFixed(2)),
+        };
+      }
+    });
+
+    return stats;
   };
 
   const processData = (data: Record<string, any>[]) => {
@@ -135,11 +168,14 @@ export default function DatasetAnalyticsPage() {
       }
     });
 
+    const statistics = calculateStatistics(data, numericColumns);
+
     const analysisData: AnalysisData = {
       data,
       numericColumns,
       categoricalColumns,
       timeColumn,
+      statistics,
     };
 
     setAnalysisData(analysisData);
@@ -148,7 +184,7 @@ export default function DatasetAnalyticsPage() {
     setError(null);
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -197,19 +233,27 @@ export default function DatasetAnalyticsPage() {
         }
       };
       reader.readAsArrayBuffer(file);
+    } else if (fileExtension === 'pdf') {
+      setError('PDF file support: Please convert your PDF tables to CSV or Excel format for analysis.');
+      setParsing(false);
+      toast({
+        title: 'PDF files not supported',
+        description: 'Please convert PDF to CSV/Excel format',
+        variant: 'destructive',
+      });
     } else {
-      setError('Unsupported file format. Please upload CSV or Excel files.');
+      setError('Unsupported file format. Please upload CSV, Excel, or PDF files.');
       setParsing(false);
     }
 
     event.target.value = '';
   };
 
-  // Line Chart Data - Time Series Trends
+  // Line Chart Data - Time Series
   const generateLineChartData = (parameter: string) => {
     if (!analysisData) return [];
     const data = analysisData.data;
-    
+
     if (analysisData.timeColumn) {
       const grouped: Record<string, number[]> = {};
       data.forEach((row) => {
@@ -225,8 +269,7 @@ export default function DatasetAnalyticsPage() {
         .map(([time, values]) => ({
           time,
           value: values.reduce((a, b) => a + b, 0) / values.length,
-          min: Math.min(...values),
-          max: Math.max(...values),
+          count: values.length,
         }))
         .slice(0, 50);
     }
@@ -237,17 +280,7 @@ export default function DatasetAnalyticsPage() {
     }));
   };
 
-  // Area Chart Data - Cumulative Growth/Loss
-  const generateAreaChartData = (parameter: string) => {
-    const lineData = generateLineChartData(parameter);
-    let cumulative = 0;
-    return lineData.map((d) => {
-      cumulative += d.value;
-      return { ...d, cumulative };
-    });
-  };
-
-  // Bar Chart Data - Period/Region Comparison
+  // Bar Chart Data - Category Comparison
   const generateBarChartData = (parameter: string) => {
     if (!analysisData) return [];
     const data = analysisData.data;
@@ -255,7 +288,7 @@ export default function DatasetAnalyticsPage() {
     if (analysisData.categoricalColumns.length > 0) {
       const categoryCol = analysisData.categoricalColumns[0];
       const grouped: Record<string, number[]> = {};
-      
+
       data.forEach((row) => {
         const category = String(row[categoryCol]);
         const value = row[parameter];
@@ -269,6 +302,7 @@ export default function DatasetAnalyticsPage() {
         .map(([category, values]) => ({
           category,
           average: values.reduce((a, b) => a + b, 0) / values.length,
+          total: values.reduce((a, b) => a + b, 0),
           count: values.length,
         }))
         .slice(0, 20);
@@ -277,152 +311,100 @@ export default function DatasetAnalyticsPage() {
     return [];
   };
 
-  // Slope Chart Data - Before vs After Comparison
-  const generateSlopeChartData = (parameter: string) => {
+  // Pie Chart Data - Distribution
+  const generatePieChartData = () => {
+    if (!analysisData || analysisData.categoricalColumns.length === 0) return [];
+    const data = analysisData.data;
+    const categoryCol = analysisData.categoricalColumns[0];
+
+    const grouped: Record<string, number> = {};
+    data.forEach((row) => {
+      const category = String(row[categoryCol]);
+      grouped[category] = (grouped[category] || 0) + 1;
+    });
+
+    return Object.entries(grouped)
+      .map(([name, value]) => ({ name, value }))
+      .slice(0, 10);
+  };
+
+  // Scatter Plot Data - Correlation
+  const generateScatterData = (param1: string, param2: string) => {
     if (!analysisData) return [];
     const data = analysisData.data;
-    
-    const firstHalf = data.slice(0, Math.floor(data.length / 2));
-    const secondHalf = data.slice(Math.floor(data.length / 2));
 
-    const categories = analysisData.categoricalColumns.length > 0 
-      ? [...new Set(data.map((row) => String(row[analysisData.categoricalColumns[0]])))]
-      : ['Overall'];
+    return data
+      .map((row) => ({
+        x: row[param1],
+        y: row[param2],
+      }))
+      .filter((d) => typeof d.x === 'number' && typeof d.y === 'number')
+      .slice(0, 200);
+  };
 
-    return categories.slice(0, 10).map((category) => {
-      const beforeValues = firstHalf
-        .filter((row) => !analysisData.categoricalColumns[0] || String(row[analysisData.categoricalColumns[0]]) === category)
-        .map((row) => row[parameter])
-        .filter((v) => typeof v === 'number');
-      
-      const afterValues = secondHalf
-        .filter((row) => !analysisData.categoricalColumns[0] || String(row[analysisData.categoricalColumns[0]]) === category)
-        .map((row) => row[parameter])
-        .filter((v) => typeof v === 'number');
-
-      const before = beforeValues.length > 0 ? beforeValues.reduce((a, b) => a + b, 0) / beforeValues.length : 0;
-      const after = afterValues.length > 0 ? afterValues.reduce((a, b) => a + b, 0) / afterValues.length : 0;
-      const change = ((after - before) / before) * 100;
-
-      return { category, before, after, change };
+  // Area Chart Data - Cumulative
+  const generateAreaChartData = (parameter: string) => {
+    const lineData = generateLineChartData(parameter);
+    let cumulative = 0;
+    return lineData.map((d) => {
+      cumulative += d.value;
+      return { ...d, cumulative };
     });
   };
 
+  // Generate Insights
+  const generateInsights = (): DataInsight[] => {
+    if (!analysisData) return [];
+    const insights: DataInsight[] = [];
 
+    // Data Summary Insight
+    insights.push({
+      title: '📊 Dataset Overview',
+      description: `Loaded ${analysisData.data.length} records with ${analysisData.numericColumns.length} numeric and ${analysisData.categoricalColumns.length} categorical columns. ${analysisData.timeColumn ? `Time-series data detected (${analysisData.timeColumn}).` : 'No time column detected.'}`,
+      type: 'summary',
+      icon: '📊',
+    });
 
-
-
-  // Growth/Loss Insight Generator
-  const generateGrowthInsight = (chartType: string, parameter: string): GrowthInsight => {
-    if (!analysisData) return { title: '', description: '', type: 'stable', severity: 'low' };
-
-    const lineData = generateLineChartData(parameter);
-    if (lineData.length < 2) return { title: 'Insufficient Data', description: 'Not enough data points for trend analysis.', type: 'stable', severity: 'low' };
-
-    const firstValue = lineData[0].value;
-    const lastValue = lineData[lineData.length - 1].value;
-    const change = ((lastValue - firstValue) / firstValue) * 100;
-    const absChange = Math.abs(change);
-
-    switch (chartType) {
-      case 'line':
-        if (change > 15) {
-          return {
-            title: '⚠️ Significant Growth Detected',
-            description: `${parameter} shows a ${change.toFixed(1)}% increase over the analysis period. This upward trend may indicate environmental stress, pollution accumulation, or temperature rise requiring immediate attention.`,
-            type: 'degradation',
-            severity: 'high',
-          };
-        } else if (change > 5) {
-          return {
-            title: '📈 Moderate Growth Trend',
-            description: `${parameter} increased by ${change.toFixed(1)}%. Monitor this trend closely as continued growth may signal environmental changes or resource depletion.`,
-            type: 'growth',
-            severity: 'medium',
-          };
-        } else if (change < -15) {
-          return {
-            title: '✅ Significant Recovery Detected',
-            description: `${parameter} decreased by ${Math.abs(change).toFixed(1)}%, indicating positive environmental recovery, pollution reduction, or ecosystem restoration. Continue conservation efforts.`,
-            type: 'recovery',
-            severity: 'high',
-          };
-        } else if (change < -5) {
-          return {
-            title: '📉 Moderate Decline Observed',
-            description: `${parameter} shows a ${Math.abs(change).toFixed(1)}% decrease. This could indicate either positive recovery (if reducing pollution) or negative loss (if reducing biodiversity). Context-dependent analysis recommended.`,
-            type: 'loss',
-            severity: 'medium',
-          };
-        } else {
-          return {
-            title: '➡️ Stable Conditions',
-            description: `${parameter} remains relatively stable with only ${absChange.toFixed(1)}% variation. Current environmental conditions are consistent with no major growth or loss patterns detected.`,
-            type: 'stable',
-            severity: 'low',
-          };
-        }
-
-      case 'area':
-        const cumulativeData = generateAreaChartData(parameter);
-        const totalAccumulation = cumulativeData[cumulativeData.length - 1].cumulative;
-        return {
-          title: totalAccumulation > 0 ? '📊 Cumulative Growth Pattern' : '📊 Cumulative Loss Pattern',
-          description: `Total cumulative ${parameter} reaches ${totalAccumulation.toFixed(2)}. ${totalAccumulation > 0 ? 'Increasing accumulation indicates sustained environmental pressure or resource growth.' : 'Decreasing cumulative values suggest resource depletion or environmental improvement.'}`,
-          type: totalAccumulation > 0 ? 'growth' : 'loss',
-          severity: Math.abs(totalAccumulation) > 1000 ? 'high' : 'medium',
-        };
-
-      case 'bar':
-        const barData = generateBarChartData(parameter);
-        if (barData.length > 1) {
-          const maxCategory = barData.reduce((max, d) => (d.average > max.average ? d : max), barData[0]);
-          const minCategory = barData.reduce((min, d) => (d.average < min.average ? d : min), barData[0]);
-          const variation = ((maxCategory.average - minCategory.average) / minCategory.average) * 100;
-
-          return {
-            title: '🔍 Regional/Temporal Variation',
-            description: `Highest ${parameter} in ${maxCategory.category} (${maxCategory.average.toFixed(2)}), lowest in ${minCategory.category} (${minCategory.average.toFixed(2)}). ${variation.toFixed(1)}% variation indicates ${variation > 50 ? 'significant spatial inequality requiring targeted intervention' : 'moderate regional differences'}.`,
-            type: variation > 50 ? 'degradation' : 'stable',
-            severity: variation > 50 ? 'high' : 'medium',
-          };
-        }
-        break;
-
-      case 'slope':
-        const slopeData = generateSlopeChartData(parameter);
-        const avgChange = slopeData.reduce((sum, d) => sum + d.change, 0) / slopeData.length;
-        
-        if (avgChange > 10) {
-          return {
-            title: '⚠️ Accelerating Growth',
-            description: `Average ${avgChange.toFixed(1)}% increase detected across categories. This acceleration pattern suggests worsening environmental conditions or intensifying pressure on marine ecosystems.`,
-            type: 'degradation',
-            severity: 'high',
-          };
-        } else if (avgChange < -10) {
-          return {
-            title: '✅ Recovery in Progress',
-            description: `Average ${Math.abs(avgChange).toFixed(1)}% decrease indicates positive recovery trajectory. Conservation measures appear effective. Maintain current interventions.`,
-            type: 'recovery',
-            severity: 'high',
-          };
-        } else {
-          return {
-            title: '➡️ Minimal Change',
-            description: `Average change of ${Math.abs(avgChange).toFixed(1)}% suggests stable conditions with no significant growth or loss between periods.`,
-            type: 'stable',
-            severity: 'low',
-          };
-        }
+    // Numeric Analysis
+    if (analysisData.numericColumns.length > 0 && selectedParameter) {
+      const stats = analysisData.statistics[selectedParameter];
+      if (stats) {
+        const cv = (stats.stdDev / stats.mean) * 100;
+        insights.push({
+          title: `📈 ${selectedParameter} Analysis`,
+          description: `Mean: ${stats.mean}, Range: ${stats.min} - ${stats.max}. ${cv > 30 ? 'High variability detected (CV: ' + cv.toFixed(1) + '%).' : 'Low variability (CV: ' + cv.toFixed(1) + '%).'} Standard deviation: ${stats.stdDev}.`,
+          type: 'trend',
+          icon: '📈',
+        });
+      }
     }
 
-    return {
-      title: 'Analysis Complete',
-      description: `${parameter} data analyzed successfully.`,
-      type: 'stable',
-      severity: 'low',
-    };
+    // Categorical Distribution
+    if (analysisData.categoricalColumns.length > 0) {
+      const pieData = generatePieChartData();
+      if (pieData.length > 0) {
+        const total = pieData.reduce((sum, d) => sum + d.value, 0);
+        const dominant = pieData.reduce((max, d) => (d.value > max.value ? d : max), pieData[0]);
+        insights.push({
+          title: '🎯 Distribution Pattern',
+          description: `${analysisData.categoricalColumns[0]} has ${pieData.length} unique categories. "${dominant.name}" is most frequent (${((dominant.value / total) * 100).toFixed(1)}% of data).`,
+          type: 'distribution',
+          icon: '🎯',
+        });
+      }
+    }
+
+    // Correlation Insight
+    if (analysisData.numericColumns.length >= 2) {
+      insights.push({
+        title: '🔗 Correlation Analysis',
+        description: `${analysisData.numericColumns.length} numeric variables available for correlation analysis. Use scatter plots to explore relationships between ${selectedParameter} and ${selectedParameter2}.`,
+        type: 'correlation',
+        icon: '🔗',
+      });
+    }
+
+    return insights;
   };
 
   const downloadResults = () => {
@@ -433,7 +415,7 @@ export default function DatasetAnalyticsPage() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `growth_loss_analysis_${Date.now()}.csv`;
+    a.download = `analytics_export_${Date.now()}.csv`;
     a.click();
     URL.revokeObjectURL(url);
 
@@ -448,10 +430,10 @@ export default function DatasetAnalyticsPage() {
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-8">
           <h1 className="text-4xl xl:text-5xl font-bold mb-4">
-            <span className="gradient-text">Growth & Loss Analysis Dashboard</span>
+            <span className="gradient-text">Analytics Visualization Dashboard</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Upload any dataset for comprehensive growth, loss, recovery, and degradation analysis with AI-driven insights
+            Upload Excel, CSV, or PDF files for comprehensive data analysis and intelligent visualizations
           </p>
         </div>
 
@@ -463,7 +445,7 @@ export default function DatasetAnalyticsPage() {
               Upload Dataset
             </CardTitle>
             <CardDescription>
-              Upload CSV or Excel files with any type of data. The system will automatically detect numeric columns for analysis.
+              Upload CSV, Excel (.xlsx, .xls), or PDF files. The system will automatically analyze and visualize your data.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -475,15 +457,15 @@ export default function DatasetAnalyticsPage() {
                     <p className="mb-2 text-sm text-muted-foreground">
                       <span className="font-semibold">Click to upload</span> or drag and drop
                     </p>
-                    <p className="text-xs text-muted-foreground">CSV, XLSX, XLS • Any dataset type accepted</p>
+                    <p className="text-xs text-muted-foreground">CSV, XLSX, XLS, PDF • Any data format accepted</p>
                   </div>
-                  <input type="file" className="hidden" accept=".csv,.xlsx,.xls" onChange={handleFileUpload} disabled={parsing} />
+                  <input type="file" className="hidden" accept=".csv,.xlsx,.xls,.pdf" onChange={handleFileUpload} disabled={parsing} />
                 </label>
 
                 <div className="flex justify-center">
                   <Button onClick={loadSampleDataset} variant="outline" disabled={parsing}>
                     <Activity className="h-4 w-4 mr-2" />
-                    Load Sample Environmental Dataset
+                    Load Sample Business Dataset
                   </Button>
                 </div>
               </>
@@ -502,7 +484,7 @@ export default function DatasetAnalyticsPage() {
                 <Alert className="border-green-500/20 bg-green-500/5">
                   <Activity className="h-4 w-4 text-green-500" />
                   <AlertDescription className="text-green-500">
-                    ✓ Analysis ready: {analysisData.data.length} records, {analysisData.numericColumns.length} numeric parameters
+                    ✓ Analysis ready: {analysisData.data.length} records, {analysisData.numericColumns.length} numeric columns, {analysisData.categoricalColumns.length} categorical columns
                   </AlertDescription>
                 </Alert>
 
@@ -544,245 +526,318 @@ export default function DatasetAnalyticsPage() {
         {/* Analysis Dashboard */}
         {analysisData && (
           <>
-            {/* Parameter Selection */}
+            {/* Insights Section */}
             <Card className="mb-8">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <TrendingUp className="h-5 w-5" />
-                  Analysis Parameters
+                  <Database className="h-5 w-5" />
+                  Data Insights
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Primary Parameter</label>
-                    <Select value={selectedParameter} onValueChange={setSelectedParameter}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {analysisData.numericColumns.map((col) => (
-                          <SelectItem key={col} value={col}>
-                            {col}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Secondary Parameter</label>
-                    <Select value={selectedParameter2} onValueChange={setSelectedParameter2}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {analysisData.numericColumns.map((col) => (
-                          <SelectItem key={col} value={col}>
-                            {col}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="flex items-end">
-                    <div className="grid grid-cols-2 gap-2 w-full">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{analysisData.data.length}</div>
-                        <div className="text-xs text-muted-foreground">Records</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-primary">{analysisData.numericColumns.length}</div>
-                        <div className="text-xs text-muted-foreground">Parameters</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {generateInsights().map((insight, idx) => (
+                    <div key={idx} className="p-4 rounded-lg border border-border bg-muted/30">
+                      <div className="flex items-start gap-3">
+                        <span className="text-2xl">{insight.icon}</span>
+                        <div className="flex-1">
+                          <div className="font-semibold text-sm mb-1">{insight.title}</div>
+                          <div className="text-xs text-muted-foreground">{insight.description}</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </CardContent>
             </Card>
 
+            {/* Parameter Selection */}
+            {analysisData.numericColumns.length > 0 && (
+              <Card className="mb-8">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    Visualization Parameters
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Primary Parameter</label>
+                      <Select value={selectedParameter} onValueChange={setSelectedParameter}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {analysisData.numericColumns.map((col) => (
+                            <SelectItem key={col} value={col}>
+                              {col}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div>
+                      <label className="text-sm font-medium mb-2 block">Secondary Parameter</label>
+                      <Select value={selectedParameter2} onValueChange={setSelectedParameter2}>
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {analysisData.numericColumns.map((col) => (
+                            <SelectItem key={col} value={col}>
+                              {col}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    <div className="flex items-end">
+                      <div className="grid grid-cols-2 gap-2 w-full">
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-primary">{analysisData.data.length}</div>
+                          <div className="text-xs text-muted-foreground">Records</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-2xl font-bold text-primary">{analysisData.numericColumns.length}</div>
+                          <div className="text-xs text-muted-foreground">Metrics</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             {/* Visualizations Grid */}
             {analysisData.numericColumns.length > 0 ? (
               <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              {/* 1. Line Chart - Time Series Trends */}
-              {selectedParameter && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Time-Series Trend Analysis</CardTitle>
-                        <CardDescription>Identify growth, decline, spikes, and drops in {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20">
-                        Line Chart
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <LineChart data={generateLineChartData(selectedParameter)}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="#ffffff" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: 'hsl(var(--card))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '8px',
-                            color: '#ffffff',
-                          }}
-                        />
-                        <Legend />
-                        <ReferenceLine y={generateLineChartData(selectedParameter).reduce((sum, d) => sum + d.value, 0) / generateLineChartData(selectedParameter).length} stroke="#f59e0b" strokeDasharray="5 5" label="Threshold" />
-                        <Line type="monotone" dataKey="value" stroke={CHART_COLORS[0]} strokeWidth={2} name={selectedParameter} dot={{ r: 3 }} />
-                        {'max' in (generateLineChartData(selectedParameter)[0] || {}) && (
-                          <>
-                            <Line type="monotone" dataKey="max" stroke={LOSS_COLOR} strokeWidth={1} strokeDasharray="3 3" name="Max" dot={false} />
-                            <Line type="monotone" dataKey="min" stroke={GROWTH_COLOR} strokeWidth={1} strokeDasharray="3 3" name="Min" dot={false} />
-                          </>
-                        )}
-                      </LineChart>
-                    </ResponsiveContainer>
-                    <GrowthInsightBox insight={generateGrowthInsight('line', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 2. Area Chart - Cumulative Growth/Loss */}
-              {selectedParameter && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Cumulative Impact Analysis</CardTitle>
-                        <CardDescription>Total accumulation and magnitude of {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
-                        Area Chart
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <AreaChart data={generateAreaChartData(selectedParameter)}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="#ffffff" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: 'hsl(var(--card))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '8px',
-                            color: '#ffffff',
-                          }}
-                        />
-                        <Legend />
-                        <Area type="monotone" dataKey="cumulative" stroke={CHART_COLORS[3]} fill={CHART_COLORS[3]} fillOpacity={0.6} name="Cumulative" />
-                      </AreaChart>
-                    </ResponsiveContainer>
-                    <GrowthInsightBox insight={generateGrowthInsight('area', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 3. Bar Chart - Period/Region Comparison */}
-              {selectedParameter && generateBarChartData(selectedParameter).length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Comparative Analysis</CardTitle>
-                        <CardDescription>Side-by-side comparison of {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
-                        Bar Chart
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <ResponsiveContainer width="100%" height={300}>
-                      <BarChart data={generateBarChartData(selectedParameter)}>
-                        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                        <XAxis dataKey="category" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
-                        <YAxis stroke="#ffffff" />
-                        <Tooltip
-                          contentStyle={{
-                            backgroundColor: 'hsl(var(--card))',
-                            border: '1px solid hsl(var(--border))',
-                            borderRadius: '8px',
-                            color: '#ffffff',
-                          }}
-                        />
-                        <Legend />
-                        <Bar dataKey="average" name="Average" radius={[8, 8, 0, 0]}>
-                          {generateBarChartData(selectedParameter).map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                          ))}
-                        </Bar>
-                      </BarChart>
-                    </ResponsiveContainer>
-                    <GrowthInsightBox insight={generateGrowthInsight('bar', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-
-              {/* 4. Slope Chart - Before vs After */}
-              {selectedParameter && generateSlopeChartData(selectedParameter).length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>Before vs After Comparison</CardTitle>
-                        <CardDescription>Growth/loss direction and rate of change for {selectedParameter}</CardDescription>
-                      </div>
-                      <Badge variant="outline" className="bg-orange-500/10 text-orange-500 border-orange-500/20">
-                        Slope Chart
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {generateSlopeChartData(selectedParameter).map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-4 p-3 rounded-lg border border-border bg-muted/30">
-                          <div className="flex-1">
-                            <div className="text-sm font-medium mb-1">{item.category}</div>
-                            <div className="flex items-center gap-4">
-                              <div className="text-xs text-muted-foreground">
-                                Before: <span className="font-semibold">{item.before.toFixed(2)}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                {item.change > 0 ? (
-                                  <TrendingUp className="h-4 w-4 text-red-500" />
-                                ) : item.change < 0 ? (
-                                  <TrendingDown className="h-4 w-4 text-green-500" />
-                                ) : (
-                                  <Minus className="h-4 w-4 text-gray-500" />
-                                )}
-                                <span className={`text-xs font-semibold ${item.change > 0 ? 'text-red-500' : item.change < 0 ? 'text-green-500' : 'text-gray-500'}`}>
-                                  {item.change > 0 ? '+' : ''}{item.change.toFixed(1)}%
-                                </span>
-                              </div>
-                              <div className="text-xs text-muted-foreground">
-                                After: <span className="font-semibold">{item.after.toFixed(2)}</span>
-                              </div>
-                            </div>
-                          </div>
+                {/* 1. Line Chart - Trend Analysis */}
+                {selectedParameter && analysisData.timeColumn && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Trend Analysis</CardTitle>
+                          <CardDescription>Time-series visualization of {selectedParameter}</CardDescription>
                         </div>
-                      ))}
-                    </div>
-                    <GrowthInsightBox insight={generateGrowthInsight('slope', selectedParameter)} />
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+                        <Badge variant="outline" className="bg-blue-500/10 text-blue-500 border-blue-500/20">
+                          Line Chart
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <LineChart data={generateLineChartData(selectedParameter)}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                          <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                          <YAxis stroke="#ffffff" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              color: '#ffffff',
+                            }}
+                          />
+                          <Legend />
+                          <Line type="monotone" dataKey="value" stroke={CHART_COLORS[0]} strokeWidth={2} name={selectedParameter} dot={{ r: 3 }} />
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* 2. Bar Chart - Category Comparison */}
+                {selectedParameter && generateBarChartData(selectedParameter).length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Category Comparison</CardTitle>
+                          <CardDescription>Average {selectedParameter} by category</CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20">
+                          Bar Chart
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <BarChart data={generateBarChartData(selectedParameter)}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                          <XAxis dataKey="category" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                          <YAxis stroke="#ffffff" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              color: '#ffffff',
+                            }}
+                          />
+                          <Legend />
+                          <Bar dataKey="average" name="Average" fill={CHART_COLORS[0]} radius={[8, 8, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* 3. Pie Chart - Distribution */}
+                {analysisData.categoricalColumns.length > 0 && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Distribution Analysis</CardTitle>
+                          <CardDescription>{analysisData.categoricalColumns[0]} distribution</CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-purple-500/10 text-purple-500 border-purple-500/20">
+                          Pie Chart
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <RechartsPieChart>
+                          <Pie
+                            data={generatePieChartData()}
+                            cx="50%"
+                            cy="50%"
+                            labelLine={false}
+                            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+                            outerRadius={100}
+                            fill="#8884d8"
+                            dataKey="value"
+                          >
+                            {generatePieChartData().map((entry, index) => (
+                              <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
+                            ))}
+                          </Pie>
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              color: '#ffffff',
+                            }}
+                          />
+                        </RechartsPieChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* 4. Scatter Plot - Correlation */}
+                {analysisData.numericColumns.length >= 2 && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Correlation Analysis</CardTitle>
+                          <CardDescription>
+                            {selectedParameter} vs {selectedParameter2}
+                          </CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-orange-500/10 text-orange-500 border-orange-500/20">
+                          Scatter Plot
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <ScatterChart>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                          <XAxis type="number" dataKey="x" name={selectedParameter} stroke="#ffffff" />
+                          <YAxis type="number" dataKey="y" name={selectedParameter2} stroke="#ffffff" />
+                          <Tooltip
+                            cursor={{ strokeDasharray: '3 3' }}
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              color: '#ffffff',
+                            }}
+                          />
+                          <Scatter data={generateScatterData(selectedParameter, selectedParameter2)} fill={CHART_COLORS[0]} />
+                        </ScatterChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* 5. Area Chart - Cumulative */}
+                {selectedParameter && analysisData.timeColumn && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Cumulative Analysis</CardTitle>
+                          <CardDescription>Cumulative {selectedParameter} over time</CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-cyan-500/10 text-cyan-500 border-cyan-500/20">
+                          Area Chart
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <ResponsiveContainer width="100%" height={300}>
+                        <AreaChart data={generateAreaChartData(selectedParameter)}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                          <XAxis dataKey="time" stroke="#ffffff" angle={-45} textAnchor="end" height={80} />
+                          <YAxis stroke="#ffffff" />
+                          <Tooltip
+                            contentStyle={{
+                              backgroundColor: 'hsl(var(--card))',
+                              border: '1px solid hsl(var(--border))',
+                              borderRadius: '8px',
+                              color: '#ffffff',
+                            }}
+                          />
+                          <Legend />
+                          <Area type="monotone" dataKey="cumulative" stroke={CHART_COLORS[3]} fill={CHART_COLORS[3]} fillOpacity={0.6} name="Cumulative" />
+                        </AreaChart>
+                      </ResponsiveContainer>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* 6. Statistical Summary */}
+                {selectedParameter && analysisData.statistics[selectedParameter] && (
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <CardTitle>Statistical Summary</CardTitle>
+                          <CardDescription>{selectedParameter} descriptive statistics</CardDescription>
+                        </div>
+                        <Badge variant="outline" className="bg-pink-500/10 text-pink-500 border-pink-500/20">
+                          Statistics
+                        </Badge>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {Object.entries(analysisData.statistics[selectedParameter]).map(([key, value]) => (
+                          <div key={key} className="p-3 rounded-lg border border-border bg-muted/30">
+                            <div className="text-xs text-muted-foreground uppercase mb-1">{key}</div>
+                            <div className="text-xl font-bold text-primary">{String(value)}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+              </div>
             ) : (
               <Card>
                 <CardHeader>
                   <CardTitle>Dataset Preview</CardTitle>
                   <CardDescription>
-                    Your dataset contains {analysisData.categoricalColumns.length} text column(s). 
-                    Showing first 10 records for review.
+                    Your dataset contains {analysisData.categoricalColumns.length} text column(s). Showing first 10 records for review.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -813,7 +868,7 @@ export default function DatasetAnalyticsPage() {
                   <Alert className="mt-4 border-blue-500/20 bg-blue-500/5">
                     <Activity className="h-4 w-4 text-blue-500" />
                     <AlertDescription className="text-blue-500">
-                      This dataset contains text data. For growth/loss visualizations, please upload a dataset with numeric columns (e.g., temperature, population, sales, etc.).
+                      This dataset contains text data. For visualizations, please upload a dataset with numeric columns (e.g., sales, revenue, temperature, etc.).
                     </AlertDescription>
                   </Alert>
                 </CardContent>
@@ -821,51 +876,6 @@ export default function DatasetAnalyticsPage() {
             )}
           </>
         )}
-      </div>
-    </div>
-  );
-}
-
-function GrowthInsightBox({ insight }: { insight: GrowthInsight }) {
-  const getInsightColor = (type: GrowthInsight['type']) => {
-    switch (type) {
-      case 'growth':
-        return 'border-orange-500/20 bg-orange-500/5';
-      case 'loss':
-        return 'border-blue-500/20 bg-blue-500/5';
-      case 'recovery':
-        return 'border-green-500/20 bg-green-500/5';
-      case 'degradation':
-        return 'border-red-500/20 bg-red-500/5';
-      case 'stable':
-        return 'border-gray-500/20 bg-gray-500/5';
-      default:
-        return 'border-border bg-muted/30';
-    }
-  };
-
-  const getSeverityBadge = (severity: GrowthInsight['severity']) => {
-    switch (severity) {
-      case 'high':
-        return <Badge className="bg-red-500/10 text-red-500 border-red-500/20">High Priority</Badge>;
-      case 'medium':
-        return <Badge className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">Medium Priority</Badge>;
-      case 'low':
-        return <Badge className="bg-green-500/10 text-green-500 border-green-500/20">Low Priority</Badge>;
-    }
-  };
-
-  return (
-    <div className={`mt-4 p-3 rounded-lg border ${getInsightColor(insight.type)}`}>
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <div className="flex items-start gap-2 flex-1">
-          <Activity className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
-          <div className="flex-1">
-            <div className="font-semibold text-sm mb-1">{insight.title}</div>
-            <div className="text-xs text-muted-foreground">{insight.description}</div>
-          </div>
-        </div>
-        {getSeverityBadge(insight.severity)}
       </div>
     </div>
   );

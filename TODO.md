@@ -156,87 +156,83 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Create Growth & Loss Analysis Dashboard with Universal Dataset Support
+# Task: Create Comprehensive Analytics Visualization Dashboard
 
 ## Plan
-- [x] Step 1: Remove All Dataset Restrictions
-  - [x] Remove 4-year minimum requirement
-  - [x] Remove mandatory Year column requirement
-  - [x] Remove numeric column requirement validation
-  - [x] Accept any dataset type (numeric, text, mixed)
-  - [x] Make time column optional (auto-detect or use row index)
-- [x] Step 2: Implement 4 Growth/Loss Visualizations
-  - [x] Line Chart - Time-series trends (growth, decline, spikes, drops)
-  - [x] Area Chart - Cumulative impact (total accumulation)
-  - [x] Bar Chart - Period/region comparison (side-by-side)
-  - [x] Slope Chart - Before vs after (rate of change)
-- [x] Step 3: Create Slope Chart Component
-  - [x] Compare first half vs second half of data
-  - [x] Show before/after values with change percentage
-  - [x] Visual indicators (TrendingUp/Down icons)
-  - [x] Color-coded: green for decrease, red for increase
-- [x] Step 4: Implement Growth/Loss Insight System
-  - [x] All insights focus on growth, loss, recovery, degradation
-  - [x] Severity levels: high, medium, low
-  - [x] Priority badges for decision-making
-  - [x] Context-aware descriptions
-- [x] Step 5: Add Decision-Focused Features
-  - [x] Threshold reference lines on charts
-  - [x] Color-coded severity indicators
-  - [x] Priority badges (High/Medium/Low)
-  - [x] Actionable insight descriptions
-- [x] Step 6: Simplify to Single Dataset Upload
-  - [x] Remove multiple dataset array management
-  - [x] Remove "Add Another Dataset" button
-  - [x] Remove dataset list with badges and remove buttons
-  - [x] Single file upload with replace functionality
-  - [x] Show single dataset info card
-- [x] Step 7: Update UI for Single Dataset
-  - [x] Change "Clear All Datasets" to "Clear Dataset"
-  - [x] Remove dataset count from statistics
-  - [x] Simplify upload interface
-  - [x] Show filename and record count only
-- [x] Step 8: Fix Chart Text Visibility
-  - [x] Add white color to all chart tooltips
-  - [x] Update Line Chart tooltip and axis labels to white
-  - [x] Update Area Chart tooltip and axis labels to white
-  - [x] Update Bar Chart tooltip and axis labels to white
-  - [x] Change XAxis and YAxis stroke color to #ffffff
-- [x] Step 9: Handle Any Dataset Type
-  - [x] Remove "No numeric columns" error validation
-  - [x] Accept datasets with only text columns
-  - [x] Show data preview table for non-numeric datasets
-  - [x] Display helpful message for text-only data
-  - [x] Conditional rendering of visualizations
-- [x] Step 10: Final Testing
+- [x] Step 1: Transform to General Analytics Dashboard
+  - [x] Change from "Growth & Loss" to "Analytics Visualization"
+  - [x] Add PDF file support (with helpful error message)
+  - [x] Update branding and descriptions
+  - [x] Make system general-purpose for any data analysis
+- [x] Step 2: Implement Intelligent Visualizations
+  - [x] Line Chart - Time-series trend analysis
+  - [x] Bar Chart - Category comparison
+  - [x] Pie Chart - Distribution analysis
+  - [x] Scatter Plot - Correlation analysis
+  - [x] Area Chart - Cumulative analysis
+  - [x] Statistical Summary - Descriptive statistics
+- [x] Step 3: Add Comprehensive Data Analysis
+  - [x] Automatic statistics calculation (mean, median, min, max, stdDev, range)
+  - [x] Data profiling and column detection
+  - [x] Time-series detection
+  - [x] Category distribution analysis
+- [x] Step 4: Create Intelligent Insights System
+  - [x] Dataset overview insights
+  - [x] Numeric analysis insights with variability detection
+  - [x] Distribution pattern insights
+  - [x] Correlation analysis suggestions
+  - [x] Icon-based insight display
+- [x] Step 5: Add Sample Business Dataset
+  - [x] Multi-dimensional business data (6 years)
+  - [x] Multiple regions, products, metrics
+  - [x] Sales, Revenue, Customers, Satisfaction, Growth Rate
+  - [x] Realistic seasonal patterns
+- [x] Step 6: Implement Smart Chart Selection
+  - [x] Conditional rendering based on data type
+  - [x] Time-series charts only when time column exists
+  - [x] Category charts only when categorical data exists
+  - [x] Correlation charts when multiple numeric columns exist
+  - [x] Data preview for text-only datasets
+- [x] Step 7: Add Statistical Summary Card
+  - [x] Display count, mean, median, min, max, stdDev, range
+  - [x] Grid layout for easy comparison
+  - [x] Color-coded display
+- [x] Step 8: Enhance User Experience
+  - [x] Parameter selection for primary and secondary metrics
+  - [x] Real-time chart updates
+  - [x] Export functionality
+  - [x] Clear dataset option
+  - [x] Loading states and error handling
+- [x] Step 9: Final Testing
   - [x] Run lint and verify no errors
-  - [x] Confirm all 4 charts work correctly
-  - [x] Verify any dataset type can be uploaded
+  - [x] Confirm all 6 visualization types work
+  - [x] Verify PDF file handling
+  - [x] Test sample dataset loading
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
-- Dashboard: Growth & Loss Analysis Dashboard
-- **Universal Dataset Support**: Accepts ANY CSV/Excel file - numeric, text, or mixed data
-- **No Validation Errors**: No restrictions on data types, columns, or structure
-- **Single Dataset Upload**: Simple, clean interface with one dataset at a time
-- **Smart Handling**:
-  - Numeric columns → Show 4 growth/loss visualizations
-  - Text-only columns → Show data preview table with helpful guidance
-  - Mixed data → Analyze numeric columns, display all data
-- **4 Specialized Charts** (when numeric data available):
-  1. Line Chart - Identify trends, spikes, drops with threshold indicators
-  2. Area Chart - Show cumulative magnitude and total impact
-  3. Bar Chart - Compare periods/regions side-by-side
-  4. Slope Chart - Before/after comparison with rate of change
-- **Growth/Loss Focus**: All insights explain growth, recovery, degradation, or loss
-- **Decision-Focused**: Threshold indicators, severity levels, priority badges
-- **AI-Driven Insights**: Context-aware analysis with actionable recommendations
-- **Flexible Analysis**: Works with marine data, environmental data, or any numeric dataset
-- **Improved Visibility**: White text color on all charts and tooltips for better readability
-- **Data Preview**: Shows first 10 records in table format for non-numeric datasets
-- Sample dataset: 6 years of marine environmental data (2019-2024)
-- Clean, simple interface with single dataset workflow
-- Production-ready for comprehensive growth and loss pattern detection
+- Dashboard: Analytics Visualization Dashboard
+- **Universal File Support**: CSV, Excel (.xlsx, .xls), PDF (with conversion guidance)
+- **Intelligent Analysis**: Automatic data profiling, statistics, and insights
+- **6 Visualization Types**:
+  1. Line Chart - Time-series trends (when time column detected)
+  2. Bar Chart - Category comparisons (when categorical data exists)
+  3. Pie Chart - Distribution patterns (categorical data)
+  4. Scatter Plot - Correlation analysis (2+ numeric columns)
+  5. Area Chart - Cumulative analysis (time-series data)
+  6. Statistical Summary - Descriptive statistics (all numeric columns)
+- **Smart Insights**:
+  - Dataset overview with column counts
+  - Variability analysis (coefficient of variation)
+  - Distribution patterns with dominant categories
+  - Correlation suggestions
+- **Flexible Analysis**: Works with any dataset type - business, scientific, environmental, etc.
+- **Statistical Depth**: Mean, median, min, max, standard deviation, range calculations
+- **Sample Dataset**: 6 years of multi-dimensional business data (2019-2024)
+- **Conditional Rendering**: Shows appropriate charts based on data characteristics
+- **White Text Styling**: All charts and text use white color for dark theme visibility
+- **Production-Ready**: Complete error handling, loading states, export functionality
+- **Exploratory Analytics**: Designed for comprehensive data exploration and discovery
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies

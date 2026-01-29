@@ -48,7 +48,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ### 2.5 Analytics Page
 
 #### 2.5.1 Data Upload and Processing
-- Support for uploading a single dataset in CSV/XLS/XLSX format
+- Support for uploading files in CSV, XLS, XLSX, and PDF formats
 - Automatic detection of year and time columns
 - Data validation and processing capabilities
 - Support for diverse marine and environmental parameters including but not limited to:
@@ -70,9 +70,9 @@ To deliver a production-ready, responsive web application that empowers stakehol
   - Catch volume
   - Nutrient levels
 
-#### 2.5.2 Growth and Loss Analysis Dashboard
+#### 2.5.2 Analytics Visualization Dashboard
 
-Interactive dashboard prioritizing visual clarity for identifying increase, decrease, and decline patterns through six core visualization types:
+Interactive analytics dashboard that automatically analyzes uploaded data and explores visualization patterns through six core visualization types:
 
 **Line Chart**
 - Display time-series data such as sea surface temperature, fish population, dissolved oxygen, or pollution levels
