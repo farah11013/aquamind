@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -8,6 +8,7 @@ import { Upload, FileSpreadsheet, AlertCircle, Download, Activity, BarChart3, Pi
 import { useToast } from '@/hooks/use-toast';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
+import { saveDatasetToHistory } from '@/lib/datasetHistoryApi';
 import {
   Bar,
   BarChart,
@@ -62,6 +63,43 @@ export default function DatasetAnalyticsPage() {
   const [selectedParameter, setSelectedParameter] = useState<string>('');
   const [selectedParameter2, setSelectedParameter2] = useState<string>('');
 
+  // Load dataset from history if available
+  useEffect(() => {
+    const loadDatasetFromHistory = () => {
+      const storedDataset = sessionStorage.getItem('loadDataset');
+      if (storedDataset) {
+        try {
+          const dataset = JSON.parse(storedDataset);
+          setUploadedFileName(dataset.filename);
+          
+          const analysisData: AnalysisData = {
+            data: dataset.data,
+            numericColumns: dataset.numeric_columns,
+            categoricalColumns: dataset.categorical_columns,
+            timeColumn: dataset.time_column,
+            statistics: calculateStatistics(dataset.data, dataset.numeric_columns),
+          };
+
+          setAnalysisData(analysisData);
+          setSelectedParameter(dataset.numeric_columns[0] || '');
+          setSelectedParameter2(dataset.numeric_columns[1] || dataset.numeric_columns[0] || '');
+          
+          toast({
+            title: 'Dataset loaded from history',
+            description: `${dataset.filename} (${dataset.record_count} records)`,
+          });
+
+          // Clear from sessionStorage
+          sessionStorage.removeItem('loadDataset');
+        } catch (err) {
+          console.error('Failed to load dataset from history:', err);
+        }
+      }
+    };
+
+    loadDatasetFromHistory();
+  }, [toast]);
+
   const loadSampleDataset = () => {
     const sampleData: Record<string, any>[] = [];
     const years = [2019, 2020, 2021, 2022, 2023, 2024];
@@ -94,8 +132,9 @@ export default function DatasetAnalyticsPage() {
       });
     });
 
-    setUploadedFileName('Sample Business Analytics Data (2019-2024)');
-    processData(sampleData);
+    const filename = 'Sample Business Analytics Data (2019-2024)';
+    setUploadedFileName(filename);
+    processData(sampleData, filename, 'sample', 0);
     setError(null);
 
     toast({
@@ -147,7 +186,7 @@ export default function DatasetAnalyticsPage() {
     return stats;
   };
 
-  const processData = (data: Record<string, any>[]) => {
+  const processData = async (data: Record<string, any>[], filename: string, fileType: string, fileSize?: number) => {
     if (data.length === 0) {
       setError('No data found in uploaded file.');
       setAnalysisData(null);
@@ -182,6 +221,23 @@ export default function DatasetAnalyticsPage() {
     setSelectedParameter(numericColumns[0] || '');
     setSelectedParameter2(numericColumns[1] || numericColumns[0] || '');
     setError(null);
+
+    // Save to history
+    try {
+      await saveDatasetToHistory({
+        filename,
+        record_count: data.length,
+        numeric_columns: numericColumns,
+        categorical_columns: categoricalColumns,
+        time_column: timeColumn,
+        data,
+        file_type: fileType,
+        file_size: fileSize,
+      });
+    } catch (error) {
+      console.error('Failed to save dataset to history:', error);
+      // Don't show error to user, just log it
+    }
   };
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,6 +248,7 @@ export default function DatasetAnalyticsPage() {
     setError(null);
 
     const fileExtension = file.name.split('.').pop()?.toLowerCase();
+    const fileSize = file.size;
 
     if (fileExtension === 'csv') {
       Papa.parse(file, {
@@ -200,7 +257,7 @@ export default function DatasetAnalyticsPage() {
         skipEmptyLines: true,
         complete: (results) => {
           setUploadedFileName(file.name);
-          processData(results.data as Record<string, any>[]);
+          processData(results.data as Record<string, any>[], file.name, 'csv', fileSize);
           setParsing(false);
           toast({
             title: 'Dataset uploaded',
@@ -221,7 +278,7 @@ export default function DatasetAnalyticsPage() {
           const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
           const jsonData = XLSX.utils.sheet_to_json(firstSheet);
           setUploadedFileName(file.name);
-          processData(jsonData as Record<string, any>[]);
+          processData(jsonData as Record<string, any>[], file.name, fileExtension, fileSize);
           setParsing(false);
           toast({
             title: 'Dataset uploaded',

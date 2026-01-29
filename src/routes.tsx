@@ -2,6 +2,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import FeaturesPage from './pages/FeaturesPage';
 import DatasetAnalyticsPage from './pages/DatasetAnalyticsPage';
+import HistoryPage from './pages/HistoryPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminPage from './pages/AdminPage';
@@ -34,6 +35,11 @@ const routes: RouteConfig[] = [
     name: 'Analytics',
     path: '/analytics',
     element: <DatasetAnalyticsPage />,
+  },
+  {
+    name: 'History',
+    path: '/history',
+    element: <HistoryPage />,
   },
   {
     name: 'Login',

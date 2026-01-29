@@ -14,7 +14,7 @@ To deliver a production-ready, responsive web application that empowers stakehol
 ## 2. Core Functional Requirements
 
 ### 2.1 Navigation Structure
-- Navigation Bar: Home | About | Features | Analytics
+- Navigation Bar: Home | About | Features | Analytics | History
 - Modern, clean UI with dark ocean-themed design
 - Intuitive navigation accessible across all pages
 - Responsive design for mobile and desktop devices
@@ -123,6 +123,19 @@ Interactive analytics dashboard that automatically analyzes uploaded data and ex
 - Dynamic data refresh indicators
 - Multi-dimensional data exploration tools
 - Clean, intuitive marine-themed dashboard
+
+### 2.6 History Page
+
+#### 2.6.1 Dataset History Management
+- Automatic collection and storage of all uploaded datasets from the Analytics Visualization Dashboard
+- Display list of previously uploaded datasets with key information:
+  - Dataset name
+  - Upload date and time
+  - File format
+  - File size
+  - Data parameters included
+- Access to saved datasets for re-analysis or comparison
+- Dataset management capabilities
 
 ## 3. Technical Requirements
 

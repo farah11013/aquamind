@@ -156,7 +156,7 @@
   - [x] Update welcome message
   - [x] Enhance fallback responses
 
-# Task: Create Comprehensive Analytics Visualization Dashboard
+# Task: Create Analytics Visualization Dashboard with Dataset History
 
 ## Plan
 - [x] Step 1: Transform to General Analytics Dashboard
@@ -203,17 +203,35 @@
   - [x] Export functionality
   - [x] Clear dataset option
   - [x] Loading states and error handling
-- [x] Step 9: Final Testing
+- [x] Step 9: Implement Dataset History Feature
+  - [x] Initialize Supabase database
+  - [x] Create dataset_history table with migration
+  - [x] Create Supabase client configuration
+  - [x] Build API functions (save, get all, get by ID, delete, count)
+  - [x] Update Analytics page to save uploads automatically
+  - [x] Create History page component
+  - [x] Add History route to navigation
+  - [x] Implement view/reload dataset from history
+  - [x] Add delete functionality with confirmation
+  - [x] Display statistics (total datasets, records, storage)
+- [x] Step 10: Final Testing
   - [x] Run lint and verify no errors
   - [x] Confirm all 6 visualization types work
-  - [x] Verify PDF file handling
-  - [x] Test sample dataset loading
+  - [x] Verify dataset history saves correctly
+  - [x] Test reload from history functionality
 
 ## Notes
 - Application name: AquaMind Marine Data Platform
-- Dashboard: Analytics Visualization Dashboard
+- Dashboard: Analytics Visualization Dashboard with History
 - **Universal File Support**: CSV, Excel (.xlsx, .xls), PDF (with conversion guidance)
 - **Intelligent Analysis**: Automatic data profiling, statistics, and insights
+- **Dataset History**:
+  - Automatic saving of all uploaded datasets
+  - Persistent storage using Supabase
+  - View all past uploads with metadata
+  - Reload previous datasets instantly
+  - Delete unwanted datasets
+  - Statistics dashboard (total datasets, records, storage)
 - **6 Visualization Types**:
   1. Line Chart - Time-series trends (when time column detected)
   2. Bar Chart - Category comparisons (when categorical data exists)
@@ -226,6 +244,19 @@
   - Variability analysis (coefficient of variation)
   - Distribution patterns with dominant categories
   - Correlation suggestions
+- **Database Schema**:
+  - Table: dataset_history
+  - Fields: id, filename, upload_date, record_count, numeric_columns, categorical_columns, time_column, data, file_type, file_size, created_at
+  - RLS enabled with public access policy
+  - Indexed by upload_date for performance
+- **History Features**:
+  - Chronological list of all uploads
+  - File type badges (CSV, XLSX, Sample)
+  - Upload date and time display
+  - Record count and column statistics
+  - View button to reload dataset in Analytics page
+  - Delete button with confirmation dialog
+  - Overview card with totals
 - **Flexible Analysis**: Works with any dataset type - business, scientific, environmental, etc.
 - **Statistical Depth**: Mean, median, min, max, standard deviation, range calculations
 - **Sample Dataset**: 6 years of multi-dimensional business data (2019-2024)
@@ -233,6 +264,7 @@
 - **White Text Styling**: All charts and text use white color for dark theme visibility
 - **Production-Ready**: Complete error handling, loading states, export functionality
 - **Exploratory Analytics**: Designed for comprehensive data exploration and discovery
+- **Persistent Storage**: All datasets saved to Supabase for future access
 - Authentication: Role-based (Scientists, Policymakers, Data administrators, Guest users)
 - Key features: Data upload, interactive visualizations, AI analysis, species identification
 - Database: Supabase with RLS policies
